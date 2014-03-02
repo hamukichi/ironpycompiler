@@ -3,7 +3,7 @@
 
 """Helps to compile IronPython scripts, using pyc.py.
 
-This module helps you compile your IronPython scripts which requires the Python 
+This module helps you compile your IronPython scripts requiring the Python 
 standard library (or third-party pure-Python modules) into .NET assembly, using 
 pyc.py.
 """
