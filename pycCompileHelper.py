@@ -4,13 +4,13 @@
 """Helps to compile IronPython scripts, using pyc.py.
 
 This module helps you compile your IronPython scripts requiring the Python 
-standard library (or third-party pure-Python modules) into .NET assembly, using 
-pyc.py.
+standard library (or third-party pure-Python modules) into a .NET assembly, 
+using pyc.py.
 """
 
 __author__ = "Hamukichi (Nombiri)"
-__version__ = "0.1.0"
-__date__ = "2014-03-03"
+__version__ = "0.2.0"
+__date__ = "2014-03-05"
 __licence__ = "MIT License"
 
 import sys
@@ -18,7 +18,6 @@ import itertools
 import os
 import glob
 import modulefinder
-import site
 
 # Third-party modules
 from six import print_
@@ -100,28 +99,17 @@ def detect_ipy(regkeys = IPYREGKEYS, executable = IPYEXE):
     
     return sorted(list(ipydirpaths), reverse = True)
 
-class ModuleCompiler(modulefinder.ModuleFinder):
+class ModuleCompiler:
     """This class finds the modules required by your script and 
-    compiles them into a DLL file.
+    create a .NET assembly.
     
     By default this class searches for pure-Python modules in the IronPython 
     standard library and the CPython site-packages directory.
     
-    The initialization method of this class accepts the following parameters 
-    which that of modulefinder.Modulefinder class does. 
-    
-    :param list path:
-    :param int debug:
-    :param list excludes:
-    :param list replace_paths:
-    
-    Additionally, it accepts the following parameter.
-    
     :param str ipy_dir: Specify the IronPython directory, or ``detect_ipy()[0]`` will be used.
     """
     
-    def __init__(self, path = None, debug = 0, excludes = [], replace_paths = [], 
-                 ipy_dir = None):
+    def __init__(self, ipy_dir = None):
         """ Initialization.
         """
         
@@ -129,32 +117,45 @@ class ModuleCompiler(modulefinder.ModuleFinder):
             self.ipy_dir = detect_ipy()[0]
         else:
             self.ipy_dir = ipy_dir
+           
+    def check_compilability(self, paths_to_scripts, paths_to_modules = None):
+        """Check the compilability of the modules required by the scripts you specify.
         
-        if path is None:
-            path = [os.path.join(self.ipy_dir, "Lib")]
-            path += [p for p in sys.path if "site-packages" in p]
-        modulefinder.ModuleFinder.__init__(self, path, debug, excludes, replace_paths)
-    
-    def check_compilability(self, path_to_script):
-        """Check the compilability of the modules required by the script you specify.
-        
-        :param str path_to_script: Specify the path to your script.
+        :param list paths_to_scripts: Specify the paths to your scripts.
+        :param list paths_to_modules: Specify the paths to the directories 
+        where the modules your scripts require exist, or this method searches 
+        for pure-Python modules in the IronPython standard library and the 
+        CPython site-packages directory.
         """
         
-        self.path_to_script = os.path.abspath(path_to_script)
-        modulefinder.ModuleFinder.run_script(self, pathname = self.path_to_script)
-        self.compilable_modules = [] # モジュール名とファイルパスのタプルのリスト
-        self.uncompilable_modules = self.badmodules.keys() # モジュール名のリスト
+        # コンパイルすべきスクリプトたちの絶対パスを取得する
+        self.paths_to_scripts = [os.path.abspath(x) for x in paths_to_scripts]
         
-        for name, module in self.modules.iteritems():
-            path_to_module = module.__file__
-            if path_to_module is None: # sysなどの内蔵モジュール
-                continue
-            if os.path.splitext(path_to_module)[1] == ".pyd":
-                self.uncompilable_modules.append(name)
-                continue
-            self.compilable_modules.append((name, os.path.abspath(path_to_module)))
-
+        # 依存モジュールたちがあるディレクトリ
+        self.paths_to_modules = paths_to_modules
+        if self.paths_to_modules is None:
+                self.paths_to_modules = [os.path.join(self.ipy_dir, "Lib")]
+                self.paths_to_modules += [p for p in sys.path if "site-packages" in p]
+        
+        self.compilable_modules = set() # ファイルパスの集合
+        self.uncompilable_modules = set() # モジュール名の集合、必須ではない
+        
+        # 各スクリプトが依存するモジュールを探索する
+        for script in self.paths_to_scripts:
+            mf = modulefinder.ModuleFinder(path = self.paths_to_modules)
+            mf.run_script(script)
+            self.uncompilable_modules |= set(mf.badmodules.keys())
+            for name, module in mf.modules.iteritems():
+                path_to_module = module.__file__
+                if path_to_module is None:
+                    continue
+                elif os.path.splitext(path_to_module)[1] == ".pyd":
+                    self.uncompilable_modules.add(name)
+                    continue
+                else:
+                    self.compilable_modules.add(os.path.abspath(path_to_module))
+        self.compilable_modules -= set(self.paths_to_scripts)
+        
 if __name__ == "__main__":
     pass
 
