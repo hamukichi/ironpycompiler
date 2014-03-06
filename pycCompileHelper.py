@@ -19,6 +19,7 @@ import os
 import glob
 import modulefinder
 import tempfile
+import subprocess
 
 # Third-party modules
 import six
@@ -26,7 +27,6 @@ import six
 IPYREGKEYS = ["SOFTWARE\\IronPython", 
 "SOFTWARE\\Wow6432Node\\IronPython"]
 IPYEXE = "ipy.exe"
-DLLNAME = "StdLib.dll"
 
 class PCHError(Exception):
     """This is the base class for exceptions in this module.
@@ -115,14 +115,14 @@ class ModuleCompiler:
     By default this class searches for pure-Python modules in the 
     IronPython standard library and the CPython site-packages directory.
     
-    :param str ipy_dir: Specify the IronPython directory, or 
-    ``detect_ipy()[0]`` will be used.
     :param list paths_to_scripts: Specify the paths to your scripts. 
     In creating a .EXE file, ``paths_to_scripts[0]`` must be the path 
     to the main file of your project.
+    :param str ipy_dir: Specify the IronPython directory, or 
+    ``detect_ipy()[0]`` will be used.
     """
     
-    def __init__(self, ipy_dir = None, paths_to_scripts):
+    def __init__(self, paths_to_scripts, ipy_dir = None):
         """ Initialization.
         """
         
@@ -138,6 +138,8 @@ class ModuleCompiler:
         self.compilable_modules = set() # ファイルパスの集合
         self.uncompilable_modules = set() # モジュール名の集合、非必須
         self.response_file = None # pyc.pyに渡すレスポンスファイル
+        self.pyc_stdout = None # pyc.pyから得た標準出力
+        self.pyc_stderr = None
         
            
     def check_compilability(self, dirs_of_modules = None):
@@ -174,7 +176,7 @@ class ModuleCompiler:
                     os.path.abspath(path_to_module))
         self.compilable_modules -= set(self.paths_to_scripts)
     
-    def call_pyc(self, args, delete_resp = True):
+    def call_pyc(self, args, delete_resp = True, executable = IPYEXE):
         """Call pyc.py in order to compile your scripts.
         
         In general use this method is not supposed to be called 
@@ -183,8 +185,10 @@ class ModuleCompiler:
         
         :param list args: Specify the arguments that should be sent to 
         pyc.py.
-        :param bool delete_resp: Specify whether to delete the 
-        response file after compilation.
+        :param bool delete_resp: (optional) Specify whether to delete the 
+        response file after compilation or not. 
+        :param str executable: (optional) Specify the name of the 
+        Ironpython exectuable.
         """
         
         # レスポンスファイルを作る
@@ -195,11 +199,26 @@ class ModuleCompiler:
         for line in args:
             os.write(self.response_file[0], line + "\n")
         
-        # レスポンスファイルを閉じ、必要ならば削除する
+        # レスポンスファイルを閉じる
         os.close(self.response_file[0])
+        
+        # pyc.pyを実行する
+        ipy_arg = [os.path.splitext(executable)[0], 
+        os.path.join(self.ipy_dir, "Tools", "Scripts", "pyc.py"),
+        "@" + self.response_file[1]]
+        ipy_exe = os.path.abspath(os.path.join(self.ipy_dir, 
+        executable))
+        sp = subprocess.Popen(args = ipy_arg, executable = ipy_exe, 
+        stdin = subprocess.PIPE, stdout = subprocess.PIPE, 
+        stderr = subprocess.STDOUT)
+        (self.pyc_stdout, self.pyc_stderr) = sp.communicate()
+        sp.terminate()
+        
+        # レスポンスファイルを削除する
         if delete_resp:
             os.remove(self.response_file[1])
-
+        
+        
         
 if __name__ == "__main__":
     pass
