@@ -1,13 +1,25 @@
 IronCompiler
-================
+============
 
 IronCompiler will be useful for compiling your IronPython scripts 
 requiring modules from the Python standard library (or third-party 
 pure-Python modules) into .NET assembly, using pyc.py.
 
-NOTE. It has not been long since I started to develop IronCompiler, 
-so there is no stable release of this module.
+This module is supposed to be used on *CPython*, not IronPython, because 
+``modulefinder`` of IronPython does not work correctly.
 
-:Author:
-    Hamukichi (Nombiri)
+.. note:: This module is still unstable and its documents are incomplete.
+
+Main Features
+-------------
+
+* Detect the path of the directory where the IronPython 
+executables exist
+* Check what modules your IronPython scripts require
+* Compile your scripts into a stand-alone .NET assembly
+
+Author
+------
+
+* Hamukichi (Nombiri)
 
