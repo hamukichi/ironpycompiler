@@ -289,7 +289,7 @@ class ModuleCompiler:
             pyc_args.append("/embed")
         if standalone:
             pyc_args.append("/standalone")
-        pyc_args += self.paths_to_scripts[1:]
+        pyc_args += self.paths_to_scripts
         pyc_args += self.compilable_modules
         
         self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
