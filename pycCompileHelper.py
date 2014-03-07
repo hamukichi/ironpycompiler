@@ -12,8 +12,8 @@ CPython, because ``modulefinder`` of IronPython does not work correctly.
 """
 
 __author__ = "Hamukichi (Nombiri)"
-__version__ = "0.3.0"
-__date__ = "2014-03-06"
+__version__ = "0.4.0"
+__date__ = "2014-03-07"
 __licence__ = "MIT License"
 
 import sys
@@ -142,9 +142,8 @@ class ModuleCompiler:
         self.uncompilable_modules = set() # モジュール名の集合、非必須
         self.response_file = None # pyc.pyに渡すレスポンスファイル
         self.pyc_stdout = None # pyc.pyから得た標準出力
-        self.pyc_stderr = None
-        
-           
+        self.pyc_stderr = None # pyc.pyから得た標準エラー出力
+    
     def check_compilability(self, dirs_of_modules = None):
         """Check the compilability of the modules required by the 
         scripts you specified.
@@ -206,12 +205,12 @@ class ModuleCompiler:
         os.close(self.response_file[0])
         
         # pyc.pyを実行する
-        ipy_arg = [os.path.splitext(executable)[0], 
+        ipy_args = [os.path.splitext(executable)[0], 
         os.path.join(self.ipy_dir, "Tools", "Scripts", "pyc.py"),
         "@" + self.response_file[1]]
         ipy_exe = os.path.abspath(os.path.join(self.ipy_dir, 
         executable))
-        sp = subprocess.Popen(args = ipy_arg, executable = ipy_exe, 
+        sp = subprocess.Popen(args = ipy_args, executable = ipy_exe, 
         stdin = subprocess.PIPE, stdout = subprocess.PIPE, 
         stderr = subprocess.STDOUT)
         (self.pyc_stdout, self.pyc_stderr) = sp.communicate()
@@ -221,8 +220,81 @@ class ModuleCompiler:
         if delete_resp:
             os.remove(self.response_file[1])
         
+    def create_dll(self, out = None, delete_resp = True, executable = 
+    IPYEXE):
+        """Compile your scripts into a DLL file (.NET library 
+        assembly) using pyc.py.
         
+        :param str out: (optional) Specify the name of the DLL file 
+        that should be created.
+        :param bool delete_resp: (optional) Specify whether to delete the 
+        response file after compilation or not. 
+        :param str executable: (optional) Specify the name of the 
+        Ironpython exectuable.
+        """
         
+        if self.compilable_modules == set():
+            self.check_compilability()
+        
+        # pycに送る引数
+        pyc_args = ["/target:dll"]
+        if out is not None:
+            pyc_args.append("/out:" + out)
+        pyc_args += self.paths_to_scripts
+        pyc_args += self.compilable_modules
+        
+        self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
+        executable = executable)
+    
+    def create_executable(self, out = None, winexe = False, 
+    target_platform = None, embed = True, standalone = True, 
+    mta = False, delete_resp = True, executable = IPYEXE):
+        """Compile your scripts into an EXE file (.NET process 
+        assembly) using pyc.py.
+        
+        :param str out: (optional) Specify the name of the EXE file 
+        that should be created.
+        :param bool winexe: (optional) Specify whether to create 
+        a windows executable or to generate a console one, or a 
+        console executable will be created.
+        :param str target_platform: (optional) Specify the target 
+        platform ("x86" or "x64") if necessary.
+        :param bool embed: (optional) Specify whether to embed the 
+        generated DLL into the executable.
+        :param bool standalone: (optional) Specify whether to embed 
+        IronPython assemblies into the executable.
+        :param bool mta: (optional) Specify whether to set 
+        MTAThreadAttribute. 
+        :param bool delete_resp: (optional) Specify whether to delete the 
+        response file after compilation or not. 
+        :param str executable: (optional) Specify the name of the 
+        Ironpython exectuable.
+        """
+        if self.compilable_modules == set():
+            self.check_compilability()
+        
+        # pyc.pyに送る引数
+        pyc_args = ["/main:" + self.paths_to_scripts[0]]
+        if out is not None:
+            pyc_args.append("/out:" + out)
+        if winexe:
+            pyc_args.append("/target:winexe")
+            if mta:
+                pyc_args.append("/mta")
+        else:
+            pyc_args.append("/target:exe")
+        if target_platform in ["x86", "x64"]:
+            pyc_args.append("/platform:" + target_platform)
+        if embed:
+            pyc_args.append("/embed")
+        if standalone:
+            pyc_args.append("/standalone")
+        pyc_args += self.paths_to_scripts[1:]
+        pyc_args += self.compilable_modules
+        
+        self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
+        executable = executable)
+
 if __name__ == "__main__":
     pass
 
