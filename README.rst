@@ -14,7 +14,7 @@ Main Features
 -------------
 
 * Detect the path of the directory where the IronPython 
-executables exist
+  executables exist
 * Check what modules your IronPython scripts require
 * Compile your scripts into a stand-alone .NET assembly
 
