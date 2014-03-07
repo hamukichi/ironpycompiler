@@ -8,7 +8,8 @@ Python standard library (or third-party pure-Python modules) into a
 .NET assembly, using pyc.py.
 
 Please note that this module should be used on not IronPython but 
-CPython, because ``modulefinder`` of IronPython does not work correctly.
+CPython, because :mod:`modulefinder` of IronPython does not work 
+correctly.
 """
 
 __author__ = "Hamukichi (Nombiri)"
@@ -23,6 +24,7 @@ import glob
 import modulefinder
 import tempfile
 import subprocess
+import argparse
 
 # Third-party modules
 import six
@@ -56,7 +58,7 @@ def detect_ipy(regkeys = IPYREGKEYS, executable = IPYEXE):
     
     This function searches in the Windows registry and PATH for 
     IronPython. If IronPython cannot be found in your system, 
-    ``IronPythonDetectionError`` will occur.
+    :exc:`IronPythonDetectionError` will occur.
     
     :param list regkeys: (optional) The IronPython registry keys that 
     should be looked for.
@@ -119,10 +121,10 @@ class ModuleCompiler:
     IronPython standard library and the CPython site-packages directory.
     
     :param list paths_to_scripts: Specify the paths to your scripts. 
-    In creating a .EXE file, ``paths_to_scripts[0]`` must be the path 
-    to the main file of your project.
-    :param str ipy_dir: Specify the IronPython directory, or 
-    ``detect_ipy()[0]`` will be used.
+    In creating a .EXE file, the first element of this list must be the 
+    path to the main file of your project.
+    :param str ipy_dir: Specify the IronPython directory, or it will be
+    automatically detected using :func:`detect_ipy()`.
     """
     
     def __init__(self, paths_to_scripts, ipy_dir = None):
@@ -182,8 +184,8 @@ class ModuleCompiler:
         """Call pyc.py in order to compile your scripts.
         
         In general use this method is not supposed to be called 
-        directly. It is recommended that you use ``create_exe`` or 
-        ``create_dll`` instead.
+        directly. It is recommended that you use 
+        :meth:`create_executable` or :meth:`create_dll` instead.
         
         :param list args: Specify the arguments that should be sent to 
         pyc.py.
@@ -251,7 +253,7 @@ class ModuleCompiler:
     mta = False, delete_resp = True, executable = IPYEXE):
         """Compile your scripts into an EXE file (.NET process 
         assembly) using pyc.py.
-        
+                
         :param str out: (optional) Specify the name of the EXE file 
         that should be created.
         :param bool winexe: (optional) Specify whether to create 
@@ -264,7 +266,7 @@ class ModuleCompiler:
         :param bool standalone: (optional) Specify whether to embed 
         IronPython assemblies into the executable.
         :param bool mta: (optional) Specify whether to set 
-        MTAThreadAttribute. 
+        MTAThreadAttribute (winexe). 
         :param bool delete_resp: (optional) Specify whether to delete the 
         response file after compilation or not. 
         :param str executable: (optional) Specify the name of the 
@@ -295,6 +297,9 @@ class ModuleCompiler:
         self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
         executable = executable)
 
-if __name__ == "__main__":
+def main():
     pass
+
+if __name__ == "__main__":
+    main()
 
