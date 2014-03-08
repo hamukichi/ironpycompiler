@@ -300,12 +300,40 @@ class ModuleCompiler:
 def main():
     """This function will be used when ironcompiler.py is run as a script.
     """
-    # トップレベルのパーサをつくり、引数を加える
+    # トップレベル
     parser = argparse.ArgumentParser(
-    description = "Compile your IronPython scripts.")
+    description = "Compile IronPython scripts into a .NET assembly.", 
+    epilog = "See '%(prog)s <command> --help' for details.")
     parser.add_argument("-v", "--version", action = "version", 
     version = "%(prog)s " + __version__, 
-    help = "Show the version of this script")
+    help = "Show the version of this module.")
+    subparsers = parser.add_subparsers(
+    help = "Commands this module accepts.")
+    
+    # サブコマンドcompile
+    parser_compile = subparsers.add_parser("compile", 
+    help = "Analyze scripts and compile them.")
+    parser_compile.add_argument("script", nargs = "+", 
+    help = "Scripts that should be compiled.")
+    parser_compile.add_argument("-o", "--out", 
+    help = "Output file name.")
+    parser_compile.add_argument("-t", "--target",
+    default = "dll", choices = ["dll", "exe", "winexe"], 
+    help = "Compile scripts into dll, exe, or winexe.")
+    parser_compile.add_argument("-m", "--main",
+    help = "Script to be executed first.")
+    parser_compile.add_argument("-p", "--platform", 
+    choices = ["x86", "x64"], 
+    help = "Target platform.")
+    parser_compile.add_argument("-e", "--embed", 
+    action = "store_true", 
+    help = "Embed the generated DLL into exe/winexe.")
+    parser_compile.add_argument("-s", "--standalone", 
+    action = "store_true", 
+    help = "Embed the IronPython assemblies into exe/winexe.")
+    parser_compile.add_argument("-M", "--mta", 
+    action = "store_true", 
+    help = "Set MTAThreadAttribute (winexe).")
 
 if __name__ == "__main__":
     main()
