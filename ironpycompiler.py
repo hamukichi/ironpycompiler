@@ -33,12 +33,12 @@ IPYREGKEYS = ["SOFTWARE\\IronPython",
 "SOFTWARE\\Wow6432Node\\IronPython"]
 IPYEXE = "ipy.exe"
 
-class PCHError(Exception):
+class IPCError(Exception):
     """This is the base class for exceptions in this module.
     """
     pass
 
-class IronPythonDetectionError(PCHError):
+class IronPythonDetectionError(IPCError):
     """This exception will be raised when IronPython cannot be found in 
     your system.
     
@@ -79,7 +79,7 @@ def detect_ipy(regkeys = IPYREGKEYS, executable = IPYEXE):
                 break # キーが見つかれば終わる
             except WindowsError as e: # キーが存在しないときなど
                 continue
-    except ImportError as e:
+    except Exception as e:
         pass
     
     # レジストリからIronPythonへのパスを取得する
@@ -197,7 +197,7 @@ class ModuleCompiler:
         
         # レスポンスファイルを作る
         self.response_file = tempfile.mkstemp(suffix = ".txt", 
-        text = True)
+        text = True, prefix = "IPC")
         
         # レスポンスファイルに書き込む
         for line in args:
@@ -296,11 +296,15 @@ class ModuleCompiler:
         self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
         executable = executable)
 
-def compile(args):
+def compiler(args):
     """Funciton for command ``compile``. It should not be used 
     directly.
     """
     mc = ModuleCompiler(paths_to_scripts = args.script)
+    
+    if args.target == "winexe" or args.target == "exe":
+        if (args.main is not None) and (not args.main in args.script):
+            args.script.insert(0, arg.main)
     
     if args.target == "winexe":
         mc.create_executable(out = args.out, winexe = True, 
@@ -351,8 +355,10 @@ def main():
     parser_compile.add_argument("-M", "--mta", 
     action = "store_true", 
     help = "Set MTAThreadAttribute (winexe).")
+    parser_compile.set_defaults(func = compiler)
     
     args = parser.parse_args()
+    args.func(args)
 
  
 if __name__ == "__main__":
