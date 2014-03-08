@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ironpycompiler module &mdash; IronPyCompiler  documentation</title>
+    <title>API Reference &mdash; IronPyCompiler  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -49,14 +49,17 @@
           <div class="body">
             
   <div class="section" id="module-ironpycompiler">
-<span id="ironpycompiler-module"></span><h1>ironpycompiler module<a class="headerlink" href="#module-ironpycompiler" title="Permalink to this headline">¶</a></h1>
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-ironpycompiler" title="Permalink to this headline">¶</a></h1>
 <p>Helps to compile IronPython scripts, using pyc.py.</p>
 <p>This module helps you compile your IronPython scripts requiring the 
 Python standard library (or third-party pure-Python modules) into a 
 .NET assembly, using pyc.py.</p>
-<p>Please note that this module should be used on not IronPython but 
-CPython, because <tt class="xref py py-mod docutils literal"><span class="pre">modulefinder</span></tt> of IronPython does not work 
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This module should be used on <strong>CPython</strong>, not IronPython, 
+because <tt class="xref py py-mod docutils literal"><span class="pre">modulefinder</span></tt> of IronPython does not work 
 correctly.</p>
+</div>
 <dl class="exception">
 <dt id="ironpycompiler.IPCError">
 <em class="property">exception </em><tt class="descclassname">ironpycompiler.</tt><tt class="descname">IPCError</tt><a class="reference internal" href="_modules/ironpycompiler.html#IPCError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.IPCError" title="Permalink to this definition">¶</a></dt>
@@ -256,7 +259,7 @@ executable.</li>
                         title="previous chapter">Welcome to IronPyCompiler&#8217;s documentation!</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/ironpycompiler.txt"
+    <li><a href="_sources/api.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

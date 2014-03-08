@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 4
 
-   ironpycompiler
+   api
 
 
 Indices and tables

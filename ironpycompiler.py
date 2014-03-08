@@ -7,9 +7,9 @@ This module helps you compile your IronPython scripts requiring the
 Python standard library (or third-party pure-Python modules) into a 
 .NET assembly, using pyc.py.
 
-Please note that this module should be used on not IronPython but 
-CPython, because :mod:`modulefinder` of IronPython does not work 
-correctly.
+.. note :: This module should be used on **CPython**, not IronPython, 
+           because :mod:`modulefinder` of IronPython does not work 
+           correctly.
 """
 
 __author__ = "Hamukichi (Nombiri)"

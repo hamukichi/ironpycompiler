@@ -56,9 +56,9 @@
 <span class="sd">Python standard library (or third-party pure-Python modules) into a </span>
 <span class="sd">.NET assembly, using pyc.py.</span>
 
-<span class="sd">Please note that this module should be used on not IronPython but </span>
-<span class="sd">CPython, because :mod:`modulefinder` of IronPython does not work </span>
-<span class="sd">correctly.</span>
+<span class="sd">.. note :: This module should be used on **CPython**, not IronPython, </span>
+<span class="sd">           because :mod:`modulefinder` of IronPython does not work </span>
+<span class="sd">           correctly.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;Hamukichi (Nombiri)&quot;</span>
@@ -82,12 +82,12 @@
 <span class="s">&quot;SOFTWARE</span><span class="se">\\</span><span class="s">Wow6432Node</span><span class="se">\\</span><span class="s">IronPython&quot;</span><span class="p">]</span>
 <span class="n">IPYEXE</span> <span class="o">=</span> <span class="s">&quot;ipy.exe&quot;</span>
 
-<div class="viewcode-block" id="IPCError"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.IPCError">[docs]</a><span class="k">class</span> <span class="nc">IPCError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="IPCError"><a class="viewcode-back" href="../api.html#ironpycompiler.IPCError">[docs]</a><span class="k">class</span> <span class="nc">IPCError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is the base class for exceptions in this module.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="IronPythonDetectionError"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.IronPythonDetectionError">[docs]</a><span class="k">class</span> <span class="nc">IronPythonDetectionError</span><span class="p">(</span><span class="n">IPCError</span><span class="p">):</span>
+<div class="viewcode-block" id="IronPythonDetectionError"><a class="viewcode-back" href="../api.html#ironpycompiler.IronPythonDetectionError">[docs]</a><span class="k">class</span> <span class="nc">IronPythonDetectionError</span><span class="p">(</span><span class="n">IPCError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This exception will be raised when IronPython cannot be found in your system.</span>
 <span class="sd">    </span>
 <span class="sd">    :param str executable: The name of the IronPython executable looked for.</span>
@@ -100,7 +100,7 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s">&quot;IronPython (</span><span class="si">%s</span><span class="s">) cannot be found.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">executable</span>
 </div>
-<div class="viewcode-block" id="detect_ipy"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.detect_ipy">[docs]</a><span class="k">def</span> <span class="nf">detect_ipy</span><span class="p">(</span><span class="n">regkeys</span> <span class="o">=</span> <span class="n">IPYREGKEYS</span><span class="p">,</span> <span class="n">executable</span> <span class="o">=</span> <span class="n">IPYEXE</span><span class="p">):</span>
+<div class="viewcode-block" id="detect_ipy"><a class="viewcode-back" href="../api.html#ironpycompiler.detect_ipy">[docs]</a><span class="k">def</span> <span class="nf">detect_ipy</span><span class="p">(</span><span class="n">regkeys</span> <span class="o">=</span> <span class="n">IPYREGKEYS</span><span class="p">,</span> <span class="n">executable</span> <span class="o">=</span> <span class="n">IPYEXE</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This function returns the list of the paths to the IronPython directories.</span>
 <span class="sd">    </span>
 <span class="sd">    This function searches in the Windows registry and PATH for </span>
@@ -161,7 +161,7 @@
     
     <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ipydirpaths</span><span class="p">),</span> <span class="n">reverse</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="ModuleCompiler"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.ModuleCompiler">[docs]</a><span class="k">class</span> <span class="nc">ModuleCompiler</span><span class="p">:</span>
+<div class="viewcode-block" id="ModuleCompiler"><a class="viewcode-back" href="../api.html#ironpycompiler.ModuleCompiler">[docs]</a><span class="k">class</span> <span class="nc">ModuleCompiler</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;This class finds the modules required by your script and create a .NET assembly.</span>
 <span class="sd">    </span>
 <span class="sd">    By default this class searches for pure-Python modules in the </span>
@@ -195,7 +195,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pyc_stdout</span> <span class="o">=</span> <span class="bp">None</span> <span class="c"># pyc.pyから得た標準出力</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pyc_stderr</span> <span class="o">=</span> <span class="bp">None</span> <span class="c"># pyc.pyから得た標準エラー出力</span>
     
-<div class="viewcode-block" id="ModuleCompiler.check_compilability"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.ModuleCompiler.check_compilability">[docs]</a>    <span class="k">def</span> <span class="nf">check_compilability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirs_of_modules</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleCompiler.check_compilability"><a class="viewcode-back" href="../api.html#ironpycompiler.ModuleCompiler.check_compilability">[docs]</a>    <span class="k">def</span> <span class="nf">check_compilability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirs_of_modules</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Check the compilability of the modules required by the scripts you specified.</span>
 <span class="sd">        </span>
 <span class="sd">        :param list dirs_of_modules: Specify the paths of the </span>
@@ -232,7 +232,7 @@
                     <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path_to_module</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">compilable_modules</span> <span class="o">-=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths_to_scripts</span><span class="p">)</span>
     </div>
-<div class="viewcode-block" id="ModuleCompiler.call_pyc"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.ModuleCompiler.call_pyc">[docs]</a>    <span class="k">def</span> <span class="nf">call_pyc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">delete_resp</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">executable</span> <span class="o">=</span> <span class="n">IPYEXE</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleCompiler.call_pyc"><a class="viewcode-back" href="../api.html#ironpycompiler.ModuleCompiler.call_pyc">[docs]</a>    <span class="k">def</span> <span class="nf">call_pyc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">delete_resp</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">executable</span> <span class="o">=</span> <span class="n">IPYEXE</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Call pyc.py in order to compile your scripts.</span>
 <span class="sd">        </span>
 <span class="sd">        In general use this method is not supposed to be called </span>
@@ -275,7 +275,7 @@
         <span class="k">if</span> <span class="n">delete_resp</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_file</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         </div>
-<div class="viewcode-block" id="ModuleCompiler.create_dll"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.ModuleCompiler.create_dll">[docs]</a>    <span class="k">def</span> <span class="nf">create_dll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">delete_resp</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">executable</span> <span class="o">=</span> <span class="n">IPYEXE</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleCompiler.create_dll"><a class="viewcode-back" href="../api.html#ironpycompiler.ModuleCompiler.create_dll">[docs]</a>    <span class="k">def</span> <span class="nf">create_dll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">delete_resp</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">executable</span> <span class="o">=</span> <span class="n">IPYEXE</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compile your scripts into a DLL file (.NET library assembly) using pyc.py.</span>
 <span class="sd">        </span>
 <span class="sd">        :param str out: (optional) Specify the name of the DLL file </span>
@@ -300,7 +300,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">call_pyc</span><span class="p">(</span><span class="n">args</span> <span class="o">=</span> <span class="n">pyc_args</span><span class="p">,</span> <span class="n">delete_resp</span> <span class="o">=</span> <span class="n">delete_resp</span><span class="p">,</span> 
         <span class="n">executable</span> <span class="o">=</span> <span class="n">executable</span><span class="p">)</span>
     </div>
-<div class="viewcode-block" id="ModuleCompiler.create_executable"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.ModuleCompiler.create_executable">[docs]</a>    <span class="k">def</span> <span class="nf">create_executable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">winexe</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> 
+<div class="viewcode-block" id="ModuleCompiler.create_executable"><a class="viewcode-back" href="../api.html#ironpycompiler.ModuleCompiler.create_executable">[docs]</a>    <span class="k">def</span> <span class="nf">create_executable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">winexe</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> 
     <span class="n">target_platform</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">embed</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">standalone</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> 
     <span class="n">mta</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">delete_resp</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">executable</span> <span class="o">=</span> <span class="n">IPYEXE</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compile your scripts into an EXE file (.NET process assembly) using pyc.py.</span>
@@ -351,7 +351,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">call_pyc</span><span class="p">(</span><span class="n">args</span> <span class="o">=</span> <span class="n">pyc_args</span><span class="p">,</span> <span class="n">delete_resp</span> <span class="o">=</span> <span class="n">delete_resp</span><span class="p">,</span> 
         <span class="n">executable</span> <span class="o">=</span> <span class="n">executable</span><span class="p">)</span>
 </div></div>
-<div class="viewcode-block" id="compiler"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.compiler">[docs]</a><span class="k">def</span> <span class="nf">compiler</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="compiler"><a class="viewcode-back" href="../api.html#ironpycompiler.compiler">[docs]</a><span class="k">def</span> <span class="nf">compiler</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Funciton for command ``compile``. It should not be used directly.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -374,7 +374,7 @@
     
     <span class="n">six</span><span class="o">.</span><span class="n">print_</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">pyc_stdout</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../ironpycompiler.html#ironpycompiler.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../api.html#ironpycompiler.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;This function will be used when ironcompiler.py is run as a script.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>

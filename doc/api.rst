@@ -1,5 +1,5 @@
-ironpycompiler module
-=====================
+API Reference
+=============
 
 .. automodule:: ironpycompiler
     :members:
