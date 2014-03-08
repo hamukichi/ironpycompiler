@@ -13,8 +13,8 @@ correctly.
 """
 
 __author__ = "Hamukichi (Nombiri)"
-__version__ = "0.4.0"
-__date__ = "2014-03-07"
+__version__ = "0.5.0"
+__date__ = "2014-03-08"
 __licence__ = "MIT License"
 
 import sys
