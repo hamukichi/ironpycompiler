@@ -222,8 +222,7 @@ class ModuleCompiler:
         if delete_resp:
             os.remove(self.response_file[1])
         
-    def create_dll(self, out = None, delete_resp = True, executable = 
-    IPYEXE):
+    def create_dll(self, out = None, delete_resp = True, executable = IPYEXE):
         """Compile your scripts into a DLL file (.NET library 
         assembly) using pyc.py.
         
@@ -297,6 +296,23 @@ class ModuleCompiler:
         self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
         executable = executable)
 
+def compile(args):
+    """Funciton for command ``compile``. It should not be used 
+    directly.
+    """
+    mc = ModuleCompiler(paths_to_scripts = args.script)
+    
+    if args.target == "winexe":
+        mc.create_executable(out = args.out, winexe = True, 
+        target_platform = args.platform, embed = args.embed, 
+        standalone = args.standalone, mta = args.mta)
+    elif args.target == "exe":
+        mc.create_executable(out = args.out, winexe = False, 
+        target_platform = args.platform, embed = args.embed, 
+        standalone = args.standalone)
+    else:
+        mc.create_dll(out = args.out)
+
 def main():
     """This function will be used when ironcompiler.py is run as a script.
     """
@@ -305,10 +321,11 @@ def main():
     description = "Compile IronPython scripts into a .NET assembly.", 
     epilog = "See '%(prog)s <command> --help' for details.")
     parser.add_argument("-v", "--version", action = "version", 
-    version = "%(prog)s " + __version__, 
+    version = "IronPyCompiler " + __version__, 
     help = "Show the version of this module.")
     subparsers = parser.add_subparsers(
-    help = "Commands this module accepts.")
+    help = "Commands this module accepts.", 
+    dest = "command")
     
     # サブコマンドcompile
     parser_compile = subparsers.add_parser("compile", 
@@ -334,7 +351,10 @@ def main():
     parser_compile.add_argument("-M", "--mta", 
     action = "store_true", 
     help = "Set MTAThreadAttribute (winexe).")
+    
+    args = parser.parse_args()
 
+ 
 if __name__ == "__main__":
     main()
 
