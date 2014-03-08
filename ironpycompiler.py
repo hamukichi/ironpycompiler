@@ -39,11 +39,10 @@ class IPCError(Exception):
     pass
 
 class IronPythonDetectionError(IPCError):
-    """This exception will be raised when IronPython cannot be found in 
-    your system.
+    """This exception will be raised when IronPython cannot be found in your system.
     
-    :param str executable: The name of the IronPython executable looked 
-    for.
+    :param str executable: The name of the IronPython executable looked for.
+    
     """
     
     def __init__(self, exectuable):
@@ -53,18 +52,18 @@ class IronPythonDetectionError(IPCError):
         return "IronPython (%s) cannot be found." % self.executable
 
 def detect_ipy(regkeys = IPYREGKEYS, executable = IPYEXE):
-    """This function returns the list of the paths to the IronPython 
-    directories.
+    """This function returns the list of the paths to the IronPython directories.
     
     This function searches in the Windows registry and PATH for 
     IronPython. If IronPython cannot be found in your system, 
     :exc:`IronPythonDetectionError` will occur.
     
     :param list regkeys: (optional) The IronPython registry keys that 
-    should be looked for.
+                         should be looked for.
     :param str executable: (optional) The name of the IronPython 
-    executable.
+                           executable.
     :rtype: list
+    
     """
     
     ipydirpaths = set()
@@ -114,17 +113,18 @@ def detect_ipy(regkeys = IPYREGKEYS, executable = IPYEXE):
     return sorted(list(ipydirpaths), reverse = True)
 
 class ModuleCompiler:
-    """This class finds the modules required by your script and 
-    create a .NET assembly.
+    """This class finds the modules required by your script and create a .NET assembly.
     
     By default this class searches for pure-Python modules in the 
     IronPython standard library and the CPython site-packages directory.
     
     :param list paths_to_scripts: Specify the paths to your scripts. 
-    In creating a .EXE file, the first element of this list must be the 
-    path to the main file of your project.
+                                  In creating a .EXE file, the first 
+                                  element of this list must be the 
+                                  path to the main file of your project.
     :param str ipy_dir: Specify the IronPython directory, or it will be
-    automatically detected using :func:`detect_ipy()`.
+                        automatically detected using :func:`detect_ipy()`.
+    
     """
     
     def __init__(self, paths_to_scripts, ipy_dir = None):
@@ -147,13 +147,16 @@ class ModuleCompiler:
         self.pyc_stderr = None # pyc.pyから得た標準エラー出力
     
     def check_compilability(self, dirs_of_modules = None):
-        """Check the compilability of the modules required by the 
-        scripts you specified.
+        """Check the compilability of the modules required by the scripts you specified.
         
         :param list dirs_of_modules: Specify the paths of the 
-        directories where the modules your scripts require exist, or 
-        this method searches for pure-Python modules in the IronPython 
-        standard library and the CPython site-packages directory.
+                                     directories where the modules your 
+                                     scripts require exist, or this 
+                                     method searches for pure-Python 
+                                     modules in the IronPython standard 
+                                     library and the CPython site-packages 
+                                     directory.
+        
         """
         
         self.dirs_of_modules = dirs_of_modules
@@ -188,11 +191,12 @@ class ModuleCompiler:
         :meth:`create_executable` or :meth:`create_dll` instead.
         
         :param list args: Specify the arguments that should be sent to 
-        pyc.py.
+                          pyc.py.
         :param bool delete_resp: (optional) Specify whether to delete the 
-        response file after compilation or not. 
+                                 response file after compilation or not. 
         :param str executable: (optional) Specify the name of the 
-        Ironpython exectuable.
+                               Ironpython exectuable.
+        
         """
         
         # レスポンスファイルを作る
@@ -223,15 +227,15 @@ class ModuleCompiler:
             os.remove(self.response_file[1])
         
     def create_dll(self, out = None, delete_resp = True, executable = IPYEXE):
-        """Compile your scripts into a DLL file (.NET library 
-        assembly) using pyc.py.
+        """Compile your scripts into a DLL file (.NET library assembly) using pyc.py.
         
         :param str out: (optional) Specify the name of the DLL file 
-        that should be created.
+                        that should be created.
         :param bool delete_resp: (optional) Specify whether to delete the 
-        response file after compilation or not. 
+                                 response file after compilation or not. 
         :param str executable: (optional) Specify the name of the 
-        Ironpython exectuable.
+                               Ironpython exectuable.
+        
         """
         
         if self.compilable_modules == set():
@@ -250,26 +254,28 @@ class ModuleCompiler:
     def create_executable(self, out = None, winexe = False, 
     target_platform = None, embed = True, standalone = True, 
     mta = False, delete_resp = True, executable = IPYEXE):
-        """Compile your scripts into an EXE file (.NET process 
-        assembly) using pyc.py.
+        """Compile your scripts into an EXE file (.NET process assembly) using pyc.py.
                 
         :param str out: (optional) Specify the name of the EXE file 
-        that should be created.
+                        that should be created.
         :param bool winexe: (optional) Specify whether to create 
-        a windows executable or to generate a console one, or a 
-        console executable will be created.
+                            a windows executable or to generate a 
+                            console one, or a console executable will be
+                            created.
         :param str target_platform: (optional) Specify the target 
-        platform ("x86" or "x64") if necessary.
+                                    platform ("x86" or "x64") if 
+                                    necessary.
         :param bool embed: (optional) Specify whether to embed the 
-        generated DLL into the executable.
+                           generated DLL into the executable.
         :param bool standalone: (optional) Specify whether to embed 
-        IronPython assemblies into the executable.
+                                IronPython assemblies into the executable.
         :param bool mta: (optional) Specify whether to set 
-        MTAThreadAttribute (winexe). 
+                         MTAThreadAttribute (winexe). 
         :param bool delete_resp: (optional) Specify whether to delete the 
-        response file after compilation or not. 
+                                 response file after compilation or not. 
         :param str executable: (optional) Specify the name of the 
-        Ironpython exectuable.
+                               Ironpython exectuable.
+        
         """
         if self.compilable_modules == set():
             self.check_compilability()
@@ -297,8 +303,8 @@ class ModuleCompiler:
         executable = executable)
 
 def compiler(args):
-    """Funciton for command ``compile``. It should not be used 
-    directly.
+    """Funciton for command ``compile``. It should not be used directly.
+    
     """
     mc = ModuleCompiler(paths_to_scripts = args.script)
     
@@ -316,9 +322,12 @@ def compiler(args):
         standalone = args.standalone)
     else:
         mc.create_dll(out = args.out)
+    
+    six.print_(mc.pyc_stdout)
 
 def main():
     """This function will be used when ironcompiler.py is run as a script.
+    
     """
     # トップレベル
     parser = argparse.ArgumentParser(
@@ -360,7 +369,7 @@ def main():
     args = parser.parse_args()
     args.func(args)
 
- 
+
 if __name__ == "__main__":
     main()
 

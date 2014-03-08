@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ironpycompiler module &mdash; IronPyCompiler  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="IronPyCompiler  documentation" href="index.html" />
+    <link rel="prev" title="Welcome to IronPyCompiler’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to IronPyCompiler’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">IronPyCompiler  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-ironpycompiler">
+<span id="ironpycompiler-module"></span><h1>ironpycompiler module<a class="headerlink" href="#module-ironpycompiler" title="Permalink to this headline">¶</a></h1>
+<p>Helps to compile IronPython scripts, using pyc.py.</p>
+<p>This module helps you compile your IronPython scripts requiring the 
+Python standard library (or third-party pure-Python modules) into a 
+.NET assembly, using pyc.py.</p>
+<p>Please note that this module should be used on not IronPython but 
+CPython, because <tt class="xref py py-mod docutils literal"><span class="pre">modulefinder</span></tt> of IronPython does not work 
+correctly.</p>
+<dl class="exception">
+<dt id="ironpycompiler.IPCError">
+<em class="property">exception </em><tt class="descclassname">ironpycompiler.</tt><tt class="descname">IPCError</tt><a class="reference internal" href="_modules/ironpycompiler.html#IPCError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.IPCError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<p>This is the base class for exceptions in this module.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="ironpycompiler.IronPythonDetectionError">
+<em class="property">exception </em><tt class="descclassname">ironpycompiler.</tt><tt class="descname">IronPythonDetectionError</tt><big>(</big><em>exectuable</em><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#IronPythonDetectionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.IronPythonDetectionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ironpycompiler.IPCError" title="ironpycompiler.IPCError"><tt class="xref py py-class docutils literal"><span class="pre">ironpycompiler.IPCError</span></tt></a></p>
+<p>This exception will be raised when IronPython cannot be found in your system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>executable</strong> (<em>str</em>) &#8211; The name of the IronPython executable looked for.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="ironpycompiler.ModuleCompiler">
+<em class="property">class </em><tt class="descclassname">ironpycompiler.</tt><tt class="descname">ModuleCompiler</tt><big>(</big><em>paths_to_scripts</em>, <em>ipy_dir=None</em><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#ModuleCompiler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.ModuleCompiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class finds the modules required by your script and create a .NET assembly.</p>
+<p>By default this class searches for pure-Python modules in the 
+IronPython standard library and the CPython site-packages directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>paths_to_scripts</strong> (<em>list</em>) &#8211; Specify the paths to your scripts. 
+In creating a .EXE file, the first 
+element of this list must be the 
+path to the main file of your project.</li>
+<li><strong>ipy_dir</strong> (<em>str</em>) &#8211; Specify the IronPython directory, or it will be
+automatically detected using <a class="reference internal" href="#ironpycompiler.detect_ipy" title="ironpycompiler.detect_ipy"><tt class="xref py py-func docutils literal"><span class="pre">detect_ipy()</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="ironpycompiler.ModuleCompiler.call_pyc">
+<tt class="descname">call_pyc</tt><big>(</big><em>args</em>, <em>delete_resp=True</em>, <em>executable='ipy.exe'</em><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#ModuleCompiler.call_pyc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.ModuleCompiler.call_pyc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call pyc.py in order to compile your scripts.</p>
+<p>In general use this method is not supposed to be called 
+directly. It is recommended that you use 
+<a class="reference internal" href="#ironpycompiler.ModuleCompiler.create_executable" title="ironpycompiler.ModuleCompiler.create_executable"><tt class="xref py py-meth docutils literal"><span class="pre">create_executable()</span></tt></a> or <a class="reference internal" href="#ironpycompiler.ModuleCompiler.create_dll" title="ironpycompiler.ModuleCompiler.create_dll"><tt class="xref py py-meth docutils literal"><span class="pre">create_dll()</span></tt></a> instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>args</strong> (<em>list</em>) &#8211; Specify the arguments that should be sent to 
+pyc.py.</li>
+<li><strong>delete_resp</strong> (<em>bool</em>) &#8211; (optional) Specify whether to delete the 
+response file after compilation or not.</li>
+<li><strong>executable</strong> (<em>str</em>) &#8211; (optional) Specify the name of the 
+Ironpython exectuable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ironpycompiler.ModuleCompiler.check_compilability">
+<tt class="descname">check_compilability</tt><big>(</big><em>dirs_of_modules=None</em><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#ModuleCompiler.check_compilability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.ModuleCompiler.check_compilability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the compilability of the modules required by the scripts you specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dirs_of_modules</strong> (<em>list</em>) &#8211; Specify the paths of the 
+directories where the modules your 
+scripts require exist, or this 
+method searches for pure-Python 
+modules in the IronPython standard 
+library and the CPython site-packages 
+directory.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ironpycompiler.ModuleCompiler.create_dll">
+<tt class="descname">create_dll</tt><big>(</big><em>out=None</em>, <em>delete_resp=True</em>, <em>executable='ipy.exe'</em><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#ModuleCompiler.create_dll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.ModuleCompiler.create_dll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile your scripts into a DLL file (.NET library assembly) using pyc.py.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>out</strong> (<em>str</em>) &#8211; (optional) Specify the name of the DLL file 
+that should be created.</li>
+<li><strong>delete_resp</strong> (<em>bool</em>) &#8211; (optional) Specify whether to delete the 
+response file after compilation or not.</li>
+<li><strong>executable</strong> (<em>str</em>) &#8211; (optional) Specify the name of the 
+Ironpython exectuable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ironpycompiler.ModuleCompiler.create_executable">
+<tt class="descname">create_executable</tt><big>(</big><em>out=None</em>, <em>winexe=False</em>, <em>target_platform=None</em>, <em>embed=True</em>, <em>standalone=True</em>, <em>mta=False</em>, <em>delete_resp=True</em>, <em>executable='ipy.exe'</em><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#ModuleCompiler.create_executable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.ModuleCompiler.create_executable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile your scripts into an EXE file (.NET process assembly) using pyc.py.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>out</strong> (<em>str</em>) &#8211; (optional) Specify the name of the EXE file 
+that should be created.</li>
+<li><strong>winexe</strong> (<em>bool</em>) &#8211; (optional) Specify whether to create 
+a windows executable or to generate a 
+console one, or a console executable will be
+created.</li>
+<li><strong>target_platform</strong> (<em>str</em>) &#8211; (optional) Specify the target 
+platform (&#8220;x86&#8221; or &#8220;x64&#8221;) if 
+necessary.</li>
+<li><strong>embed</strong> (<em>bool</em>) &#8211; (optional) Specify whether to embed the 
+generated DLL into the executable.</li>
+<li><strong>standalone</strong> (<em>bool</em>) &#8211; (optional) Specify whether to embed 
+IronPython assemblies into the executable.</li>
+<li><strong>mta</strong> (<em>bool</em>) &#8211; (optional) Specify whether to set 
+MTAThreadAttribute (winexe).</li>
+<li><strong>delete_resp</strong> (<em>bool</em>) &#8211; (optional) Specify whether to delete the 
+response file after compilation or not.</li>
+<li><strong>executable</strong> (<em>str</em>) &#8211; (optional) Specify the name of the 
+Ironpython exectuable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="ironpycompiler.compiler">
+<tt class="descclassname">ironpycompiler.</tt><tt class="descname">compiler</tt><big>(</big><em>args</em><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#compiler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.compiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funciton for command <tt class="docutils literal"><span class="pre">compile</span></tt>. It should not be used directly.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ironpycompiler.detect_ipy">
+<tt class="descclassname">ironpycompiler.</tt><tt class="descname">detect_ipy</tt><big>(</big><em>regkeys=['SOFTWARE\\IronPython', 'SOFTWARE\\Wow6432Node\\IronPython'], executable='ipy.exe'</em><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#detect_ipy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.detect_ipy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns the list of the paths to the IronPython directories.</p>
+<p>This function searches in the Windows registry and PATH for 
+IronPython. If IronPython cannot be found in your system, 
+<a class="reference internal" href="#ironpycompiler.IronPythonDetectionError" title="ironpycompiler.IronPythonDetectionError"><tt class="xref py py-exc docutils literal"><span class="pre">IronPythonDetectionError</span></tt></a> will occur.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>regkeys</strong> (<em>list</em>) &#8211; (optional) The IronPython registry keys that 
+should be looked for.</li>
+<li><strong>executable</strong> (<em>str</em>) &#8211; (optional) The name of the IronPython 
+executable.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ironpycompiler.main">
+<tt class="descclassname">ironpycompiler.</tt><tt class="descname">main</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ironpycompiler.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ironpycompiler.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will be used when ironcompiler.py is run as a script.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to IronPyCompiler&#8217;s documentation!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/ironpycompiler.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to IronPyCompiler’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">IronPyCompiler  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

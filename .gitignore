@@ -215,4 +215,4 @@ pip-log.txt
 .mr.developer.cfg
 
 # Sample Target File
-sample_target.*
+sample_target/
