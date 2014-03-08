@@ -298,7 +298,14 @@ class ModuleCompiler:
         executable = executable)
 
 def main():
-    pass
+    """This function will be used when ironcompiler.py is run as a script.
+    """
+    # トップレベルのパーサをつくり、引数を加える
+    parser = argparse.ArgumentParser(
+    description = "Compile your IronPython scripts.")
+    parser.add_argument("-v", "--version", action = "version", 
+    version = "%(prog)s " + __version__, 
+    help = "Show the version of this script")
 
 if __name__ == "__main__":
     main()
