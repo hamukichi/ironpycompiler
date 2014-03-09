@@ -1,0 +1,28 @@
+History
+=======
+
+v0.5.0 (2014-03-08)
+-------------------
+
+* Enabled this module to be run as a script.
+
+v0.4.0 (2014-03-07)
+-------------------
+
+* Added ``create_dll`` and ``create_exectuable``.
+
+v0.3.0 (2014-03-06)
+-------------------
+
+* Changed the arguments of ``__init__`` and ``check_compilablity``.
+
+v0.2.0 (2014-03-06)
+-------------------
+
+* Started to support for multiple IronPython scripts.
+* Does not inherit from ``modulefinder.ModuleFinder`` any more.
+
+v0.1.0 (2014-03-03)
+-------------------
+
+* The first commit.
