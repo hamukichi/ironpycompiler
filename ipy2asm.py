@@ -10,6 +10,7 @@ modules.
 
 import argparse
 import os
+import sys
 
 # Original modules
 import ironpycompiler
@@ -60,6 +61,10 @@ def _analyzer(args):
     mc = ironpycompiler.compiler.ModuleCompiler(
     paths_to_scripts = args.script)
     mc.check_compilability()
+    six.print_("Searched for modules in these directories:")
+    for d in mc.dirs_of_modules:
+        six.print_(d)
+    six.print_()
     six.print_("These modules are required and compilable:")
     for mod in mc.compilable_modules:
         six.print_(mod)
@@ -73,6 +78,14 @@ def main():
     """This function will be used when this module is run as a script.
         
     """
+    
+    if sys.platform == "cli":
+        six.print_("WARNING: This script will not work on IronPython.")
+        six.print_()
+    elif sys.version_info.major >= 3:
+        six.print_("WARNING: This script will not work on Python 3+.")
+        six.print_()
+        
     
     # トップレベル
     parser = argparse.ArgumentParser(

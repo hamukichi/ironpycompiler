@@ -56,7 +56,7 @@ class ModuleCompiler:
                                      scripts require exist, or this 
                                      method searches for pure-Python 
                                      modules in the IronPython standard 
-                                     library and the CPython site-packages 
+                                     library, and the CPython site-packages 
                                      directory.
         
         """
