@@ -1,116 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Helps to compile IronPython scripts, using pyc.py.
+""" Module for analyzing and compiling IronPython scripts.
 
-This module helps you compile your IronPython scripts requiring the 
-Python standard library (or third-party pure-Python modules) into a 
-.NET assembly, using pyc.py.
-
-.. note :: This module should be used on **CPython**, not IronPython, 
-           because :mod:`modulefinder` of IronPython does not work 
-           correctly.
 """
 
-__author__ = "Hamukichi (Nombiri)"
-__version__ = "0.5.0"
-__date__ = "2014-03-08"
-__licence__ = "MIT License"
-
 import sys
-import itertools
 import os
-import glob
 import modulefinder
 import tempfile
 import subprocess
-import argparse
 
-# Third-party modules
-import six
-
-IPYREGKEYS = ["SOFTWARE\\IronPython", 
-"SOFTWARE\\Wow6432Node\\IronPython"]
-IPYEXE = "ipy.exe"
-
-class IPCError(Exception):
-    """This is the base class for exceptions in this module.
-    """
-    pass
-
-class IronPythonDetectionError(IPCError):
-    """This exception will be raised when IronPython cannot be found in your system.
-    
-    :param str executable: The name of the IronPython executable looked for.
-    
-    """
-    
-    def __init__(self, exectuable):
-        self.executable = str(executable)
-    
-    def __str__(self):
-        return "IronPython (%s) cannot be found." % self.executable
-
-def detect_ipy(regkeys = IPYREGKEYS, executable = IPYEXE):
-    """This function returns the list of the paths to the IronPython directories.
-    
-    This function searches in the Windows registry and PATH for 
-    IronPython. If IronPython cannot be found in your system, 
-    :exc:`IronPythonDetectionError` will occur.
-    
-    :param list regkeys: (optional) The IronPython registry keys that 
-                         should be looked for.
-    :param str executable: (optional) The name of the IronPython 
-                           executable.
-    :rtype: list
-    
-    """
-    
-    ipydirpaths = set()
-    
-    # 可能ならば、IronPythonキーをレジストリから読み込む
-    ipybasekey = None
-    try:
-        for key in regkeys:
-            try:
-                ipybasekey = six.moves.winreg.OpenKey(
-                six.moves.winreg.HKEY_LOCAL_MACHINE, key)
-                break # キーが見つかれば終わる
-            except WindowsError as e: # キーが存在しないときなど
-                continue
-    except Exception as e:
-        pass
-    
-    # レジストリからIronPythonへのパスを取得する
-    if ipybasekey:
-        itr = itertools.count()
-        # インストールされているIronPythonのバージョンを取得する
-        ipyvers = []
-        for idx in itr:
-            try:
-                ipyvers.append(
-                six.moves.winreg.EnumKey(ipybasekey, idx))
-            except WindowsError as e: # 対応するサブキーがなくなったら
-                break
-        # IronPythonへのパスを取得する
-        for ver in ipyvers:
-            with six.moves.winreg.OpenKey(ipybasekey, 
-            ver + "\\InstallPath") as ipypathkey:
-                ipydirpaths.add(os.path.dirname(
-                six.moves.winreg.QueryValue(ipypathkey, None)))
-        # IronPythonキーを閉じる
-        ipybasekey.Close()
-    
-    # 環境変数PATHからIronPythonへのパスを取得する
-    for path in os.environ["PATH"].split(os.pathsep):
-        for match_path in glob.glob(os.path.join(path, executable)):
-            if os.access(match_path, os.X_OK):
-                ipydirpaths.add(os.path.dirname(match_path))
-    
-    if len(ipydirpaths) == 0:
-        raise IronPythonDetectionError(executable)
-    
-    return sorted(list(ipydirpaths), reverse = True)
+# Original modules
+from . import detect
 
 class ModuleCompiler:
     """This class finds the modules required by your script and create a .NET assembly.
@@ -132,7 +34,7 @@ class ModuleCompiler:
         """
         
         if ipy_dir is None:
-            self.ipy_dir = detect_ipy()[0]
+            self.ipy_dir = detect.detect_ipy()[0]
         else:
             self.ipy_dir = ipy_dir
         
@@ -183,7 +85,7 @@ class ModuleCompiler:
                     os.path.abspath(path_to_module))
         self.compilable_modules -= set(self.paths_to_scripts)
     
-    def call_pyc(self, args, delete_resp = True, executable = IPYEXE):
+    def call_pyc(self, args, delete_resp = True, executable = "ipy.exe"):
         """Call pyc.py in order to compile your scripts.
         
         In general use this method is not supposed to be called 
@@ -226,7 +128,7 @@ class ModuleCompiler:
         if delete_resp:
             os.remove(self.response_file[1])
         
-    def create_dll(self, out = None, delete_resp = True, executable = IPYEXE):
+    def create_dll(self, out = None, delete_resp = True, executable = "ipy.exe"):
         """Compile your scripts into a DLL file (.NET library assembly) using pyc.py.
         
         :param str out: (optional) Specify the name of the DLL file 
@@ -253,7 +155,7 @@ class ModuleCompiler:
     
     def create_executable(self, out = None, winexe = False, 
     target_platform = None, embed = True, standalone = True, 
-    mta = False, delete_resp = True, executable = IPYEXE):
+    mta = False, delete_resp = True, executable = "ipy.exe"):
         """Compile your scripts into an EXE file (.NET process assembly) using pyc.py.
                 
         :param str out: (optional) Specify the name of the EXE file 
@@ -301,75 +203,3 @@ class ModuleCompiler:
         
         self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
         executable = executable)
-
-def compiler(args):
-    """Funciton for command ``compile``. It should not be used directly.
-    
-    """
-    mc = ModuleCompiler(paths_to_scripts = args.script)
-    
-    if args.target == "winexe" or args.target == "exe":
-        if (args.main is not None) and (not args.main in args.script):
-            args.script.insert(0, arg.main)
-    
-    if args.target == "winexe":
-        mc.create_executable(out = args.out, winexe = True, 
-        target_platform = args.platform, embed = args.embed, 
-        standalone = args.standalone, mta = args.mta)
-    elif args.target == "exe":
-        mc.create_executable(out = args.out, winexe = False, 
-        target_platform = args.platform, embed = args.embed, 
-        standalone = args.standalone)
-    else:
-        mc.create_dll(out = args.out)
-    
-    six.print_(mc.pyc_stdout)
-
-def main():
-    """This function will be used when ironcompiler.py is run as a script.
-    
-    """
-    # トップレベル
-    parser = argparse.ArgumentParser(
-    description = "Compile IronPython scripts into a .NET assembly.", 
-    epilog = "See '%(prog)s <command> --help' for details.")
-    parser.add_argument("-v", "--version", action = "version", 
-    version = "IronPyCompiler " + __version__, 
-    help = "Show the version of this module.")
-    subparsers = parser.add_subparsers(
-    help = "Commands this module accepts.", 
-    dest = "command")
-    
-    # サブコマンドcompile
-    parser_compile = subparsers.add_parser("compile", 
-    help = "Analyze scripts and compile them.")
-    parser_compile.add_argument("script", nargs = "+", 
-    help = "Scripts that should be compiled.")
-    parser_compile.add_argument("-o", "--out", 
-    help = "Output file name.")
-    parser_compile.add_argument("-t", "--target",
-    default = "dll", choices = ["dll", "exe", "winexe"], 
-    help = "Compile scripts into dll, exe, or winexe.")
-    parser_compile.add_argument("-m", "--main",
-    help = "Script to be executed first.")
-    parser_compile.add_argument("-p", "--platform", 
-    choices = ["x86", "x64"], 
-    help = "Target platform.")
-    parser_compile.add_argument("-e", "--embed", 
-    action = "store_true", 
-    help = "Embed the generated DLL into exe/winexe.")
-    parser_compile.add_argument("-s", "--standalone", 
-    action = "store_true", 
-    help = "Embed the IronPython assemblies into exe/winexe.")
-    parser_compile.add_argument("-M", "--mta", 
-    action = "store_true", 
-    help = "Set MTAThreadAttribute (winexe).")
-    parser_compile.set_defaults(func = compiler)
-    
-    args = parser.parse_args()
-    args.func(args)
-
-
-if __name__ == "__main__":
-    main()
-
