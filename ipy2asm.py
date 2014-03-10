@@ -8,10 +8,10 @@ Function defined in this module should not be used directly by other
 modules.
 """
 
+from __future__ import print_function
 import argparse
 import os
 import sys
-from __future__ import print_function
 
 # Original modules
 import ironpycompiler
@@ -80,7 +80,7 @@ def main():
     if sys.platform == "cli":
         print("WARNING: This script will not work on IronPython.")
         print()
-    elif six.PY3:
+    elif sys.version_info[0] >= 3:
         print("WARNING: This script will not work on Python 3+.")
         print()
         
