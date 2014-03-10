@@ -24,13 +24,20 @@ def _compiler(args):
     """Funciton for command ``compile``. It should not be used directly.
     
     """
-    mc = ironpycompiler.compiler.ModuleCompiler(
-    paths_to_scripts = args.script)
     
+    # mainのみにスクリプトが指定されたとき
     if args.target == "winexe" or args.target == "exe":
         if (args.main is not None) and (not args.main in args.script):
             args.script.insert(0, arg.main)
     
+    mc = ironpycompiler.compiler.ModuleCompiler(
+    paths_to_scripts = args.script)
+    
+    six.print_("Analyzing scripts...", end = "")
+    mc.check_compilability()
+    six.print_("Done.")
+    
+    six.print_("Compiling scripts...", end = "")
     if args.target == "winexe":
         mc.create_executable(out = args.out, winexe = True, 
         target_platform = args.platform, embed = args.embed, 
@@ -42,12 +49,31 @@ def _compiler(args):
     else:
         mc.create_dll(out = args.out)
     
+    six.print_("Done. This is the output by pyc.py.")
     six.print_(mc.pyc_stdout)
+
+def _analyzer(args):
+    """ Function for command ``analyze``. It should not be used directly.
+    
+    """
+    
+    mc = ironpycompiler.compiler.ModuleCompiler(
+    paths_to_scripts = args.script)
+    mc.check_compilability()
+    six.print_("These modules are required and compilable:")
+    for mod in mc.compilable_modules:
+        six.print_(mod)
+    six.print_()
+    six.print_("These modules are required but uncompilable:")
+    for mod in mc.uncompilable_modules:
+        six.print_(mod)
+
 
 def main():
     """This function will be used when this module is run as a script.
         
     """
+    
     # トップレベル
     parser = argparse.ArgumentParser(
     description = "Compile IronPython scripts into a .NET assembly.", 
@@ -85,13 +111,20 @@ def main():
     help = "Set MTAThreadAttribute (winexe).")
     parser_compile.set_defaults(func = _compiler)
     
+    # サブコマンドanalyze
+    parser_analyze = subparsers.add_parser("analyze", 
+    help = "Only check what modules scripts require.")
+    parser_analyze.add_argument("script", nargs = "+", 
+    help = "Scripts that should be analyzed.")
+    parser_analyze.set_defaults(func = _analyzer)
+    
     args = parser.parse_args()
     
     # 将来Python 3.3+に対応したときに必要
     if hasattr(args, "func"):
         args.func(args)
     else:
-         parser.print_help()
+        parser.print_help()
 
 if __name__ == "__main__":
     main()

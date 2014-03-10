@@ -16,3 +16,4 @@ __author__ = "Hamukichi (Nombiri)"
 __version__ = "0.6.0"
 __date__ = "2014-03-10"
 __licence__ = "MIT License"
+
