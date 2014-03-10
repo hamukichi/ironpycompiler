@@ -11,13 +11,11 @@ modules.
 import argparse
 import os
 import sys
+from __future__ import print_function
 
 # Original modules
 import ironpycompiler
 import ironpycompiler.compiler
-
-# Third-party modules
-import six
 
 __version__ = ironpycompiler.__version__
 
@@ -34,11 +32,11 @@ def _compiler(args):
     mc = ironpycompiler.compiler.ModuleCompiler(
     paths_to_scripts = args.script)
     
-    six.print_("Analyzing scripts...", end = "")
+    print("Analyzing scripts...", end = "")
     mc.check_compilability()
-    six.print_("Done.")
+    print("Done.")
     
-    six.print_("Compiling scripts...", end = "")
+    print("Compiling scripts...", end = "")
     if args.target == "winexe":
         mc.create_executable(out = args.out, winexe = True, 
         target_platform = args.platform, embed = args.embed, 
@@ -50,8 +48,8 @@ def _compiler(args):
     else:
         mc.create_dll(out = args.out)
     
-    six.print_("Done. This is the output by pyc.py.")
-    six.print_(mc.pyc_stdout)
+    print("Done. This is the output by pyc.py.")
+    print(mc.pyc_stdout)
 
 def _analyzer(args):
     """ Function for command ``analyze``. It should not be used directly.
@@ -61,17 +59,17 @@ def _analyzer(args):
     mc = ironpycompiler.compiler.ModuleCompiler(
     paths_to_scripts = args.script)
     mc.check_compilability()
-    six.print_("Searched for modules in these directories:")
+    print("Searched for modules in these directories:")
     for d in mc.dirs_of_modules:
-        six.print_(d)
-    six.print_()
-    six.print_("These modules are required and compilable:")
+        print(d)
+    print()
+    print("These modules are required and compilable:")
     for mod in mc.compilable_modules:
-        six.print_(mod)
-    six.print_()
-    six.print_("These modules are required but uncompilable:")
+        print(mod)
+    print()
+    print("These modules are required but uncompilable:")
     for mod in mc.uncompilable_modules:
-        six.print_(mod)
+        print(mod)
 
 
 def main():
@@ -80,11 +78,11 @@ def main():
     """
     
     if sys.platform == "cli":
-        six.print_("WARNING: This script will not work on IronPython.")
-        six.print_()
-    elif sys.version_info.major >= 3:
-        six.print_("WARNING: This script will not work on Python 3+.")
-        six.print_()
+        print("WARNING: This script will not work on IronPython.")
+        print()
+    elif six.PY3:
+        print("WARNING: This script will not work on Python 3+.")
+        print()
         
     
     # トップレベル

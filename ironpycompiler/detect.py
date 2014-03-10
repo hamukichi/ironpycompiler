@@ -12,9 +12,6 @@ import glob
 # Original modules
 from . import exceptions
 
-# Third-party modules
-import six
-
 def detect_ipy(regkeys = ["SOFTWARE\\IronPython", 
     "SOFTWARE\\Wow6432Node\\IronPython"], executable = "ipy.exe"):
     """This function returns the list of the paths to the IronPython directories.
@@ -38,8 +35,8 @@ def detect_ipy(regkeys = ["SOFTWARE\\IronPython",
     try:
         for key in regkeys:
             try:
-                ipybasekey = six.moves.winreg.OpenKey(
-                six.moves.winreg.HKEY_LOCAL_MACHINE, key)
+                ipybasekey = _winreg.OpenKey(
+                _winreg.HKEY_LOCAL_MACHINE, key)
                 break # キーが見つかれば終わる
             except WindowsError as e: # キーが存在しないときなど
                 continue
@@ -54,15 +51,15 @@ def detect_ipy(regkeys = ["SOFTWARE\\IronPython",
         for idx in itr:
             try:
                 ipyvers.append(
-                six.moves.winreg.EnumKey(ipybasekey, idx))
+                _winreg.EnumKey(ipybasekey, idx))
             except WindowsError as e: # 対応するサブキーがなくなったら
                 break
         # IronPythonへのパスを取得する
         for ver in ipyvers:
-            with six.moves.winreg.OpenKey(ipybasekey, 
+            with _winreg.OpenKey(ipybasekey, 
             ver + "\\InstallPath") as ipypathkey:
                 ipydirpaths.add(os.path.dirname(
-                six.moves.winreg.QueryValue(ipypathkey, None)))
+                _winreg.QueryValue(ipypathkey, None)))
         # IronPythonキーを閉じる
         ipybasekey.Close()
     
