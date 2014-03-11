@@ -122,7 +122,7 @@ class ModuleCompiler:
         stdin = subprocess.PIPE, stdout = subprocess.PIPE, 
         stderr = subprocess.STDOUT)
         (self.pyc_stdout, self.pyc_stderr) = sp.communicate()
-        sp.terminate()
+        #sp.terminate()
         
         # レスポンスファイルを削除する
         if delete_resp:
