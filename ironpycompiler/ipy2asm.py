@@ -14,10 +14,7 @@ import os
 import sys
 
 # Original modules
-import ironpycompiler
-import ironpycompiler.compiler
-
-__version__ = ironpycompiler.__version__
+from . import compiler
 
 def _compiler(args):
     """Funciton for command ``compile``. It should not be used directly.
@@ -29,7 +26,7 @@ def _compiler(args):
         if (args.main is not None) and (not args.main in args.script):
             args.script.insert(0, arg.main)
     
-    mc = ironpycompiler.compiler.ModuleCompiler(
+    mc = compiler.ModuleCompiler(
     paths_to_scripts = args.script)
     
     print("Analyzing scripts...", end = "")
@@ -56,7 +53,7 @@ def _analyzer(args):
     
     """
     
-    mc = ironpycompiler.compiler.ModuleCompiler(
+    mc = compiler.ModuleCompiler(
     paths_to_scripts = args.script)
     mc.check_compilability()
     print("Searched for modules in these directories:")
@@ -89,9 +86,6 @@ def main():
     parser = argparse.ArgumentParser(
     description = "Compile IronPython scripts into a .NET assembly.", 
     epilog = "See '%(prog)s <command> --help' for details.")
-    parser.add_argument("-v", "--version", action = "version", 
-    version = "IronPyCompiler " + __version__, 
-    help = "Show the version of this module.")
     subparsers = parser.add_subparsers(
     help = "Commands this module accepts.", 
     dest = "command")

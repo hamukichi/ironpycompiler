@@ -6,7 +6,8 @@ This is a script for installing IronPyCompiler.
 
 """
 
-from distutils.core import setup
+
+from setuptools import setup
 
 import ironpycompiler
 
@@ -21,7 +22,7 @@ setup(name = "ironpycompiler",
       author = "Hamukichi (Nombiri)", 
       author_email = "hamukichi-dev@outlook.jp",
       packages = ["ironpycompiler"], 
-      requires = ["argparse"], 
+      install_requires = ["argparse"], 
       provides = ["ironpycompiler"], 
       scripts = ["ipy2asm.py"], 
       url = "https://github.com/hamukichi/ironpycompiler", 
@@ -34,5 +35,8 @@ setup(name = "ironpycompiler",
                      "Programming Language :: Python :: Implementation :: CPython", 
                      "Programming Language :: Python :: Implementation :: PyPy", 
                      "Topic :: Software Development", 
-                     "Topic :: System :: Software Distribution"]
+                     "Topic :: System :: Software Distribution"],
+      license = "MIT License", 
+      keywords = ["ironpython", ".net", "assembly", "executable", "compile", "stand-alone", "pyc.py"], 
+      entry_points = {"console_scripts": ["ipy2asm = ironpycompiler.ip2asm:main"]}
       )
