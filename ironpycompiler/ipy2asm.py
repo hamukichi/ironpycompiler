@@ -14,7 +14,7 @@ import os
 import sys
 
 # Original modules
-from . import compiler
+import ironpycompiler.compiler as compiler
 
 def _compiler(args):
     """Funciton for command ``compile``. It should not be used directly.
