@@ -8,7 +8,6 @@ Function defined in this module should not be used directly by other
 modules.
 """
 
-from __future__ import print_function
 import argparse
 import os
 import sys
@@ -29,11 +28,11 @@ def _compiler(args):
     mc = compiler.ModuleCompiler(
     paths_to_scripts = args.script)
     
-    print("Analyzing scripts...", end = "")
+    print "Analyzing scripts...",
     mc.check_compilability()
-    print("Done.")
+    print "Done."
     
-    print("Compiling scripts...", end = "")
+    print "Compiling scripts...",
     if args.target == "winexe":
         mc.create_executable(out = args.out, winexe = True, 
         target_platform = args.platform, embed = args.embed, 
@@ -45,8 +44,8 @@ def _compiler(args):
     else:
         mc.create_dll(out = args.out)
     
-    print("Done. This is the output by pyc.py.")
-    print(mc.pyc_stdout)
+    print "Done. This is the output by pyc.py."
+    print mc.pyc_stdout
 
 def _analyzer(args):
     """ Function for command ``analyze``. It should not be used directly.
@@ -56,17 +55,17 @@ def _analyzer(args):
     mc = compiler.ModuleCompiler(
     paths_to_scripts = args.script)
     mc.check_compilability()
-    print("Searched for modules in these directories:")
+    print "Searched for modules in these directories:"
     for d in mc.dirs_of_modules:
-        print(d)
-    print()
-    print("These modules are required and compilable:")
+        print d
+    print
+    print "These modules are required and compilable:"
     for mod in mc.compilable_modules:
-        print(mod)
-    print()
-    print("These modules are required but uncompilable:")
+        print mod
+    print
+    print "These modules are required but uncompilable:"
     for mod in mc.uncompilable_modules:
-        print(mod)
+        print mod
 
 
 def main():
@@ -75,11 +74,11 @@ def main():
     """
     
     if sys.platform == "cli":
-        print("WARNING: This script will not work on IronPython.")
-        print()
+        print "WARNING: This script will not work on IronPython."
+        print
     elif sys.version_info[0] >= 3:
-        print("WARNING: This script will not work on Python 3+.")
-        print()
+        print "WARNING: This script will not work on Python 3+."
+        print
         
     
     # トップレベル

@@ -10,6 +10,7 @@ import os
 import modulefinder
 import tempfile
 import subprocess
+import shutil
 
 # Original modules
 from . import detect
