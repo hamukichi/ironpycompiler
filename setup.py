@@ -6,14 +6,17 @@ This is a script for installing IronPyCompiler.
 
 """
 
+from __future__ import with_statement
 from setuptools import setup
 import sys
 
 import ironpycompiler
 
-# Read README.txt
-with open("README.txt", "r") as f:
-    readme_content = f.read()
+# Read README.txt and HISTORY.txt
+with open("README.txt", "r") as f_readme:
+    readme_content = f_readme.read()
+with open("HISTORY.txt", "r") as f_history:
+    history_content = f_history.read() 
 
 sysver = sys.version_info
 
@@ -30,7 +33,7 @@ classifiers = ["Development Status :: 3 - Alpha",
 setup_args = {"name": "ironpycompiler",
               "version": ironpycompiler.__version__,
               "description": "Compile IronPython scripts into a stand-alone .NET assembly.", 
-              "long_description": readme_content, 
+              "long_description": readme_content + history_content, 
               "author": "Hamukichi (Nombiri)", 
               "author_email": "hamukichi-dev@outlook.jp",
               "packages": ["ironpycompiler"],
