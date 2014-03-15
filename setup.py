@@ -26,6 +26,7 @@ classifiers = ["Development Status :: 3 - Alpha",
                "Operating System :: Microsoft :: Windows", 
                "Programming Language :: Python", 
                "Programming Language :: Python :: 2", 
+               "Programming Language :: Python :: 2.7"
                "Programming Language :: Python :: Implementation :: CPython", 
                "Topic :: Software Development", 
                "Topic :: System :: Software Distribution"]
