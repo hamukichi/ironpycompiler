@@ -1,15 +1,24 @@
 History
 =======
 
+v0.8.0 (2014-03-15)
+-------------------
+
+* A new parameter of the function ``compiler.ModuleCompier.call_pyc``: 
+  ``cwd``.
+* Solved the problem that .NET assemblies will be generated in the 
+  current working directory even if the destination directory is 
+  specified.
+
 v0.7.1 (2014-03-13)
 -------------------
 
-* Revised MANIFEST.in
+* Revised MANIFEST.in.
 
 v0.7.0 (2014-03-11)
 -------------------
 
-* Moved ipy2asm.py into the package
+* Moved ipy2asm.py into the package.
 
 v0.6.0 (2014-03-10)
 -------------------

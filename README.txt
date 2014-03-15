@@ -14,6 +14,6 @@ does not work correctly. This is why compiling IronPython scripts is
 more difficult than it looks.
 
 IronPyCompiler will solve this problem. It examines what modules your
-scripts require, using the module ``modulefinder`` of *CPython* (or
-PyPy), and compiles them with ``pyc.py`` into a stand-alone .NET 
-assembly, calling ipy.exe.
+scripts require, using the module ``modulefinder`` of *CPython*, and 
+compiles them with ``pyc.py`` into a stand-alone .NET assembly, calling 
+ipy.exe.

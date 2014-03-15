@@ -24,7 +24,6 @@ classifiers = ["Development Status :: 3 - Alpha",
                "Programming Language :: Python", 
                "Programming Language :: Python :: 2", 
                "Programming Language :: Python :: Implementation :: CPython", 
-               "Programming Language :: Python :: Implementation :: PyPy", 
                "Topic :: Software Development", 
                "Topic :: System :: Software Distribution"]
 

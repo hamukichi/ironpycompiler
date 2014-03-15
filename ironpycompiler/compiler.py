@@ -10,7 +10,6 @@ import os
 import modulefinder
 import tempfile
 import subprocess
-import shutil
 
 # Original modules
 from . import detect
@@ -86,7 +85,8 @@ class ModuleCompiler:
                     os.path.abspath(path_to_module))
         self.compilable_modules -= set(self.paths_to_scripts)
     
-    def call_pyc(self, args, delete_resp = True, executable = "ipy.exe"):
+    def call_pyc(self, args, delete_resp = True, executable = "ipy.exe", 
+    cwd = os.getcwd()):
         """Call pyc.py in order to compile your scripts.
         
         In general use this method is not supposed to be called 
@@ -99,7 +99,7 @@ class ModuleCompiler:
                                  response file after compilation or not. 
         :param str executable: (optional) Specify the name of the 
                                Ironpython exectuable.
-        
+        :param str cwd: (optional) Specify the current working directory.
         """
         
         # レスポンスファイルを作る
@@ -121,7 +121,7 @@ class ModuleCompiler:
         executable))
         sp = subprocess.Popen(args = ipy_args, executable = ipy_exe, 
         stdin = subprocess.PIPE, stdout = subprocess.PIPE, 
-        stderr = subprocess.STDOUT)
+        stderr = subprocess.STDOUT, cwd = cwd)
         (self.pyc_stdout, self.pyc_stderr) = sp.communicate()
         #sp.terminate()
         
@@ -147,12 +147,18 @@ class ModuleCompiler:
         # pycに送る引数
         pyc_args = ["/target:dll"]
         if out is not None:
-            pyc_args.append("/out:" + out)
+            out = os.path.abspath(out)
+            pyc_args.append(
+            "/out:" + os.path.splitext(os.path.basename(out))[0])
         pyc_args += self.paths_to_scripts
         pyc_args += self.compilable_modules
         
-        self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
-        executable = executable)
+        # call_pycに送る引数
+        call_args = {"args": pyc_args, "delete_resp": delete_resp, 
+                     "executable": executable}
+        if out is not None:
+            call_args["cwd"] = os.path.dirname(out)
+        self.call_pyc(**call_args)
     
     def create_executable(self, out = None, winexe = False, 
     target_platform = None, embed = True, standalone = True, 
@@ -186,7 +192,9 @@ class ModuleCompiler:
         # pyc.pyに送る引数
         pyc_args = ["/main:" + self.paths_to_scripts[0]]
         if out is not None:
-            pyc_args.append("/out:" + out)
+            out = os.path.abspath(out)
+            pyc_args.append(
+            "/out:" + os.path.splitext(os.path.basename(out))[0])
         if winexe:
             pyc_args.append("/target:winexe")
             if mta:
@@ -202,5 +210,10 @@ class ModuleCompiler:
         pyc_args += self.paths_to_scripts
         pyc_args += self.compilable_modules
         
-        self.call_pyc(args = pyc_args, delete_resp = delete_resp, 
-        executable = executable)
+        # call_pycに送る引数
+        call_args = {"args": pyc_args, "delete_resp": delete_resp, 
+                     "executable": executable}
+        if out is not None:
+            call_args["cwd"] = os.path.dirname(out)
+        
+        self.call_pyc(**call_args)
