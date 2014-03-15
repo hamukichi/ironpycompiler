@@ -86,7 +86,7 @@ class ModuleCompiler:
         self.compilable_modules -= set(self.paths_to_scripts)
     
     def call_pyc(self, args, delete_resp = True, executable = "ipy.exe", 
-    cwd = os.getcwd()):
+    cwd = None):
         """Call pyc.py in order to compile your scripts.
         
         In general use this method is not supposed to be called 
@@ -101,6 +101,9 @@ class ModuleCompiler:
                                Ironpython exectuable.
         :param str cwd: (optional) Specify the current working directory.
         """
+        
+        if cwd is None:
+            cwd = os.getcwd()
         
         # レスポンスファイルを作る
         self.response_file = tempfile.mkstemp(suffix = ".txt", 
