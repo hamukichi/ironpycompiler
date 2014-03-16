@@ -27,6 +27,7 @@ ipy.exe.
    :maxdepth: 2
    
    prerequisites
+   command-line
    api
 
 
