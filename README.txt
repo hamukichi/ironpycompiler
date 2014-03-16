@@ -1,6 +1,3 @@
-IronPyCompiler
-==============
-
 IronPyCompiler is a library for compiling IronPython scripts 
 requiring modules from the Python standard library (or third-party 
 pure-Python modules) into a *stand-alone* .NET assembly (a DLL file

@@ -84,7 +84,8 @@ def main():
     # トップレベル
     parser = argparse.ArgumentParser(
     description = "Compile IronPython scripts into a .NET assembly.", 
-    epilog = "See '%(prog)s <command> --help' for details.")
+    epilog = "See '%(prog)s <command> --help' for details.", 
+    prog = "ipy2asm")
     subparsers = parser.add_subparsers(
     help = "Commands this module accepts.", 
     dest = "command")
