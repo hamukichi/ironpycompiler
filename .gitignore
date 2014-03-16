@@ -221,4 +221,4 @@ sample_target/
 __pycache__/
 
 # Sphinx
-_*
+_build

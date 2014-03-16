@@ -17,3 +17,5 @@ External Modules
 
 * `argparse <https://pypi.python.org/pypi/argparse/1.2.1>`_ is necessary
   if you use CPython < 2.7.
+* `setuptools <https://pypi.python.org/pypi/setuptools>`_ is required in
+  installing IronPyCompiler using ``setup.py``.
