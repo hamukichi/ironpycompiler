@@ -42,10 +42,18 @@ class ModuleCompiler:
         paths_to_scripts] # コンパイルすべきスクリプトたち
         
         self.dirs_of_modules = None # 依存モジュールたちのディレクトリ
-        self.compilable_modules = set() # ファイルパスの集合
-        self.uncompilable_modules = set() # モジュール名の集合、非必須
+        
+        #: Set of the paths to required and compilable modules.
+        self.compilable_modules = set()
+        
+        #: Set of the names of required but uncompilable modules.
+        self.uncompilable_modules = set()
+        
         self.response_file = None # pyc.pyに渡すレスポンスファイル
-        self.pyc_stdout = None # pyc.pyから得た標準出力
+        
+        #: Standard output from pyc.py.
+        self.pyc_stdout = None
+        
         self.pyc_stderr = None # pyc.pyから得た標準エラー出力
     
     def check_compilability(self, dirs_of_modules = None):

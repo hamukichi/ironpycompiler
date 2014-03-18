@@ -33,6 +33,7 @@ def detect_ipy(regkeys = ["SOFTWARE\\IronPython",
     # 可能ならば、IronPythonキーをレジストリから読み込む
     ipybasekey = None
     try:
+        import _winreg
         for key in regkeys:
             try:
                 ipybasekey = _winreg.OpenKey(
@@ -40,7 +41,7 @@ def detect_ipy(regkeys = ["SOFTWARE\\IronPython",
                 break # キーが見つかれば終わる
             except WindowsError as e: # キーが存在しないときなど
                 continue
-    except Exception as e:
+    except ImportError as e:
         pass
     
     # レジストリからIronPythonへのパスを取得する
