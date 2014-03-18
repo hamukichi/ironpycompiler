@@ -1,12 +1,19 @@
 Installation
 ============
 
-Getting Source Code
--------------------
+Getting IronPyCompiler from GitHub
+----------------------------------
 
-1. Download source codes from `the Github repository 
-   <https://github.com/hamukichi/ironpycompiler>`_.
-2. Execute ``python setup.py install`` to install IronPyCompiler. Please
-   use CPython 2.x.
+Source Codes
+^^^^^^^^^^^^
 
+You can download source codes from 
+https://github.com/hamukichi/ironpycompiler . Execute 
+``python setup.py install`` to install IronPyCompiler.
+
+Binary Installers and Python Wheels
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can download a binary installer or Python wheel from 
+https://github.com/hamukichi/ironpycompiler/releases .
 
