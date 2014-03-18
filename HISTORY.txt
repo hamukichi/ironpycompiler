@@ -1,6 +1,11 @@
 History
 -------
 
+v0.8.2 (2014-03-18)
+^^^^^^^^^^^^^^^^^^^
+
+* Solved the problem that the Windows registry is always ignored.
+
 v0.8.1 (2014-03-16)
 ^^^^^^^^^^^^^^^^^^^
 
