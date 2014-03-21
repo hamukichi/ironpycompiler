@@ -318,5 +318,5 @@ def gather_ipydll(dest_dir, ipy_dir = None):
     
     if ipy_dir is None:
         ipy_dir = detect.detect_ipy()[0]
-    for dll in glob.glob(os.path.join(ipy_dir, "x.dll")):
+    for dll in glob.glob(os.path.join(ipy_dir, "*.dll")):
         shutil.copy2(dll, dest_dir)
