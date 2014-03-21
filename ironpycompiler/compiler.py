@@ -15,6 +15,7 @@ import shutil
 
 # Original modules
 from . import detect
+from . import constants
 
 class ModuleCompiler:
     """This class finds the modules required by your script and create a .NET assembly.
@@ -91,8 +92,8 @@ class ModuleCompiler:
                     os.path.abspath(path_to_module))
         self.compilable_modules -= set(self.paths_to_scripts)
     
-    def call_pyc(self, args, delete_resp = True, executable = "ipy.exe", 
-    cwd = None):
+    def call_pyc(self, args, delete_resp = True, 
+    executable = constants.EXECUTABLE, cwd = None):
         """Call pyc.py in order to compile your scripts.
         
         In general use this method is not supposed to be called 
@@ -138,7 +139,8 @@ class ModuleCompiler:
         if delete_resp:
             os.remove(self.response_file[1])
     
-    def create_dll(self, out = None, delete_resp = True, executable = "ipy.exe"):
+    def create_dll(self, out = None, delete_resp = True, 
+    executable = constants.EXECUTABLE):
         """Compile your scripts into a DLL file (.NET library assembly) using pyc.py.
         
         :param str out: (optional) Specify the name of the DLL file 
@@ -174,7 +176,7 @@ class ModuleCompiler:
     
     def create_executable(self, out = None, winexe = False, 
     target_platform = None, embed = True, standalone = True, 
-    mta = False, delete_resp = True, executable = "ipy.exe"):
+    mta = False, delete_resp = True, executable = constants.EXECUTABLE):
         """Compile your scripts into an EXE file (.NET process assembly) using pyc.py.
                 
         :param str out: (optional) Specify the name of the EXE file 
@@ -235,7 +237,7 @@ class ModuleCompiler:
     
     def create_asm(self, out = None, target_asm = "dll", 
     target_platform = None, embed = True, standalone = True, 
-    mta = False, delete_resp = True, executable = "ipy.exe", 
+    mta = False, delete_resp = True, executable = constants.EXECUTABLE, 
     copy_ipydll = False):
         """Compile your scripts into a .NET assembly, using pyc.py.
                 

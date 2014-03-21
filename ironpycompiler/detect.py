@@ -11,9 +11,10 @@ import glob
 
 # Original modules
 from . import exceptions
+from . import constants
 
-def detect_ipy(regkeys = ["SOFTWARE\\IronPython", 
-    "SOFTWARE\\Wow6432Node\\IronPython"], executable = "ipy.exe"):
+def detect_ipy(regkeys = constants.REGKEYS, 
+executable = constants.EXECUTABLE):
     """This function returns the list of the paths to the IronPython directories.
     
     This function searches in the Windows registry and PATH for 
