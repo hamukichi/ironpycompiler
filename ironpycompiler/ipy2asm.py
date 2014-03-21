@@ -31,18 +31,13 @@ def _compiler(args):
     print "Analyzing scripts...",
     mc.check_compilability()
     print "Done."
+    print
     
     print "Compiling scripts...",
-    if args.target == "winexe":
-        mc.create_executable(out = args.out, winexe = True, 
-        target_platform = args.platform, embed = args.embed, 
-        standalone = args.standalone, mta = args.mta)
-    elif args.target == "exe":
-        mc.create_executable(out = args.out, winexe = False, 
-        target_platform = args.platform, embed = args.embed, 
-        standalone = args.standalone)
-    else:
-        mc.create_dll(out = args.out)
+    mc.create_asm(out = args.out, target_asm = args.target, 
+    target_platform = args.platform, embed = args.embed, 
+    standalone = args.standalone, mta = args.mta, 
+    copy_ipydll = args.copyipydll)
     
     print "Done. This is the output by pyc.py."
     print mc.pyc_stdout
@@ -114,6 +109,9 @@ def main():
     parser_compile.add_argument("-M", "--mta", 
     action = "store_true", 
     help = "Set MTAThreadAttribute (winexe).")
+    parser_compile.add_argument("-c", "--copyipydll", 
+    action = "store_true", 
+    help = "Copy IronPython DLLs into the destination directory.")
     parser_compile.set_defaults(func = _compiler)
     
     # サブコマンドanalyze
