@@ -40,21 +40,17 @@ class ModuleCompiler:
         
         self.paths_to_scripts = [os.path.abspath(x) for x in 
         paths_to_scripts] # コンパイルすべきスクリプトたち
-        
         self.dirs_of_modules = None # 依存モジュールたちのディレクトリ
-        
         #: Set of the paths to required and compilable modules.
         self.compilable_modules = set()
-        
         #: Set of the names of required but uncompilable modules.
         self.uncompilable_modules = set()
-        
         self.response_file = None # pyc.pyに渡すレスポンスファイル
-        
         #: Standard output from pyc.py.
         self.pyc_stdout = None
-        
         self.pyc_stderr = None # pyc.pyから得た標準エラー出力
+        #: The path to the main output assembly.
+        self.output_asm = None
     
     def check_compilability(self, dirs_of_modules = None):
         """Check the compilability of the modules required by the scripts you specified.
@@ -139,7 +135,7 @@ class ModuleCompiler:
         # レスポンスファイルを削除する
         if delete_resp:
             os.remove(self.response_file[1])
-        
+    
     def create_dll(self, out = None, delete_resp = True, executable = "ipy.exe"):
         """Compile your scripts into a DLL file (.NET library assembly) using pyc.py.
         
@@ -228,3 +224,72 @@ class ModuleCompiler:
             call_args["cwd"] = os.path.dirname(out)
         
         self.call_pyc(**call_args)
+    
+    def create_asm(self, out = None, target_asm = "dll", 
+    target_platform = None, embed = True, standalone = True, 
+    mta = False, delete_resp = True, executable = "ipy.exe", 
+    copy_ipydll = False):
+        """Compile your scripts into a .NET assembly, using pyc.py.
+                
+        :param str out: (optional) Specify the name of the EXE file 
+                        that should be created, or the name of the main
+                        script will be used and the destination 
+                        directory will be the current directory.
+        :param str target_asm: (optional) The type of the output assembly, 
+                               can be "dll", "exe", or "winexe". 
+                               By default a .DLL file will be created.
+        :param str target_platform: (optional) Specify the target 
+                                    platform ("x86" or "x64") if 
+                                    necessary (exe/winexe).
+        :param bool embed: (optional) Specify whether to embed the 
+                           generated DLL into the executable (exe/winexe).
+        :param bool standalone: (optional) Specify whether to embed 
+                                IronPython assemblies into the executable 
+                                (exe/winexe).
+        :param bool mta: (optional) Specify whether to set 
+                         MTAThreadAttribute (winexe). 
+        :param bool delete_resp: (optional) Specify whether to delete the 
+                                 response file after compilation or not. 
+        :param str executable: (optional) Specify the name of the 
+                               Ironpython exectuable.
+        :param bool copy_ipydll: (optional) Specify whether to copy the
+                                 IronPython DLL files into the 
+                                 destination directory.
+        
+        """
+        
+        if self.compilable_modules == set():
+            self.check_compilability()
+        
+        if out is None:
+            output_basename = os.path.splitext(os.path.basename(
+            self.paths_to_scripts[0]))[0]
+            if target_asm in ["exe", "winexe"]:
+                output_basename += ".exe"
+            else:
+                output_basename += ".dll"
+            self.output_asm = os.path.join(os.getcwd(), output_basename)
+        else:
+            self.output_asm = os.path.abspath(out)
+        
+        pyc_args = ["/out:" + os.path.splitext(self.output_asm)[0]]
+        
+        if target_asm in ["exe", "winexe"]:
+            pyc_args.append("/target:" + target_asm)
+            pyc_args.append("/main:" + self.paths_to_scripts[0])
+            if target_platform in ["x86", "x64"]:
+                pyc_args.append("/platform:" + target_platform)
+            if embed:
+                pyc_args.append("/embed")
+            if standalone:
+                pyc_args.append("/standalone")
+        if target_asm == "winexe" and mta:
+            pyc_args.append("/mta")
+        pyc_args += self.paths_to_scripts
+        pyc_args += self.compilable_modules
+        
+        call_args = {"args": pyc_args, "delete_resp": delete_resp, 
+        "executable": executable, "cwd": os.path.dirname(self.output_asm)}
+        
+        self.call_pyc(**call_args)
+
