@@ -18,3 +18,9 @@ ironpycompiler.exceptions
 
 .. automodule:: ironpycompiler.exceptions
    :members:
+
+ironpycompiler.constants
+------------------------
+
+.. automodule:: ironpycompiler.constants
+   :members:
