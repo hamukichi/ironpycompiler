@@ -10,6 +10,8 @@ import os
 import modulefinder
 import tempfile
 import subprocess
+import glob
+import shutil
 
 # Original modules
 from . import detect
@@ -25,7 +27,7 @@ class ModuleCompiler:
                                   element of this list must be the 
                                   path to the main file of your project.
     :param str ipy_dir: Specify the IronPython directory, or it will be
-                        automatically detected using :func:`detect_ipy()`.
+                        automatically detected using :func:`detect_ipy`.
     
     """
     
@@ -146,6 +148,9 @@ class ModuleCompiler:
         :param str executable: (optional) Specify the name of the 
                                Ironpython exectuable.
         
+        .. deprecated:: 0.9.0
+           Use :meth:`create_asm`.
+        
         """
         
         if self.compilable_modules == set():
@@ -191,6 +196,9 @@ class ModuleCompiler:
                                  response file after compilation or not. 
         :param str executable: (optional) Specify the name of the 
                                Ironpython exectuable.
+        
+        .. deprecated:: 0.9.0
+           Use :meth:`create_asm`.
         
         """
         if self.compilable_modules == set():
@@ -292,4 +300,23 @@ class ModuleCompiler:
         "executable": executable, "cwd": os.path.dirname(self.output_asm)}
         
         self.call_pyc(**call_args)
+        
+        if copy_ipydll:
+            gather_ipydll(dest_dir = os.path.dirname(self.output_asm), 
+            ipy_dir = self.ipy_dir)
 
+def gather_ipydll(dest_dir, ipy_dir = None):
+    """ Copy the IronPython DLL files into the directory specified.
+    
+    :param str dest_dir: The path of the destination directory.
+    :param str ipy_dir: Specify the path of the IronPython directory, or
+                        it will be detected using :func:`detect_ipy`.
+    
+    .. versionadded:: 0.9.0
+    
+    """
+    
+    if ipy_dir is None:
+        ipy_dir = detect.detect_ipy()[0]
+    for dll in glob.glob(os.path.join(ipy_dir, "x.dll")):
+        shutil.copy2(dll, dest_dir)
