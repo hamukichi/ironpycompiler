@@ -18,7 +18,7 @@ def detect_ipy(regkeys = ["SOFTWARE\\IronPython",
     
     This function searches in the Windows registry and PATH for 
     IronPython. If IronPython cannot be found in your system, 
-    :exc:`IronPythonDetectionError` will occur.
+    :exc:`ironpycompiler.exceptions.IronPythonDetectionError` will occur.
     
     :param list regkeys: (optional) The IronPython registry keys that 
                          should be looked for.

@@ -27,7 +27,7 @@ class ModuleCompiler:
                                   element of this list must be the 
                                   path to the main file of your project.
     :param str ipy_dir: Specify the IronPython directory, or it will be
-                        automatically detected using :func:`detect_ipy`.
+                        automatically detected using :func:`ironpycompiler.detect.detect_ipy`.
     
     """
     
