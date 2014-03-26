@@ -21,7 +21,7 @@ class IronPythonDetectionError(IPCError):
     
     """
     
-    def __init__(self, exectuable = None):
+    def __init__(self, executable = None):
         if executable is None:
             self.executable = None
         else:
