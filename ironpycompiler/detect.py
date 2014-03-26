@@ -27,56 +27,30 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
                            executable.
     :rtype: list
     
+    .. versionchanged:: 0.9.0
+       This function now calls :func:`search_ipy_reg` and
+       :func:`search_ipy_env`.
+    
     """
     
     ipydirpaths = set()
     
-    # 可能ならば、IronPythonキーをレジストリから読み込む
-    ipybasekey = None
     try:
-        import _winreg
-    except ImportError as e:
+        for directory in search_ipy_reg(regkeys).itervalues():
+            ipydirpath.add(directory)
+    except exceptions.IronPythonDetectionError():
         pass
-    else:
-        for key in regkeys:
-            try:
-                ipybasekey = _winreg.OpenKey(
-                _winreg.HKEY_LOCAL_MACHINE, key)
-            except WindowsError as e: # キーが存在しないときなど
-                continue
-            else:
-                break # キーが存在したら終わる
     
-    # レジストリからIronPythonへのパスを取得する
-    if ipybasekey:
-        itr = itertools.count()
-        # インストールされているIronPythonのバージョンを取得する
-        ipyvers = []
-        for idx in itr:
-            try:
-                ipyvers.append(
-                _winreg.EnumKey(ipybasekey, idx))
-            except WindowsError as e: # 対応するサブキーがなくなったら
-                break
-        # IronPythonへのパスを取得する
-        for ver in ipyvers:
-            with _winreg.OpenKey(ipybasekey, 
-            ver + "\\InstallPath") as ipypathkey:
-                ipydirpaths.add(os.path.dirname(
-                _winreg.QueryValue(ipypathkey, None)))
-        # IronPythonキーを閉じる
-        ipybasekey.Close()
-    
-    # 環境変数PATHからIronPythonへのパスを取得する
-    for path in os.environ["PATH"].split(os.pathsep):
-        for match_path in glob.glob(os.path.join(path, executable)):
-            if os.access(match_path, os.X_OK):
-                ipydirpaths.add(os.path.dirname(match_path))
+    try:
+        for directory in search_ipy_env(executable).itervalues():
+            ipydirpath.add(directory)
+    except exceptions.IronPythonDetectionError():
+        pass
     
     if len(ipydirpaths) == 0:
-        raise exceptions.IronPythonDetectionError(executable)
-    
-    return sorted(list(ipydirpaths), reverse = True)
+        raise exceptions.IronPythonDetectionError()
+    else:
+        return sorted(list(ipydirpaths), reverse = True)
 
 def search_ipy_reg(regkeys = constants.REGKEYS):
     """
