@@ -13,8 +13,7 @@ import glob
 from . import exceptions
 from . import constants
 
-def detect_ipy(regkeys = constants.REGKEYS, 
-executable = constants.EXECUTABLE):
+def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
     """This function returns the list of the paths to the IronPython directories.
     
     This function searches in the Windows registry and PATH for 
@@ -77,4 +76,57 @@ executable = constants.EXECUTABLE):
         raise exceptions.IronPythonDetectionError(executable)
     
     return sorted(list(ipydirpaths), reverse = True)
+
+def search_ipy_reg(regkeys = constants.REGKEYS):
+    """
+    Searches for IronPython regisitry keys.
+    
+    This function searches for IronPython keys in the Windows registry, 
+    and return a dictionary showing the versions of IronPython and their
+    locations (the paths to the IronPython directories). If there is no
+    IronPython registry key, 
+    :exc:`ironpycompiler.exceptions.IronPythonDetectionError` will occur.
+    
+    :param list regkeys: (optional) The IronPython registry keys that 
+                         should be looked for.
+    :rtype: dict
+    
+    .. versionadded:: 0.9.0
+    
+    """
+    
+    import _winreg
+    
+    foundipys = dict()
+    ipybasekey = None
+    
+    # IronPythonキーを読み込む
+    for key in regkeys:
+        try:
+            ipybasekey = _winreg.OpenKey(
+            _winreg.HKEY_LOCAL_MACHINE, key)
+        except WindowsError as e:
+            continue
+        else:
+            break
+    
+    if ipybasekey is None:
+        raise exceptions.IronPythonDetectionError()
+    else:
+        itr = itertools.count()
+        for idx in itr:
+            try:
+                foundipys[_winreg.EnumKey(ipybasekey, idx)] = None
+            except WindowsError as e: # 対応するサブキーがなくなったら
+                break
+        for ver in foundipys:
+            ipypathkey = _winreg.OpenKey(ipybasekey, 
+            ver + "\\InstallPath")
+            foundipys[ver] = os.path.dirname(
+            _winreg.QueryValue(ipypathkey, None))
+            ipypathkey.Close()
+        ipybasekey.Close()
+    
+    return foundipys
+
 
