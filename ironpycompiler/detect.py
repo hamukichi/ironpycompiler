@@ -8,6 +8,7 @@
 import itertools
 import os
 import glob
+import subprocess
 
 # Original modules
 from . import exceptions
@@ -82,7 +83,7 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
     Searches for IronPython regisitry keys.
     
     This function searches for IronPython keys in the Windows registry, 
-    and return a dictionary showing the versions of IronPython and their
+    and returns a dictionary showing the versions of IronPython and their
     locations (the paths to the IronPython directories). If there is no
     IronPython registry key, 
     :exc:`ironpycompiler.exceptions.IronPythonDetectionError` will occur.
@@ -129,4 +130,47 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
     
     return foundipys
 
+def search_ipy_env(executable = constants.EXECUTABLE):
+    """
+    Searches for IronPython directories, reading the PATH variable.
+    
+    This function searches for IronPython executables in your system, 
+    reading the PATH environment variable, and gets their version 
+    numbers, executing the executables.
+    
+    This function returns a dictionary showing the versions of 
+    IronPython and their locations (the paths to the IronPython 
+    directories). If no IronPython executable is found, 
+    :exc:`ironpycompiler.exceptions.IronPythonDetectionError` will occur.
+    
+    :param str executable: (optional) The name of the IronPython 
+                           executable.
+    :rtype: dict
+    
+    .. versionadded:: 0.9.0
+    
+    """
+    
+    ipydirpaths = []
+    foundipys = {}
+    
+    for path in os.environ["PATH"].split(os.pathsep):
+        for match_path in glob.glob(os.path.join(path, executable)):
+            if os.access(match_path, os.X_OK):
+                ipydirpaths.append(os.path.dirname(match_path))
+    
+    if len(ipydirpaths) == 0:
+        raise IronPythonDetectionError(executable)
+    
+    for directory in ipydirpaths:
+        ipy_exe = os.path.abspath(os.path.join(directory, executable))
+        sp = subprocess.Popen(
+        args = [executable, "-V"], 
+        executable = ipy_exe, stdin = subprocess.PIPE,
+        stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+        (sp_stdout, sp_stderr) = sp.communicate()
+        ipy_ver = sp_stdout[11:14]
+        foundipys[ipy_ver] = directory
+    
+    return foundipys
 
