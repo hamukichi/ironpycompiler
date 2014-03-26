@@ -37,13 +37,13 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
     
     try:
         for directory in search_ipy_reg(regkeys).itervalues():
-            ipydirpath.add(directory)
+            ipydirpaths.add(directory)
     except exceptions.IronPythonDetectionError():
         pass
     
     try:
         for directory in search_ipy_env(executable).itervalues():
-            ipydirpath.add(directory)
+            ipydirpaths.add(directory)
     except exceptions.IronPythonDetectionError():
         pass
     
