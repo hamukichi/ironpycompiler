@@ -1,11 +1,11 @@
 History
 -------
 
-v0.9.0 (2014-03-21)
+v0.9.0 (2014-03-XX)
 ^^^^^^^^^^^^^^^^^^^
 
 * New feature: Copying IronPython DLLs into the destination directory.
-* Some new methods.
+* New functions for a multi-IronPython system.
 * Updated the command-line tool.
 
 v0.8.2 (2014-03-18)
