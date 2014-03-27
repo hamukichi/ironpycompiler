@@ -4,8 +4,11 @@ Command-line Tool
 IronPyCompiler has a command-line script named ``ipy2asm``. This script
 will be installed in the directory ``Scripts``.
 
+Examples
+--------
+
 Compiling Scripts into a .exe File
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bat
    
@@ -13,7 +16,7 @@ Compiling Scripts into a .exe File
    ipy2asm -o winapp.exe -t winexe -m main2.py -e -s -M main2.py sub2.py
 
 Compiling Scripts into a .dll File
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bat
    
