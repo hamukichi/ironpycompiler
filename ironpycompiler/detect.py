@@ -38,17 +38,18 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
     try:
         for directory in search_ipy_reg(regkeys).itervalues():
             ipydirpaths.add(directory)
-    except exceptions.IronPythonDetectionError():
+    except exceptions.IronPythonDetectionError as e:
         pass
     
     try:
         for directory in search_ipy_env(executable).itervalues():
             ipydirpaths.add(directory)
-    except exceptions.IronPythonDetectionError():
+    except exceptions.IronPythonDetectionError as e:
         pass
     
     if len(ipydirpaths) == 0:
-        raise exceptions.IronPythonDetectionError()
+        raise exceptions.IronPythonDetectionError(
+        msg = "Could not find any IronPython directory.")
     else:
         return sorted(list(ipydirpaths), reverse = True)
 
@@ -86,7 +87,8 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
             break
     
     if ipybasekey is None:
-        raise exceptions.IronPythonDetectionError()
+        raise exceptions.IronPythonDetectionError(
+        msg = "Could not find any IronPython registry key.")
     else:
         itr = itertools.count()
         for idx in itr:
@@ -94,6 +96,9 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
                 foundipys[_winreg.EnumKey(ipybasekey, idx)] = None
             except WindowsError as e: # 対応するサブキーがなくなったら
                 break
+        if foundipys == dict():
+            raise exceptions.IronPythonDetectionError(
+            msg = "Could not find any version of IronPython.")
         for ver in foundipys:
             ipypathkey = _winreg.OpenKey(ipybasekey, 
             ver + "\\InstallPath")
@@ -134,7 +139,8 @@ def search_ipy_env(executable = constants.EXECUTABLE):
                 ipydirpaths.append(os.path.dirname(match_path))
     
     if len(ipydirpaths) == 0:
-        raise IronPythonDetectionError(executable)
+        raise exceptions.IronPythonDetectionError(
+        msg = "Could not find any executable file named %s." % executable)
     
     for directory in ipydirpaths:
         ipy_exe = os.path.abspath(os.path.join(directory, executable))
@@ -143,7 +149,7 @@ def search_ipy_env(executable = constants.EXECUTABLE):
         executable = ipy_exe, stdin = subprocess.PIPE,
         stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
         (sp_stdout, sp_stderr) = sp.communicate()
-        ipy_ver = sp_stdout[11:14]
+        ipy_ver = sp_stdout[11:14] #Todo: 正規表現でx.xのみを抽出
         foundipys[ipy_ver] = directory
     
     return foundipys
