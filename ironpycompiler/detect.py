@@ -199,6 +199,8 @@ def auto_detect():
                                                                 not decide the optimum
                                                                 version
     
+    .. versionadded:: 0.9.0
+    
     """
     
     cpy_ver = sys.version_info
