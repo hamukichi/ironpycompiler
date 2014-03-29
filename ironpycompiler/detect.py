@@ -20,14 +20,14 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
     """This function returns the list of the paths to the IronPython directories.
     
     This function searches in the Windows registry and PATH for 
-    IronPython. If IronPython cannot be found in your system, 
-    :exc:`ironpycompiler.exceptions.IronPythonDetectionError` will occur.
+    IronPython.
     
     :param list regkeys: (optional) The IronPython registry keys that 
                          should be looked for.
     :param str executable: (optional) The name of the IronPython 
                            executable.
     :rtype: list
+    :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython cannot be found
     
     .. versionchanged:: 0.9.0
        This function now calls :func:`search_ipy`.
@@ -47,13 +47,12 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
     
     This function searches for IronPython keys in the Windows registry, 
     and returns a dictionary showing the versions of IronPython and their
-    locations (the paths to the IronPython directories). If there is no
-    IronPython registry key, 
-    :exc:`ironpycompiler.exceptions.IronPythonDetectionError` will occur.
+    locations (the paths to the IronPython directories).
     
     :param list regkeys: (optional) The IronPython registry keys that 
                          should be looked for.
     :rtype: dict
+    :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython keys cannot be found
     
     .. versionadded:: 0.9.0
     
@@ -110,12 +109,12 @@ def search_ipy_env(executable = constants.EXECUTABLE):
     
     This function returns a dictionary showing the versions of 
     IronPython and their locations (the paths to the IronPython 
-    directories). If no IronPython executable is found, 
-    :exc:`ironpycompiler.exceptions.IronPythonDetectionError` will occur.
+    directories).
     
     :param str executable: (optional) The name of the IronPython 
                            executable.
     :rtype: dict
+    :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython cannot be found
     
     .. versionadded:: 0.9.0
     
@@ -196,9 +195,9 @@ def auto_detect():
     your system will be selected.
     
     :rtype: tuple
-    :raises exceptions.IronPythonDetectionError: if this function could
-                                                 not decide the optimum
-                                                 version
+    :raises ironpycompiler.exceptions.IronPythonDetectionError: if this function could
+                                                                not decide the optimum
+                                                                version
     
     """
     
