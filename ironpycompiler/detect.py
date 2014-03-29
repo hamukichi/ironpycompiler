@@ -54,8 +54,7 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
         return sorted(list(ipydirpaths), reverse = True)
 
 def search_ipy_reg(regkeys = constants.REGKEYS):
-    """
-    Searches for IronPython regisitry keys.
+    """Searches for IronPython regisitry keys.
     
     This function searches for IronPython keys in the Windows registry, 
     and returns a dictionary showing the versions of IronPython and their
@@ -71,7 +70,11 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
     
     """
     
-    import _winreg
+    try:
+        import _winreg
+    except ImportError as e:
+        raise exceptions.IronPythonDetectionError(
+        msg = "Unable to import a module for accessing the Windows registry.")
     
     foundipys = dict()
     ipybasekey = None
@@ -110,8 +113,7 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
     return foundipys
 
 def search_ipy_env(executable = constants.EXECUTABLE):
-    """
-    Searches for IronPython directories, reading the PATH variable.
+    """Searches for IronPython directories included in the PATH variable.
     
     This function searches for IronPython executables in your system, 
     reading the PATH environment variable, and gets their version 
@@ -153,4 +155,42 @@ def search_ipy_env(executable = constants.EXECUTABLE):
         foundipys[ipy_ver] = directory
     
     return foundipys
+
+def search_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
+    """Searches for IronPython directories.
+    
+    This function searches for IronPython directories using both
+    :func:`search_ipy_env` and :func:`search_ipy_reg`, and returns a 
+    dictionary showing the versions of IronPython and their locations 
+    (the paths to the IronPython directories).
+    
+    :param str executable: (optional) The name of the IronPython 
+                           executable.
+    :param list regkeys: (optional) The IronPython registry keys that 
+                         should be looked for.
+    :rtype dict:
+    
+    .. versionadded:: 0.9.0
+    
+    """ 
+       
+    try:
+        foundipys = search_ipy_reg(regkeys)
+    except exceptions.IronPythonDetectionError as e:
+        foundipys = dict()
+    
+    try:
+        envipys = search_ipy_env(executable)
+    except exceptions.IronPythonDetectionError as e:
+        envipys = dict()
+    
+    for k, v in envipys.items():
+        if k not in foundipys:
+            foundipys[k] = v
+    
+    if len(foundipys) == 0:
+        raise exceptions.IronPythonDetectionError(
+        msg = "Could not find any IronPython directory.")
+    else:
+        return foundipys
 
