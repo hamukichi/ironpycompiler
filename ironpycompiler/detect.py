@@ -10,6 +10,7 @@ import os
 import glob
 import subprocess
 import warnings
+import sys
 
 # Original modules
 from . import exceptions
@@ -42,7 +43,7 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
     return sorted(search_ipy(regkeys, executable).values(), reverse = True)
 
 def search_ipy_reg(regkeys = constants.REGKEYS):
-    """Searches for IronPython regisitry keys.
+    """Search for IronPython regisitry keys.
     
     This function searches for IronPython keys in the Windows registry, 
     and returns a dictionary showing the versions of IronPython and their
@@ -101,7 +102,7 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
     return foundipys
 
 def search_ipy_env(executable = constants.EXECUTABLE):
-    """Searches for IronPython directories included in the PATH variable.
+    """Search for IronPython directories included in the PATH variable.
     
     This function searches for IronPython executables in your system, 
     reading the PATH environment variable, and gets their version 
@@ -145,7 +146,7 @@ def search_ipy_env(executable = constants.EXECUTABLE):
     return foundipys
 
 def search_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
-    """Searches for IronPython directories.
+    """Search for IronPython directories.
     
     This function searches for IronPython directories using both
     :func:`search_ipy_env` and :func:`search_ipy_reg`, and returns a 
@@ -156,7 +157,7 @@ def search_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
                            executable.
     :param list regkeys: (optional) The IronPython registry keys that 
                          should be looked for.
-    :rtype dict:
+    :rtype: dict
     
     .. versionadded:: 0.9.0
     
@@ -182,3 +183,40 @@ def search_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
     else:
         return foundipys
 
+def auto_detect():
+    """Decide the optimum version of IronPython in your system.
+    
+    This function decides the most suitable version of IronPython 
+    in your system for the version of CPython on which IronPyCompiler
+    is being run, and returns a tuple showing its version number and 
+    its location (the path to the IronPython directory).
+    
+    Example: On CPython 2.7, first this function searches for
+    IronPython 2.7. If this fails, then the newest IronPython 2.x in 
+    your system will be selected.
+    
+    :rtype: tuple
+    :raises exceptions.IronPythonDetectionError: if this function could
+                                                 not decide the optimum
+                                                 version
+    
+    """
+    
+    cpy_ver = sys.version_info
+    cpy_ver_str = "%d.%d" % (cpy_ver[0], cpy_ver[1])
+    foundipys = search_ipy()
+    
+    if cpy_ver_str in foundipys:
+        return (cpy_ver_str, foundipys[cpy_ver_str])
+    else:
+        #メジャーバージョンは合致するがマイナーバージョンは合致しないバージョンたち
+        majoripys = sorted(
+        [ver for ver in foundipys.keys() if ver.startswith("%d." % cpy_ver[0])], 
+        reverse = True)
+        if len(majoripys) == 0:
+            raise exceptions.IronPythonDetectionError(
+            msg = "Could not decide the optimum version of IronPython.")
+        else:
+            return (majoripys[0], foundipys[majoripys[0]])
+
+    
