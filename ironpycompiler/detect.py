@@ -9,6 +9,7 @@ import itertools
 import os
 import glob
 import subprocess
+import warnings
 
 # Original modules
 from . import exceptions
@@ -28,30 +29,17 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
     :rtype: list
     
     .. versionchanged:: 0.9.0
-       This function now calls :func:`search_ipy_reg` and
-       :func:`search_ipy_env`.
+       This function now calls :func:`search_ipy`.
+    
+    .. warning::
+       This function remains for backward compatibility. Please use 
+       :func:`search_ipy`.
     
     """
     
-    ipydirpaths = set()
-    
-    try:
-        for directory in search_ipy_reg(regkeys).itervalues():
-            ipydirpaths.add(directory)
-    except exceptions.IronPythonDetectionError as e:
-        pass
-    
-    try:
-        for directory in search_ipy_env(executable).itervalues():
-            ipydirpaths.add(directory)
-    except exceptions.IronPythonDetectionError as e:
-        pass
-    
-    if len(ipydirpaths) == 0:
-        raise exceptions.IronPythonDetectionError(
-        msg = "Could not find any IronPython directory.")
-    else:
-        return sorted(list(ipydirpaths), reverse = True)
+    warnings.warn("Use search_ipy instead.", PendingDeprecationWarning)
+
+    return sorted(search_ipy(regkeys, executable).values(), reverse = True)
 
 def search_ipy_reg(regkeys = constants.REGKEYS):
     """Searches for IronPython regisitry keys.
