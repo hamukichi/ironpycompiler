@@ -38,7 +38,7 @@ class ModuleCompiler:
         """
         
         if ipy_dir is None:
-            self.ipy_dir = detect.detect_ipy()[0]
+            self.ipy_dir = detect.auto_detect()[1]
         else:
             self.ipy_dir = ipy_dir
         
