@@ -12,6 +12,7 @@ import tempfile
 import subprocess
 import glob
 import shutil
+import warnings
 
 # Original modules
 from . import detect
@@ -150,10 +151,14 @@ class ModuleCompiler:
         :param str executable: (optional) Specify the name of the 
                                Ironpython exectuable.
         
-        .. deprecated:: 0.9.0
-           Use :meth:`create_asm`.
+        .. warning::
+           This method remains for backward compatibility, and will be
+           deprecated in the future. Please use :meth:`create_asm` 
+           instead.
         
         """
+        
+        warnings.warn("Use create_asm instead.", PendingDeprecationWarning)
         
         if self.compilable_modules == set():
             self.check_compilability()
@@ -199,10 +204,14 @@ class ModuleCompiler:
         :param str executable: (optional) Specify the name of the 
                                Ironpython exectuable.
         
-        .. deprecated:: 0.9.0
-           Use :meth:`create_asm`.
+        .. warning::
+           This method remains for backward compatibility, and will be
+           deprecated in the future. Please use :meth:`create_asm` instead.
         
         """
+        
+        warnings.warn("Use create_asm instead.", PendingDeprecationWarning)
+        
         if self.compilable_modules == set():
             self.check_compilability()
         
