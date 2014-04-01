@@ -12,7 +12,7 @@ tested on IronPython 2.7.4 and CPython 2.7.5.
      and its ``pyc.py``. This is because :mod:`modulefinder` of IronPython
      does not work correctly, while that of CPython does.
    * IronPyCompiler will not work on CPython 3.x, which is not compatible
-     with the latest version of IronPython.
+     with the latest stable version of IronPython.
 
 External Modules
 ----------------
