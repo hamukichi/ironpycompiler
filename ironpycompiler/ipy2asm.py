@@ -23,7 +23,7 @@ def _compiler(args):
     # mainのみにスクリプトが指定されたとき
     if args.target == "winexe" or args.target == "exe":
         if (args.main is not None) and (not args.main in args.script):
-            args.script.insert(0, arg.main)
+            args.script.insert(0, args.main)
     
     mc = compiler.ModuleCompiler(
     paths_to_scripts = args.script)
