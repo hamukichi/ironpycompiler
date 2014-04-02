@@ -1,9 +1,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: IronPyCompiler 0.9.0.a5\n"
+"Project-Id-Version: IronPyCompiler 0.9.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-02 17:55+0900\n"
+"POT-Creation-Date: 2014-04-02 17:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
