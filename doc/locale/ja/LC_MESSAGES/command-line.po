@@ -5,46 +5,47 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-02 17:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Hamukichi (Nombiri) <hamukichi-dev@outlook.jp>\n"
+"Language-Team: Japanese <hamukichi-dev@outlook.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ..\..\command-line.rst:2
 msgid "Command-line Tool"
-msgstr ""
+msgstr "コマンドラインツール"
 
 #: ..\..\command-line.rst:4
 msgid ""
 "IronPyCompiler has a command-line script named ``ipy2asm``. This script will"
 " be installed in the directory ``Scripts``."
-msgstr ""
+msgstr "IronPyCompilerには ``ipy2asm`` という名前のコマンドラインスクリプトがあります。"
+"このスクリプトは ``Scripts`` ディレクトリにインストールされます。"
 
 #: ..\..\command-line.rst:8
 msgid "Examples"
-msgstr ""
+msgstr "例"
 
 #: ..\..\command-line.rst:11
 msgid "Compiling Scripts"
-msgstr ""
+msgstr "スクリプトをコンパイルする"
 
 #: ..\..\command-line.rst:14
 msgid "Creating a .exe File and Copying IronPython DLLs"
-msgstr ""
+msgstr "EXEファイルを作成し、IronPythonのDLLをコピーする"
 
 #: ..\..\command-line.rst:22
 msgid "Creating a .dll File"
-msgstr ""
+msgstr "DLLファイルを作成する"
 
 #: ..\..\command-line.rst:30
 msgid "Checking Modules Required by Scripts"
-msgstr ""
+msgstr "スクリプトが必要とするモジュールを確認する"
 
 #: ..\..\command-line.rst:37
 msgid "Detailed Information"
-msgstr ""
+msgstr "詳細情報"
 
 #: ..\..\command-line.rst:39
 msgid "Please see ``ipy2asm --help``."
-msgstr ""
+msgstr "``ipy2asm --help`` を実行してください。"
