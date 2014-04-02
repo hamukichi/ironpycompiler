@@ -25,8 +25,8 @@ msgid ""
 "<https://pypi.python.org/pypi/ironpycompiler>`_ . Execute ``pip install "
 "ironpycompiler`` to install IronPyCompiler."
 msgstr ""
-"IronPyCompilerは `Python Package Index <https://pypi.python.org/pypi/ironpycompiler>`_"
-"に登録されています。IronPyCompilerをインストールするには``pip install ironpycompiler``"
+"IronPyCompilerは `Python Package Index <https://pypi.python.org/pypi/ironpycompiler>`_ "
+"に登録されています。IronPyCompilerをインストールするには ``pip install ironpycompiler`` "
 "を実行してください。"
 
 #: ..\..\installation.rst:12

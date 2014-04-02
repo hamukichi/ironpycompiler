@@ -34,7 +34,7 @@ msgid ""
 "work correctly, while that of CPython does."
 msgstr ""
 "IronPyCompilerはIronPythonとそれに付属する ``pyc.py`` を使用しますが、"
-"**CPython** 上で実行しなければなりません。これはCPythonの :mod:`modulefinder`"
+" **CPython** 上で実行しなければなりません。これはCPythonの :mod:`modulefinder` "
 "が正常に動作する一方で、IronPythonのそれはうまく動作しないためです。"
 
 #: ..\..\prerequisites.rst:14
@@ -55,7 +55,7 @@ msgid ""
 "you use CPython < 2.7."
 msgstr ""
 "2.7よりも古いバージョンのCPythonでIronPyCompilerを使用するならば、"
-"`argparse <https://pypi.python.org/pypi/argparse/1.2.1>`が必要です。"
+" `argparse <https://pypi.python.org/pypi/argparse/1.2.1>`_ が必要です。"
 
 #: ..\..\prerequisites.rst:22
 msgid ""

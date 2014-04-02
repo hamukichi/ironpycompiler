@@ -483,7 +483,7 @@ msgid ""
 "Specify the path of the IronPython directory, or it will be detected using "
 ":func:`detect_ipy`."
 msgstr ""
-"IronPythonディレクトリのパスを指定してください。さもなければ"
+"IronPythonディレクトリのパスを指定してください。さもなければ "
 ":func:`detect_ipy` を用いて検索します。"
 
 #: ..\..\api.rst:17

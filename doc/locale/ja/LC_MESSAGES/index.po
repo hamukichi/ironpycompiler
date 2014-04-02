@@ -65,7 +65,7 @@ msgstr ":ref:`genindex`"
 
 #: ..\..\index.rst:39
 msgid ":ref:`modindex`"
-msgstr ":ref:`modindex"
+msgstr ":ref:`modindex`"
 
 #: ..\..\index.rst:40
 msgid ":ref:`search`"
