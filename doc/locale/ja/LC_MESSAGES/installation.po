@@ -5,19 +5,19 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-02 17:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Hamukichi (Nombiri) <hamukichi-dev@outlook.jp>\n"
+"Language-Team: Japanese <hamukichi-dev@outlook.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ..\..\installation.rst:2
 msgid "Installation"
-msgstr ""
+msgstr "インストール"
 
 #: ..\..\installation.rst:5
 msgid "Using pip"
-msgstr ""
+msgstr "pipを利用する"
 
 #: ..\..\installation.rst:7
 msgid ""
@@ -25,10 +25,13 @@ msgid ""
 "<https://pypi.python.org/pypi/ironpycompiler>`_ . Execute ``pip install "
 "ironpycompiler`` to install IronPyCompiler."
 msgstr ""
+"IronPyCompilerは `Python Package Index <https://pypi.python.org/pypi/ironpycompiler>`_"
+"に登録されています。IronPyCompilerをインストールするには``pip install ironpycompiler``"
+"を実行してください。"
 
 #: ..\..\installation.rst:12
 msgid "Source Codes"
-msgstr ""
+msgstr "ソースコード"
 
 #: ..\..\installation.rst:14
 msgid ""
@@ -36,8 +39,11 @@ msgid ""
 "https://github.com/hamukichi/ironpycompiler . Execute ``python setup.py "
 "install`` to install IronPyCompiler."
 msgstr ""
+"https://github.com/hamukichi/ironpycompiler からソースコードをダウンロードできます。"
+"IronPyCompilerをインストールするには``python setup.py install``を実行してください。"
 
 #: ..\..\installation.rst:19
 msgid ""
 "The latest source codes can be unstable and may result in unexpected errors."
 msgstr ""
+"最新のソースコードは不安定であることがあり、予期しないエラーのもとになるかもしれません。"
