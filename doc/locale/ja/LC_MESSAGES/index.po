@@ -5,8 +5,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-02 17:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Hamukichi (Nombiri) <hamukichi-dev@outlook.jp>\n"
+"Language-Team: Japanese <hamukichi-dev@outlook.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,6 +22,10 @@ msgid ""
 "modules) into a *stand-alone* .NET assembly (a DLL file or an executable), "
 "using pyc.py."
 msgstr ""
+"IronPyCompilerは、Python標準ライブラリ（またはサードパーティの純Pythonモジュール）"
+"由来のモジュールを必要とするIronPythonスクリプトを、pyc.pyを用いて"
+" *スタンドアローン* な.NETアセンブリ（DLLファイルや実行可能ファイル）にコンパイル"
+"するためのライブラリです。"
 
 #: ..\..\index.rst:14
 msgid ""
@@ -32,6 +36,12 @@ msgid ""
 "correctly. This is why compiling IronPython scripts is more difficult than "
 "it looks."
 msgstr ""
+"IronPythonスクリプトをコンパイルするには、IronPython配布物に含まれる"
+" ``pyc.py`` を利用できます。しかし、 ``pyc.py`` はスクリプトが依存する"
+"モジュールを確認せず、不完全な.NETアセンブリを作成します。"
+"さらに悪いことに、IronPythonのモジュール ``modulefinder`` は正常に"
+"動作しません。このような理由で、IronPythonスクリプトのコンパイルは見かけよりも"
+"難しいのです。"
 
 #: ..\..\index.rst:21
 msgid ""
@@ -40,19 +50,23 @@ msgid ""
 "compiles them with ``pyc.py`` into a stand-alone .NET assembly, calling "
 "ipy.exe."
 msgstr ""
+"IronPyCompilerはこの問題を解決するでしょう。それは **CPython** の ``modulefinder`` "
+"を使って、スクリプトが必要とするモジュールを調べます。そして、ipy.exeを実行し、"
+" ``pyc.py`` を使ってスクリプトをスタンドアローンな.NETアセンブリにコンパイル"
+"するのです。"
 
 #: ..\..\index.rst:36
 msgid "Indices and tables"
-msgstr ""
+msgstr "索引と一覧"
 
 #: ..\..\index.rst:38
 msgid ":ref:`genindex`"
-msgstr ""
+msgstr ":ref:`genindex`"
 
 #: ..\..\index.rst:39
 msgid ":ref:`modindex`"
-msgstr ""
+msgstr ":ref:`modindex"
 
 #: ..\..\index.rst:40
 msgid ":ref:`search`"
-msgstr ""
+msgstr ":ref:`search`"
