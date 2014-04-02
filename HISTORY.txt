@@ -1,25 +1,26 @@
 History
--------
+=======
 
-v0.9.0 (2014-03-XX)
-^^^^^^^^^^^^^^^^^^^
+v0.9.0 (2014-04-XX)
+-------------------
 
 * New feature: Copying IronPython DLLs into the destination directory.
 * New functions for a multi-IronPython system.
+* Improved auto-detection of IronPython.
 * Updated the command-line tool.
 
 v0.8.2 (2014-03-18)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Solved the problem that the Windows registry is always ignored.
 
 v0.8.1 (2014-03-16)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Updated the command-line tool.
 
 v0.8.0 (2014-03-15)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * A new parameter of the method ``compiler.ModuleCompiler.call_pyc``: 
   ``cwd``.
@@ -28,44 +29,44 @@ v0.8.0 (2014-03-15)
   specified.
 
 v0.7.1 (2014-03-13)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Revised MANIFEST.in.
 
 v0.7.0 (2014-03-11)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Moved the command-line tool into the package.
 
 v0.6.0 (2014-03-10)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Separated ``ironpycompiler`` and created a package.
 * Added ``analyze`` command to ``ipy2asm.py``, the command-line
   tool of IronPyCompiler.
 
 v0.5.0 (2014-03-08)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Enabled this module to be run as a script.
 
 v0.4.0 (2014-03-07)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Added ``create_dll`` and ``create_exectuable``.
 
 v0.3.0 (2014-03-06)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Changed the arguments of ``__init__`` and ``check_compilablity``.
 
 v0.2.0 (2014-03-06)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * Started to support for multiple IronPython scripts.
 * Does not inherit from ``modulefinder.ModuleFinder`` any more.
 
 v0.1.0 (2014-03-03)
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 * The first commit.
