@@ -1,0 +1,58 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: IronPyCompiler 0.9.0.a5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-02 17:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ..\..\index.rst:7
+msgid "Welcome to IronPyCompiler's documentation!"
+msgstr ""
+
+#: ..\..\index.rst:9
+msgid ""
+"IronPyCompiler is a library for compiling IronPython scripts requiring "
+"modules from the Python standard library (or third-party pure-Python "
+"modules) into a *stand-alone* .NET assembly (a DLL file or an executable), "
+"using pyc.py."
+msgstr ""
+
+#: ..\..\index.rst:14
+msgid ""
+"In order to compile IronPython scripts, we can use ``pyc.py``, which is "
+"included in the IronPython distribution. However, ``pyc.py`` does not check "
+"dependecies of the scripts, which results in a incomplete .NET assembly. "
+"What is worse, the module ``modulefinder`` of IronPython does not work "
+"correctly. This is why compiling IronPython scripts is more difficult than "
+"it looks."
+msgstr ""
+
+#: ..\..\index.rst:21
+msgid ""
+"IronPyCompiler will solve this problem. It examines what modules your "
+"scripts require, using the module ``modulefinder`` of **CPython**, and "
+"compiles them with ``pyc.py`` into a stand-alone .NET assembly, calling "
+"ipy.exe."
+msgstr ""
+
+#: ..\..\index.rst:36
+msgid "Indices and tables"
+msgstr ""
+
+#: ..\..\index.rst:38
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ..\..\index.rst:39
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ..\..\index.rst:40
+msgid ":ref:`search`"
+msgstr ""

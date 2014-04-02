@@ -1,0 +1,480 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: IronPyCompiler 0.9.0.a5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-02 17:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ..\..\api.rst:2
+msgid "API Documentation"
+msgstr ""
+
+#: ..\..\api.rst:5
+msgid "ironpycompiler.detect"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of ironpycompiler.detect:1
+msgid "Module for detecting where the IronPython executables exist."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.auto_detect:1
+msgid "Decide the optimum version of IronPython in your system."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.auto_detect:3
+msgid ""
+"This function decides the most suitable version of IronPython  in your "
+"system for the version of CPython on which IronPyCompiler is being run, and "
+"returns a tuple showing its version number and  its location (the path to "
+"the IronPython directory)."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.auto_detect:8
+msgid ""
+"Example: On CPython 2.7, first this function searches for IronPython 2.7. If"
+" this fails, then the newest IronPython 2.x in  your system will be "
+"selected."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.auto_detect:12
+msgid "tuple"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.auto_detect:13
+msgid "if this function could not decide the optimum version"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:1
+msgid ""
+"This function returns the list of the paths to the IronPython directories."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:3
+msgid ""
+"This function searches in the Windows registry and PATH for  IronPython."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:6
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy:10
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_reg:7
+msgid "(optional) The IronPython registry keys that  should be looked for."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:8
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy:8
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_env:11
+msgid "(optional) The name of the IronPython  executable."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:10
+msgid "list"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:11
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_env:14
+msgid "if IronPython cannot be found"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:13
+msgid "This function now calls :func:`search_ipy`."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:17
+msgid ""
+"This function remains for backward compatibility. Please use  "
+":func:`search_ipy`."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy:1
+msgid "Search for IronPython directories."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy:3
+msgid ""
+"This function searches for IronPython directories using both "
+":func:`search_ipy_env` and :func:`search_ipy_reg`, and returns a  dictionary"
+" showing the versions of IronPython and their locations  (the paths to the "
+"IronPython directories)."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy:12
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_env:13
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_reg:9
+msgid "dict"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_env:1
+msgid "Search for IronPython directories included in the PATH variable."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_env:3
+msgid ""
+"This function searches for IronPython executables in your system,  reading "
+"the PATH environment variable, and gets their version  numbers, executing "
+"the executables."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_env:7
+msgid ""
+"This function returns a dictionary showing the versions of  IronPython and "
+"their locations (the paths to the IronPython  directories)."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_reg:1
+msgid "Search for IronPython regisitry keys."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_reg:3
+msgid ""
+"This function searches for IronPython keys in the Windows registry,  and "
+"returns a dictionary showing the versions of IronPython and their locations "
+"(the paths to the IronPython directories)."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.search_ipy_reg:10
+msgid "if IronPython keys cannot be found"
+msgstr ""
+
+#: ..\..\api.rst:11
+msgid "ironpycompiler.compiler"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of ironpycompiler.compiler:1
+msgid "Module for analyzing and compiling IronPython scripts."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler:1
+msgid ""
+"This class finds the modules required by your script and create a .NET "
+"assembly."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler:3
+msgid ""
+"By default this class searches for pure-Python modules in the  IronPython "
+"standard library and the CPython site-packages directory."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler:6
+msgid ""
+"Specify the paths to your scripts.  In creating a .EXE file, the first  "
+"element of this list must be the  path to the main file of your project."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler:10
+msgid ""
+"Specify the IronPython directory, or it will be automatically detected using"
+" :func:`ironpycompiler.detect.detect_ipy`."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.call_pyc:1
+msgid "Call pyc.py in order to compile your scripts."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.call_pyc:3
+msgid ""
+"In general use this method is not supposed to be called  directly. It is "
+"recommended that you use  :meth:`create_executable` or :meth:`create_dll` "
+"instead."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.call_pyc:7
+msgid "Specify the arguments that should be sent to  pyc.py."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.call_pyc:9
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:20
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_dll:5
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:18
+msgid ""
+"(optional) Specify whether to delete the  response file after compilation or"
+" not."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.call_pyc:11
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:22
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_dll:7
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:20
+msgid "(optional) Specify the name of the  Ironpython exectuable."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.call_pyc:13
+msgid "(optional) Specify the current working directory."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.check_compilability:1
+msgid ""
+"Check the compilability of the modules required by the scripts you "
+"specified."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.check_compilability:3
+msgid ""
+"Specify the paths of the  directories where the modules your  scripts "
+"require exist, or this  method searches for pure-Python  modules in the "
+"IronPython standard  library, and the CPython site-packages  directory."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.compilable_modules:1
+msgid "Set of the paths to required and compilable modules."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:1
+msgid "Compile your scripts into a .NET assembly, using pyc.py."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:3
+msgid ""
+"(optional) Specify the name of the EXE file  that should be created, or the "
+"name of the main script will be used and the destination  directory will be "
+"the current directory."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:7
+msgid ""
+"(optional) The type of the output assembly,  can be \"dll\", \"exe\", or "
+"\"winexe\".  By default a .DLL file will be created."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:10
+msgid ""
+"(optional) Specify the target  platform (\"x86\" or \"x64\") if  necessary "
+"(exe/winexe)."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:13
+msgid ""
+"(optional) Specify whether to embed the  generated DLL into the executable "
+"(exe/winexe)."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:15
+msgid ""
+"(optional) Specify whether to embed  IronPython assemblies into the "
+"executable  (exe/winexe)."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:18
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:16
+msgid "(optional) Specify whether to set  MTAThreadAttribute (winexe)."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_asm:24
+msgid ""
+"(optional) Specify whether to copy the IronPython DLL files into the  "
+"destination directory."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_dll:1
+msgid ""
+"Compile your scripts into a DLL file (.NET library assembly) using pyc.py."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_dll:3
+msgid "(optional) Specify the name of the DLL file  that should be created."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_dll:11
+msgid ""
+"This method remains for backward compatibility, and will be deprecated in "
+"the future. Please use :meth:`create_asm`  instead."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:1
+msgid ""
+"Compile your scripts into an EXE file (.NET process assembly) using pyc.py."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:3
+msgid "(optional) Specify the name of the EXE file  that should be created."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:5
+msgid ""
+"(optional) Specify whether to create  a windows executable or to generate a"
+"  console one, or a console executable will be created."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:9
+msgid "(optional) Specify the target  platform (\"x86\" or \"x64\") if  necessary."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:12
+msgid ""
+"(optional) Specify whether to embed the  generated DLL into the executable."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:14
+msgid ""
+"(optional) Specify whether to embed  IronPython assemblies into the "
+"executable."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:24
+msgid ""
+"This method remains for backward compatibility, and will be deprecated in "
+"the future. Please use :meth:`create_asm` instead."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.output_asm:1
+msgid "The path to the main output assembly."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.pyc_stdout:1
+msgid "Standard output from pyc.py."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.uncompilable_modules:1
+msgid "Set of the names of required but uncompilable modules."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.gather_ipydll:1
+msgid "Copy the IronPython DLL files into the directory specified."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.gather_ipydll:3
+msgid "The path of the destination directory."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.gather_ipydll:4
+msgid ""
+"Specify the path of the IronPython directory, or it will be detected using "
+":func:`detect_ipy`."
+msgstr ""
+
+#: ..\..\api.rst:17
+msgid "ironpycompiler.exceptions"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\exceptions.pydocstring of
+#: ironpycompiler.exceptions:1
+msgid "This module contains execptions of IronPyCompiler."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\exceptions.pydocstring of
+#: ironpycompiler.exceptions.IPCError:1
+msgid "This is the base class for exceptions in this module."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\exceptions.pydocstring of
+#: ironpycompiler.exceptions.IronPythonDetectionError:1
+msgid ""
+"This exception will be raised when IronPython cannot be found in your "
+"system."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\exceptions.pydocstring of
+#: ironpycompiler.exceptions.IronPythonDetectionError:3
+msgid ""
+"(optional) The name of the IronPython  executable looked for. This argument "
+"remains  for backward compatibility."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\exceptions.pydocstring of
+#: ironpycompiler.exceptions.IronPythonDetectionError:6
+msgid "(optional) The detailed information of the error."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\exceptions.pydocstring of
+#: ironpycompiler.exceptions.IronPythonDetectionError:8
+msgid ""
+"The argument ``executable`` became optional, and the argument ``msg`` was "
+"added."
+msgstr ""
+
+#: ..\..\api.rst:23
+msgid "ironpycompiler.constants"
+msgstr ""
+
+#: ..\..\..\ironpycompiler\constants.pydocstring of ironpycompiler.constants:1
+msgid "Constants for IronPyCompiler."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\constants.pydocstring of
+#: ironpycompiler.constants.EXECUTABLE:1
+msgid "The default name of the IronPython executable."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\constants.pydocstring of
+#: ironpycompiler.constants.REGKEYS:1
+msgid "The default IronPython registry keys."
+msgstr ""
