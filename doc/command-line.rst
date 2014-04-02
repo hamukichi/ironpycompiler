@@ -7,20 +7,31 @@ will be installed in the directory ``Scripts``.
 Examples
 --------
 
-Compiling Scripts into a .exe File
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Compiling Scripts
+^^^^^^^^^^^^^^^^^
 
-.. code-block:: bat
+Creating a .exe File and Copying IronPython DLLs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
    
-   ipy2asm -o consoleapp.exe -t exe -m main1.py -e -s main1.py sub1.py
-   ipy2asm -o winapp.exe -t winexe -m main2.py -e -s -M main2.py sub2.py
+   ipy2asm compile -o consoleapp.exe -t exe -m main1.py -e -s -c main1.py sub1.py
+   ipy2asm compile -o winapp.exe -t winexe -m main2.py -e -s -M -c main2.py sub2.py
 
-Compiling Scripts into a .dll File
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Creating a .dll File
+~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: bat
+.. code-block:: none
    
-   ipy2asm -o libfoo.dll -t dll bar.py baz.py
+   ipy2asm compile -o libfoo.dll -t dll bar.py baz.py
+
+
+Checking Modules Required by Scripts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: none
+   
+   ipy2asm analyze foo.py bar.py baz.py
 
 Detailed Information
 --------------------
