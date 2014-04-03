@@ -99,7 +99,7 @@ class ModuleCompiler:
         
         In general use this method is not supposed to be called 
         directly. It is recommended that you use 
-        :meth:`create_executable` or :meth:`create_dll` instead.
+        :meth:`create_asm` instead.
         
         :param list args: Specify the arguments that should be sent to 
                           pyc.py.
