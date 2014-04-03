@@ -225,3 +225,6 @@ _build
 
 # Python wheel
 wheelhouse/
+
+# Geany Project
+*.geany

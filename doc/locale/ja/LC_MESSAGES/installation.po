@@ -40,7 +40,7 @@ msgid ""
 "install`` to install IronPyCompiler."
 msgstr ""
 "https://github.com/hamukichi/ironpycompiler からソースコードをダウンロードできます。"
-"IronPyCompilerをインストールするには``python setup.py install``を実行してください。"
+"IronPyCompilerをインストールするには ``python setup.py install`` を実行してください。"
 
 #: ..\..\installation.rst:19
 msgid ""
