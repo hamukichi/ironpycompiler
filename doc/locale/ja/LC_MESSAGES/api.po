@@ -36,10 +36,7 @@ msgid ""
 "returns a tuple showing its version number and  its location (the path to "
 "the IronPython directory)."
 msgstr ""
-"この関数は、IronPyCompilerが実行されているCPythonのバージョンに対して、"
-"システムにある最も適切なIronPythonのバージョンを決定し、"
-"そのバージョン番号と場所（IronPythonディレクトリへのパス）を示すタプルを"
-"返します。"
+"この関数は、IronPyCompilerが実行されているCPythonのバージョンに対して、システムにある最も適切なIronPythonのバージョンを決定し、そのバージョン番号と場所（IronPythonディレクトリへのパス）を示すタプルを返します。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.auto_detect:8
@@ -48,8 +45,8 @@ msgid ""
 " this fails, then the newest IronPython 2.x in  your system will be "
 "selected."
 msgstr ""
-"例：CPython 2.7上で、まずこの関数はIronPython 2.7を検索します。もし"
-"これが見つからなければ、システムにある最新のIronPython 2.xを選択します。"
+"例：CPython 2.7上で、まずこの関数はIronPython "
+"2.7を検索します。もしこれが見つからなければ、システムにある最新のIronPython 2.xを選択します。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.auto_detect:12
@@ -65,15 +62,13 @@ msgstr "もしこの関数が最適なバージョンを決定できなかった
 #: ironpycompiler.detect.detect_ipy:1
 msgid ""
 "This function returns the list of the paths to the IronPython directories."
-msgstr ""
-"この関数はIronPythonディレクトリへのパスからなるリストを返します。"
+msgstr "この関数はIronPythonディレクトリへのパスからなるリストを返します。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.detect_ipy:3
 msgid ""
 "This function searches in the Windows registry and PATH for  IronPython."
-msgstr ""
-"この関数はWindowsのレジストリと環境変数PATHを読み取り、IronPythonを検索します。"
+msgstr "この関数はWindowsのレジストリと環境変数PATHを読み取り、IronPythonを検索します。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.detect_ipy:6
@@ -82,7 +77,7 @@ msgstr ""
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.search_ipy_reg:7
 msgid "(optional) The IronPython registry keys that  should be looked for."
-msgstr "（任意）検索対象とするIronPythonのレジストリキー。"
+msgstr "（任意）検索対象とするIronPythonのレジストリキーです。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.detect_ipy:8
@@ -91,7 +86,7 @@ msgstr "（任意）検索対象とするIronPythonのレジストリキー。"
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.search_ipy_env:11
 msgid "(optional) The name of the IronPython  executable."
-msgstr "（任意）IronPython実行可能ファイルの名前。"
+msgstr "（任意）IronPython実行可能ファイルの名前です。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.detect_ipy:10
@@ -115,9 +110,7 @@ msgstr "この関数は :func:`search_ipy` を使用するようになりまし�
 msgid ""
 "This function remains for backward compatibility. Please use  "
 ":func:`search_ipy`."
-msgstr ""
-"この関数は後方互換性のために残されています。"
-":func:`search_ipy` をお使いください。"
+msgstr "この関数は後方互換性のために残されています。 :func:`search_ipy` をお使いください。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.search_ipy:1
@@ -132,10 +125,8 @@ msgid ""
 " showing the versions of IronPython and their locations  (the paths to the "
 "IronPython directories)."
 msgstr ""
-"この関数は :func:`search_ipy_env` と :func:`search_ipy_reg` の両方を使って"
-"IronPythonディレクトリを検索し、IronPythonのバージョンと場所"
-"（IronPythonディレクトリへのパス）を示す辞書を"
-"返します。"
+"この関数は :func:`search_ipy_env` と :func:`search_ipy_reg` "
+"の両方を使ってIronPythonディレクトリを検索し、IronPythonのバージョンと場所（IronPythonディレクトリへのパス）を示す辞書を返します。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.search_ipy:12
@@ -158,18 +149,14 @@ msgid ""
 "the PATH environment variable, and gets their version  numbers, executing "
 "the executables."
 msgstr ""
-"この関数は、環境変数PATHを読み取り、システムにあるIronPython実行可能ファイルを"
-"検索します。そして、各実行ファイルを実行して、バージョン番号を"
-"取得します。"
+"この関数は、環境変数PATHを読み取り、システムにあるIronPython実行可能ファイルを検索します。そして、各実行ファイルを実行して、バージョン番号を取得します。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.search_ipy_env:7
 msgid ""
 "This function returns a dictionary showing the versions of  IronPython and "
 "their locations (the paths to the IronPython  directories)."
-msgstr ""
-"この関数はIronPythonのバージョンと場所（IronPythonディレクトリへのパス）"
-"を示す辞書を返します。"
+msgstr "この関数はIronPythonのバージョンと場所（IronPythonディレクトリへのパス）を示す辞書を返します。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.search_ipy_reg:1
@@ -183,9 +170,7 @@ msgid ""
 "returns a dictionary showing the versions of IronPython and their locations "
 "(the paths to the IronPython directories)."
 msgstr ""
-"この関数はWindowsレジストリ内のIronPythonキーを検索し、"
-"IronPythonのバージョンと場所（IronPythonディレクトリへのパス）を示す"
-"辞書を返します。"
+"この関数はWindowsレジストリ内のIronPythonキーを検索し、IronPythonのバージョンと場所（IronPythonディレクトリへのパス）を示す辞書を返します。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.search_ipy_reg:10
@@ -205,9 +190,7 @@ msgstr "IronPythonスクリプトを解析・コンパイルするためのモ�
 msgid ""
 "This class finds the modules required by your script and create a .NET "
 "assembly."
-msgstr ""
-"このクラスはスクリプトが必要とするモジュールを検索し、.NETアセンブリを"
-"作成します。"
+msgstr "このクラスはスクリプトが必要とするモジュールを検索し、.NETアセンブリを作成します。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler:3
@@ -215,8 +198,8 @@ msgid ""
 "By default this class searches for pure-Python modules in the  IronPython "
 "standard library and the CPython site-packages directory."
 msgstr ""
-"既定では、このクラスはIronPython標準ライブラリおよびCPythonの site-packages"
-"ディレクトリに含まれる純Pythonモジュールを検索します。"
+"既定では、このクラスはIronPython標準ライブラリおよびCPythonの site-"
+"packagesディレクトリに含まれる純Pythonモジュールを検索します。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler:6
@@ -224,8 +207,7 @@ msgid ""
 "Specify the paths to your scripts.  In creating a .EXE file, the first  "
 "element of this list must be the  path to the main file of your project."
 msgstr ""
-"スクリプトへのパスを指定してください。EXEファイルを作成する際には、"
-"このリストの最初の要素は、最初に実行されるべきスクリプトへのパスでなければなりません。"
+"スクリプトへのパスを指定してください。EXEファイルを作成する際には、このリストの最初の要素は、最初に実行されるべきスクリプトへのパスでなければなりません。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler:10
@@ -233,24 +215,13 @@ msgid ""
 "Specify the IronPython directory, or it will be automatically detected using"
 " :func:`ironpycompiler.detect.detect_ipy`."
 msgstr ""
-"IronPythonディレクトリを指定してください。さもなければ、"
-":func:`ironpycompiler.detect.detect_ipy` を利用して自動的に検索します。"
+"IronPythonディレクトリを指定してください。さもなければ、 :func:`ironpycompiler.detect.detect_ipy` "
+"を利用して自動的に検索します。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.call_pyc:1
 msgid "Call pyc.py in order to compile your scripts."
 msgstr "スクリプトをコンパイルするために、pyc.pyを実行します。"
-
-#: ..\..\..\ironpycompiler\compiler.pydocstring of
-#: ironpycompiler.compiler.ModuleCompiler.call_pyc:3
-msgid ""
-"In general use this method is not supposed to be called  directly. It is "
-"recommended that you use  :meth:`create_executable` or :meth:`create_dll` "
-"instead."
-msgstr ""
-"通常は、このメソッドを直接使用すべきではありません。"
-":meth:`create_executable` や :meth:`create_dll` を代わりに使用することを"
-"お勧めします。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.call_pyc:7
@@ -268,8 +239,7 @@ msgstr "pyc.pyに送る引数を指定します。"
 msgid ""
 "(optional) Specify whether to delete the  response file after compilation or"
 " not."
-msgstr ""
-"（任意）コンパイル後にレスポンスファイルを削除するかどうかを指定してください。"
+msgstr "（任意）コンパイル後にレスポンスファイルを削除するかどうかを指定してください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.call_pyc:11
@@ -292,9 +262,7 @@ msgstr "（任意）作業ディレクトリを指定してください。"
 msgid ""
 "Check the compilability of the modules required by the scripts you "
 "specified."
-msgstr ""
-"指定したスクリプトが必要とするモジュールをコンパイルできるか"
-"確認します。"
+msgstr "指定したスクリプトが必要とするモジュールをコンパイルできるか確認します。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.check_compilability:3
@@ -303,9 +271,8 @@ msgid ""
 "require exist, or this  method searches for pure-Python  modules in the "
 "IronPython standard  library, and the CPython site-packages  directory."
 msgstr ""
-"スクリプトが必要とするモジュールが存在するディレクトリのパスを指定してください。"
-"さもなければ、このメソッドは、IronPython標準ライブラリおよびCPythonの"
-"site-packagesディレクトリ内のモジュールを検索します。"
+"スクリプトが必要とするモジュールが存在するディレクトリのパスを指定してください。さもなければ、このメソッドは"
+"、IronPython標準ライブラリおよびCPythonのsite-packagesディレクトリ内のモジュールを検索します。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.compilable_modules:1
@@ -324,26 +291,21 @@ msgid ""
 "name of the main script will be used and the destination  directory will be "
 "the current directory."
 msgstr ""
-"（任意）作成するEXEファイルの名前を指定してください。さもなければ、メインのスクリプト"
-"の名前が使われ、出力先のディレクトリは現在の作業ディレクトリとなります。"
+"（任意）作成するEXEファイルの名前を指定してください。さもなければ、メインのスクリプトの名前が使われ、出力先のディレクトリは現在の作業ディレクトリとなります。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_asm:7
 msgid ""
 "(optional) The type of the output assembly,  can be \"dll\", \"exe\", or "
 "\"winexe\".  By default a .DLL file will be created."
-msgstr ""
-"（任意）出力するアセンブリの形式を、\"dll\", \"exe\", \"winexe\"のいずれかで指定してください。"
-"既定ではDLLファイルが作成されます。"
+msgstr "（任意）出力するアセンブリの形式を、\"dll\", \"exe\", \"winexe\"のいずれかで指定してください。既定ではDLLファイルが作成されます。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_asm:10
 msgid ""
 "(optional) Specify the target  platform (\"x86\" or \"x64\") if  necessary "
 "(exe/winexe)."
-msgstr ""
-"（任意）必要であれば、対象のプラットフォームを\"x86\" か \"x64\"で"
-"指定してください。"
+msgstr "（任意）必要であれば、対象のプラットフォームを\"x86\" か \"x64\"で指定してください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_asm:13
@@ -351,8 +313,7 @@ msgid ""
 "(optional) Specify whether to embed the  generated DLL into the executable "
 "(exe/winexe)."
 msgstr ""
-"（任意）作成されるDLLを実行可能ファイルに埋め込むかどうかを指定してください。"
-"出力アセンブリの形式が\"exe\"または\"winexe\"であるときに有効です。"
+"（任意）作成されるDLLを実行可能ファイルに埋め込むかどうかを指定してください。出力アセンブリの形式が\"exe\"または\"winexe\"であるときに有効です。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_asm:15
@@ -360,32 +321,27 @@ msgid ""
 "(optional) Specify whether to embed  IronPython assemblies into the "
 "executable  (exe/winexe)."
 msgstr ""
-"（任意）IronPythonアセンブリを実行可能ファイルに埋め込むかどうかを指定してください。"
-"出力アセンブリの形式が\"exe\"または\"winexe\"であるときに有効です。"
+"（任意）IronPythonアセンブリを実行可能ファイルに埋め込むかどうかを指定してください。出力アセンブリの形式が\"exe\"または\"winexe\"であるときに有効です。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_asm:18
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:16
 msgid "(optional) Specify whether to set  MTAThreadAttribute (winexe)."
-msgstr "（任意）MTAThreadAttributeを設定するかどうかを指定してください。"
-"出力アセンブリの形式が\"winexe\"であるときに有効です。"
+msgstr "（任意）MTAThreadAttributeを設定するかどうかを指定してください。出力アセンブリの形式が\"winexe\"であるときに有効です。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_asm:24
 msgid ""
 "(optional) Specify whether to copy the IronPython DLL files into the  "
 "destination directory."
-msgstr ""
-"（任意）IronPythonのDLLファイルを出力先にコピーするかどうかを"
-"指定してください。"
+msgstr "（任意）IronPythonのDLLファイルを出力先にコピーするかどうかを指定してください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_dll:1
 msgid ""
 "Compile your scripts into a DLL file (.NET library assembly) using pyc.py."
-msgstr ""
-"pyc.pyを使って、スクリプトをDLLファイル（.NETライブラリアセンブリ）にコンパイルします。"
+msgstr "pyc.pyを使って、スクリプトをDLLファイル（.NETライブラリアセンブリ）にコンパイルします。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_dll:3
@@ -397,16 +353,13 @@ msgstr "（任意）作成するDLLファイルの名前を指定してくださ
 msgid ""
 "This method remains for backward compatibility, and will be deprecated in "
 "the future. Please use :meth:`create_asm`  instead."
-msgstr ""
-"このメソッドは後方互換性のために残されていて、将来非推奨となるでしょう。"
-":meth:`create_asm` を代わりにお使いください。"
+msgstr "このメソッドは後方互換性のために残されていて、将来非推奨となるでしょう。 :meth:`create_asm` を代わりにお使いください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:1
 msgid ""
 "Compile your scripts into an EXE file (.NET process assembly) using pyc.py."
-msgstr ""
-"pyc.pyを用いて、スクリプトを実行可能ファイル（.NETプロセスアセンブリ）にコンパイルします。"
+msgstr "pyc.pyを用いて、スクリプトを実行可能ファイル（.NETプロセスアセンブリ）にコンパイルします。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:3
@@ -419,8 +372,7 @@ msgid ""
 "(optional) Specify whether to create  a windows executable or to generate a"
 "  console one, or a console executable will be created."
 msgstr ""
-"（任意）グラフィカルな実行可能ファイルとコンソール実行可能ファイルのいずれ"
-"を作成するか指定してください。さもなければ、コンソール実行可能ファイルが作成されます。"
+"（任意）グラフィカルな実行可能ファイルとコンソール実行可能ファイルのいずれを作成するか指定してください。さもなければ、コンソール実行可能ファイルが作成されます。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:9
@@ -431,8 +383,7 @@ msgstr "（任意）必要であれば、対象のプラットフォームを\"x
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:12
 msgid ""
 "(optional) Specify whether to embed the  generated DLL into the executable."
-msgstr ""
-"（任意）作成されるDLLを実行可能ファイルに埋め込むかどうかを指定してください。"
+msgstr "（任意）作成されるDLLを実行可能ファイルに埋め込むかどうかを指定してください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:14
@@ -440,17 +391,14 @@ msgid ""
 "(optional) Specify whether to embed  IronPython assemblies into the "
 "executable."
 msgstr ""
-"（任意）IronPythonアセンブリを実行可能ファイルに埋め込むかどうかを指定してください。"
-"出力アセンブリの形式が\"exe\"または\"winexe\"であるときに有効です。"
+"（任意）IronPythonアセンブリを実行可能ファイルに埋め込むかどうかを指定してください。出力アセンブリの形式が\"exe\"または\"winexe\"であるときに有効です。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:24
 msgid ""
 "This method remains for backward compatibility, and will be deprecated in "
 "the future. Please use :meth:`create_asm` instead."
-msgstr ""
-"このメソッドは後方互換性のために残されていて、将来非推奨となるでしょう。"
-":meth:`create_asm` を代わりにお使いください。"
+msgstr "このメソッドは後方互換性のために残されていて、将来非推奨となるでしょう。 :meth:`create_asm` を代わりにお使いください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.output_asm:1
@@ -482,9 +430,7 @@ msgstr "出力先のディレクトリのパスです。"
 msgid ""
 "Specify the path of the IronPython directory, or it will be detected using "
 ":func:`detect_ipy`."
-msgstr ""
-"IronPythonディレクトリのパスを指定してください。さもなければ "
-":func:`detect_ipy` を用いて検索します。"
+msgstr "IronPythonディレクトリのパスを指定してください。さもなければ :func:`detect_ipy` を用いて検索します。"
 
 #: ..\..\api.rst:17
 msgid "ironpycompiler.exceptions"
@@ -505,17 +451,14 @@ msgstr "これはこのモジュールが定義する例外の基底クラスで
 msgid ""
 "This exception will be raised when IronPython cannot be found in your "
 "system."
-msgstr ""
-"IronPythonがシステム内に見つからないときに、この例外が発生します。"
+msgstr "IronPythonがシステム内に見つからないときに、この例外が発生します。"
 
 #: ..\..\..\ironpycompiler\exceptions.pydocstring of
 #: ironpycompiler.exceptions.IronPythonDetectionError:3
 msgid ""
 "(optional) The name of the IronPython  executable looked for. This argument "
 "remains  for backward compatibility."
-msgstr ""
-"（任意）検索するIronPython実行可能ファイルの名前です。"
-"この引数は後方互換性のために残されています。"
+msgstr "（任意）検索するIronPython実行可能ファイルの名前です。この引数は後方互換性のために残されています。"
 
 #: ..\..\..\ironpycompiler\exceptions.pydocstring of
 #: ironpycompiler.exceptions.IronPythonDetectionError:6
@@ -527,8 +470,7 @@ msgstr "（任意）エラーに関する詳細情報です。"
 msgid ""
 "The argument ``executable`` became optional, and the argument ``msg`` was "
 "added."
-msgstr ""
-"引数 ``executable`` は任意となり、引数 ``msg`` が追加されました。"
+msgstr "引数 ``executable`` は任意となり、引数 ``msg`` が追加されました。"
 
 #: ..\..\api.rst:23
 msgid "ironpycompiler.constants"
@@ -547,3 +489,20 @@ msgstr "IronPython実行可能ファイルの既定の名前です。"
 #: ironpycompiler.constants.REGKEYS:1
 msgid "The default IronPython registry keys."
 msgstr "既定のIronPythonレジストリキーです。"
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.call_pyc:3
+msgid ""
+"In general use this method is not supposed to be called  directly. It is "
+"recommended that you use  :meth:`create_asm` instead."
+msgstr ""
+"通常は、このメソッドを直接使用すべきではありません。 :meth:`create_asm` "
+"を代わりに使用することをお勧めします。"
+
+#~ msgid ""
+#~ "In general use this method is not supposed to be called  directly. It is "
+#~ "recommended that you use  :meth:`create_executable` or :meth:`create_dll` "
+#~ "instead."
+#~ msgstr ""
+#~ "通常は、このメソッドを直接使用すべきではありません。:meth:`create_executable` や :meth:`create_dll` "
+#~ "を代わりに使用することをお勧めします。"
