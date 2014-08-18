@@ -55,6 +55,8 @@ class ModuleCompiler:
         self.paths_to_scripts = [os.path.abspath(x) for x in 
         paths_to_scripts] # コンパイルすべきスクリプトたち
         self.dirs_of_modules = None # 依存モジュールたちのディレクトリ
+        #: Set of the names of built-in modules.
+        self.builtin_modules = set()
         #: Set of the paths to required and compilable modules.
         self.compilable_modules = set()
         #: Set of the names of required but uncompilable modules.
@@ -94,6 +96,7 @@ class ModuleCompiler:
             for name, module in mf.modules.iteritems():
                 path_to_module = module.__file__
                 if path_to_module is None:
+                    self.builtin_modules.add(name)
                     continue
                 elif os.path.splitext(path_to_module)[1] == ".pyd":
                     self.uncompilable_modules.add(name)
