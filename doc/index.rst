@@ -13,7 +13,7 @@ or an executable), using pyc.py.
 
 In order to compile IronPython scripts, we can use ``pyc.py``, which is 
 included in the IronPython distribution. However, ``pyc.py`` does not 
-check dependecies of the scripts, which results in a incomplete .NET
+check dependecies of the scripts, which results in an incomplete .NET
 assembly. What is worse, the module ``modulefinder`` of IronPython 
 does not work correctly. This is why compiling IronPython scripts is 
 more difficult than it looks.
