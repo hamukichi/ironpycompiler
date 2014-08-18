@@ -1,7 +1,14 @@
 History
 =======
 
-v0.9.0 (2014-04-XX)
+v0.10.0 (2014-08-XX)
+--------------------
+
+* New feature: Specify the path to pyc.py.
+* A new exception for compilation errors.
+* Updated the command-line tool.
+
+v0.9.0 (2014-04-03)
 -------------------
 
 * New feature: Copying IronPython DLLs into the destination directory.
