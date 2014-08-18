@@ -29,11 +29,15 @@ class ModuleCompiler:
                                   element of this list must be the 
                                   path to the main file of your project.
     :param str ipy_dir: Specify the IronPython directory, or it will be
-                        automatically detected using :func:`ironpycompiler.detect.detect_ipy`.
+                        automatically detected using :func:`ironpycompiler.detect.auto_detect`.
+    :param str pyc_path: (optional) Specify the path to pyc.py.
+    
+    .. versionchanged:: 0.10.0
+       The argument ``pyc_path`` was added.
     
     """
     
-    def __init__(self, paths_to_scripts, ipy_dir = None):
+    def __init__(self, paths_to_scripts, ipy_dir = None, pyc_path = None):
         """ Initialization.
         """
         
@@ -41,6 +45,11 @@ class ModuleCompiler:
             self.ipy_dir = detect.auto_detect()[1]
         else:
             self.ipy_dir = ipy_dir
+        if pyc_path is None:
+            self.pyc_abspath = os.path.join(self.ipy_dir, 
+            "Tools", "Scripts", "pyc.py")
+        else:
+            self.pyc_abspath = os.path.abspath(pyc_path)
         
         self.paths_to_scripts = [os.path.abspath(x) for x in 
         paths_to_scripts] # コンパイルすべきスクリプトたち
@@ -126,8 +135,7 @@ class ModuleCompiler:
         os.close(self.response_file[0])
         
         # pyc.pyを実行する
-        ipy_args = [os.path.splitext(executable)[0], 
-        os.path.join(self.ipy_dir, "Tools", "Scripts", "pyc.py"),
+        ipy_args = [os.path.splitext(executable)[0], self.pyc_abspath,
         "@" + self.response_file[1]]
         ipy_exe = os.path.abspath(os.path.join(self.ipy_dir, 
         executable))
