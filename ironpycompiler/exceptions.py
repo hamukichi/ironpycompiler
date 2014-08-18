@@ -36,5 +36,21 @@ class IronPythonDetectionError(IPCError):
         else:
             return "IronPython cannot be found."
 
+class ModuleCompilationError(IPCError):
+    """This exception means an error during compilation.
+    
+    :param msg: (optional) The detailed information of the error.
+    
+    .. versionadded:: 0.10.0
+    
+    """
+    
+    def __init__(self, msg = None):
+        self.msg = msg
+    
+    def __str__(self):
+        if self.msg is not None:
+            return str(self.msg)
+        else:
+            return "An error occurred during compilation."
 
-        

@@ -17,6 +17,7 @@ import warnings
 # Original modules
 from . import detect
 from . import constants
+from . import exceptions
 
 class ModuleCompiler:
     """This class finds the modules required by your script and create a .NET assembly.
@@ -144,6 +145,11 @@ class ModuleCompiler:
         stderr = subprocess.STDOUT, cwd = cwd)
         (self.pyc_stdout, self.pyc_stderr) = sp.communicate()
         #sp.terminate()
+        
+        # ipyのエラーを確認する
+        if sp.returncode <> 0:
+            raise exceptions.ModuleCompilationError(
+            msg = "{0} returned {1} exit status.".format(executable, sp.returncode))
         
         # レスポンスファイルを削除する
         if delete_resp:
