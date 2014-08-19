@@ -339,13 +339,17 @@ def gather_ipydll(dest_dir, ipy_dir = None):
     
     :param str dest_dir: The path of the destination directory.
     :param str ipy_dir: Specify the path of the IronPython directory, or
-                        it will be detected using :func:`detect_ipy`.
+                        it will be detected using :func:`ironpycompiler.detect.auto_detect`.
     
     .. versionadded:: 0.9.0
+    
+    .. versionchanged:: 0.10.0
+       This function now uses :func:`ironpycompiler.detect.auto_detect` instead of
+       :func:`ironpycompiler.detect.detect_ipy`.
     
     """
     
     if ipy_dir is None:
-        ipy_dir = detect.detect_ipy()[0]
+        ipy_dir = detect.auto_detect()[1]
     for dll in glob.glob(os.path.join(ipy_dir, "*.dll")):
         shutil.copy2(dll, dest_dir)
