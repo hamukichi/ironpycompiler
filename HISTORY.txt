@@ -7,6 +7,7 @@ v0.10.0 (2014-08-XX)
 * New feature: Specifying the path to pyc.py.
 * A new exception for compilation errors.
 * Updated the command-line tool.
+* Deprecated some functions and methods.
 * Solved the problem that ``compiler.gather_ipy`` depends on
   a deprecated function.
 

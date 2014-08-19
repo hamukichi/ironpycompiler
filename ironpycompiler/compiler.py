@@ -170,13 +170,13 @@ class ModuleCompiler:
                                Ironpython exectuable.
         
         .. warning::
-           This method remains for backward compatibility, and will be
-           deprecated in the future. Please use :meth:`create_asm` 
+           This method is deprecated, and will be removed in the next
+           major version. Please use :meth:`create_asm` 
            instead.
         
         """
         
-        warnings.warn("Use create_asm instead.", PendingDeprecationWarning)
+        warnings.warn("Use create_asm instead.", DeprecationWarning)
         
         if self.compilable_modules == set():
             self.check_compilability()
@@ -223,12 +223,12 @@ class ModuleCompiler:
                                Ironpython exectuable.
         
         .. warning::
-           This method remains for backward compatibility, and will be
-           deprecated in the future. Please use :meth:`create_asm` instead.
+           This method is deprecated, and will be removed in the next
+           major version. Please use :meth:`create_asm` instead.
         
         """
         
-        warnings.warn("Use create_asm instead.", PendingDeprecationWarning)
+        warnings.warn("Use create_asm instead.", DeprecationWarning)
         
         if self.compilable_modules == set():
             self.check_compilability()

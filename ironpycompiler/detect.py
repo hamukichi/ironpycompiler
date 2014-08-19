@@ -33,12 +33,12 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
        This function now calls :func:`search_ipy`.
     
     .. warning::
-       This function remains for backward compatibility. Please use 
-       :func:`search_ipy`.
+       This function is deprecated, and will be removed in the next 
+       major version. Please use :func:`search_ipy`.
     
     """
     
-    warnings.warn("Use search_ipy instead.", PendingDeprecationWarning)
+    warnings.warn("Use search_ipy instead.", DeprecationWarning)
 
     return sorted(search_ipy(regkeys, executable).values(), reverse = True)
 
