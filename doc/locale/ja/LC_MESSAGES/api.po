@@ -106,13 +106,6 @@ msgid "This function now calls :func:`search_ipy`."
 msgstr "この関数は :func:`search_ipy` を使用するようになりました。"
 
 #: ..\..\..\ironpycompiler\detect.pydocstring of
-#: ironpycompiler.detect.detect_ipy:17
-msgid ""
-"This function remains for backward compatibility. Please use  "
-":func:`search_ipy`."
-msgstr "この関数は後方互換性のために残されています。 :func:`search_ipy` をお使いください。"
-
-#: ..\..\..\ironpycompiler\detect.pydocstring of
 #: ironpycompiler.detect.search_ipy:1
 msgid "Search for IronPython directories."
 msgstr "IronPythonディレクトリを検索します。"
@@ -208,15 +201,6 @@ msgid ""
 "element of this list must be the  path to the main file of your project."
 msgstr ""
 "スクリプトへのパスを指定してください。EXEファイルを作成する際には、このリストの最初の要素は、最初に実行されるべきスクリプトへのパスでなければなりません。"
-
-#: ..\..\..\ironpycompiler\compiler.pydocstring of
-#: ironpycompiler.compiler.ModuleCompiler:10
-msgid ""
-"Specify the IronPython directory, or it will be automatically detected using"
-" :func:`ironpycompiler.detect.detect_ipy`."
-msgstr ""
-"IronPythonディレクトリを指定してください。さもなければ、 :func:`ironpycompiler.detect.detect_ipy` "
-"を利用して自動的に検索します。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.call_pyc:1
@@ -349,13 +333,6 @@ msgid "(optional) Specify the name of the DLL file  that should be created."
 msgstr "（任意）作成するDLLファイルの名前を指定してください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
-#: ironpycompiler.compiler.ModuleCompiler.create_dll:11
-msgid ""
-"This method remains for backward compatibility, and will be deprecated in "
-"the future. Please use :meth:`create_asm`  instead."
-msgstr "このメソッドは後方互換性のために残されていて、将来非推奨となるでしょう。 :meth:`create_asm` を代わりにお使いください。"
-
-#: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:1
 msgid ""
 "Compile your scripts into an EXE file (.NET process assembly) using pyc.py."
@@ -394,13 +371,6 @@ msgstr ""
 "（任意）IronPythonアセンブリを実行可能ファイルに埋め込むかどうかを指定してください。出力アセンブリの形式が\"exe\"または\"winexe\"であるときに有効です。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
-#: ironpycompiler.compiler.ModuleCompiler.create_executable:24
-msgid ""
-"This method remains for backward compatibility, and will be deprecated in "
-"the future. Please use :meth:`create_asm` instead."
-msgstr "このメソッドは後方互換性のために残されていて、将来非推奨となるでしょう。 :meth:`create_asm` を代わりにお使いください。"
-
-#: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.output_asm:1
 msgid "The path to the main output assembly."
 msgstr "出力するアセンブリへのパスです。"
@@ -424,13 +394,6 @@ msgstr "IronPythonのDLLファイルを指定されたディレクトリにコ�
 #: ironpycompiler.compiler.gather_ipydll:3
 msgid "The path of the destination directory."
 msgstr "出力先のディレクトリのパスです。"
-
-#: ..\..\..\ironpycompiler\compiler.pydocstring of
-#: ironpycompiler.compiler.gather_ipydll:4
-msgid ""
-"Specify the path of the IronPython directory, or it will be detected using "
-":func:`detect_ipy`."
-msgstr "IronPythonディレクトリのパスを指定してください。さもなければ :func:`detect_ipy` を用いて検索します。"
 
 #: ..\..\api.rst:17
 msgid "ironpycompiler.exceptions"
@@ -462,6 +425,8 @@ msgstr "（任意）検索するIronPython実行可能ファイルの名前で�
 
 #: ..\..\..\ironpycompiler\exceptions.pydocstring of
 #: ironpycompiler.exceptions.IronPythonDetectionError:6
+#: ..\..\..\ironpycompiler\exceptions.pydocstring of
+#: ironpycompiler.exceptions.ModuleCompilationError:3
 msgid "(optional) The detailed information of the error."
 msgstr "（任意）エラーに関する詳細情報です。"
 
@@ -495,9 +460,96 @@ msgstr "既定のIronPythonレジストリキーです。"
 msgid ""
 "In general use this method is not supposed to be called  directly. It is "
 "recommended that you use  :meth:`create_asm` instead."
+msgstr "通常は、このメソッドを直接使用すべきではありません。 :meth:`create_asm` を代わりに使用することをお勧めします。"
+
+#: ..\..\..\ironpycompiler\detect.pydocstring of
+#: ironpycompiler.detect.detect_ipy:17
+msgid ""
+"This function is deprecated, and will be removed in the next  major version."
+" Please use :func:`search_ipy`."
 msgstr ""
-"通常は、このメソッドを直接使用すべきではありません。 :meth:`create_asm` "
-"を代わりに使用することをお勧めします。"
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler:10
+msgid ""
+"Specify the IronPython directory, or it will be automatically detected using"
+" :func:`ironpycompiler.detect.auto_detect`."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler:12
+msgid "(optional) Specify the path to pyc.py."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler:14
+msgid "The argument ``pyc_path`` was added."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.builtin_modules:1
+msgid "Set of the names of built-in modules."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_dll:11
+msgid ""
+"This method is deprecated, and will be removed in the next major version. "
+"Please use :meth:`create_asm`  instead."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.ModuleCompiler.create_executable:24
+msgid ""
+"This method is deprecated, and will be removed in the next major version. "
+"Please use :meth:`create_asm` instead."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.gather_ipydll:4
+msgid ""
+"Specify the path of the IronPython directory, or it will be detected using "
+":func:`ironpycompiler.detect.auto_detect`."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\compiler.pydocstring of
+#: ironpycompiler.compiler.gather_ipydll:9
+msgid ""
+"This function now uses :func:`ironpycompiler.detect.auto_detect` instead of "
+":func:`ironpycompiler.detect.detect_ipy`."
+msgstr ""
+
+#: ..\..\..\ironpycompiler\exceptions.pydocstring of
+#: ironpycompiler.exceptions.ModuleCompilationError:1
+msgid "This exception means an error during compilation."
+msgstr ""
+
+#~ msgid ""
+#~ "This function remains for backward compatibility. Please use  "
+#~ ":func:`search_ipy`."
+#~ msgstr "この関数は後方互換性のために残されています。 :func:`search_ipy` をお使いください。"
+
+#~ msgid ""
+#~ "Specify the IronPython directory, or it will be automatically detected using"
+#~ " :func:`ironpycompiler.detect.detect_ipy`."
+#~ msgstr ""
+#~ "IronPythonディレクトリを指定してください。さもなければ、 :func:`ironpycompiler.detect.detect_ipy` "
+#~ "を利用して自動的に検索します。"
+
+#~ msgid ""
+#~ "This method remains for backward compatibility, and will be deprecated in "
+#~ "the future. Please use :meth:`create_asm`  instead."
+#~ msgstr "このメソッドは後方互換性のために残されていて、将来非推奨となるでしょう。 :meth:`create_asm` を代わりにお使いください。"
+
+#~ msgid ""
+#~ "This method remains for backward compatibility, and will be deprecated in "
+#~ "the future. Please use :meth:`create_asm` instead."
+#~ msgstr "このメソッドは後方互換性のために残されていて、将来非推奨となるでしょう。 :meth:`create_asm` を代わりにお使いください。"
+
+#~ msgid ""
+#~ "Specify the path of the IronPython directory, or it will be detected using "
+#~ ":func:`detect_ipy`."
+#~ msgstr "IronPythonディレクトリのパスを指定してください。さもなければ :func:`detect_ipy` を用いて検索します。"
 
 #~ msgid ""
 #~ "In general use this method is not supposed to be called  directly. It is "

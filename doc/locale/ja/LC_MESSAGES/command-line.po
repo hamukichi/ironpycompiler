@@ -19,33 +19,40 @@ msgstr "コマンドラインツール"
 msgid ""
 "IronPyCompiler has a command-line script named ``ipy2asm``. This script will"
 " be installed in the directory ``Scripts``."
-msgstr "IronPyCompilerには ``ipy2asm`` という名前のコマンドラインスクリプトがあります。"
-"このスクリプトは ``Scripts`` ディレクトリにインストールされます。"
+msgstr ""
+"IronPyCompilerには ``ipy2asm`` という名前のコマンドラインスクリプトがあります。このスクリプトは ``Scripts`` "
+"ディレクトリにインストールされます。"
 
-#: ..\..\command-line.rst:8
+#: ..\..\command-line.rst:12
 msgid "Examples"
 msgstr "例"
 
-#: ..\..\command-line.rst:11
+#: ..\..\command-line.rst:15
 msgid "Compiling Scripts"
 msgstr "スクリプトをコンパイルする"
 
-#: ..\..\command-line.rst:14
+#: ..\..\command-line.rst:18
 msgid "Creating a .exe File and Copying IronPython DLLs"
 msgstr "EXEファイルを作成し、IronPythonのDLLをコピーする"
 
-#: ..\..\command-line.rst:22
+#: ..\..\command-line.rst:26
 msgid "Creating a .dll File"
 msgstr "DLLファイルを作成する"
 
-#: ..\..\command-line.rst:30
+#: ..\..\command-line.rst:34
 msgid "Checking Modules Required by Scripts"
 msgstr "スクリプトが必要とするモジュールを確認する"
 
-#: ..\..\command-line.rst:37
+#: ..\..\command-line.rst:41
 msgid "Detailed Information"
 msgstr "詳細情報"
 
-#: ..\..\command-line.rst:39
+#: ..\..\command-line.rst:43
 msgid "Please see ``ipy2asm --help``."
 msgstr "``ipy2asm --help`` を実行してください。"
+
+#: ..\..\command-line.rst:8
+msgid ""
+"This command-line tool is provided for convenience. Not all of the functions"
+" of IronPyCompiler are accessible via the script."
+msgstr ""
