@@ -61,6 +61,7 @@ def _analyzer(args):
     print "These modules are required but uncompilable:"
     for mod in mc.uncompilable_modules:
         print mod
+    print
     print "These modules are built in:"
     for mod in mc.builtin_modules:
         print mod
