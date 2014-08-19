@@ -1,8 +1,12 @@
 Command-line Tool
 =================
 
-IronPyCompiler has a command-line script named ``ipy2asm`` for convenience. This script
+IronPyCompiler has a command-line script named ``ipy2asm``. This script
 will be installed in the directory ``Scripts``.
+
+.. note::
+   This command-line tool is provided for convenience. Not all of the functions
+   of IronPyCompiler are accessible via the script.
 
 Examples
 --------
