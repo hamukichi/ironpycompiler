@@ -468,7 +468,7 @@ msgid ""
 "This function is deprecated, and will be removed in the next  major version."
 " Please use :func:`search_ipy`."
 msgstr ""
-"この関数は非推奨であり、次のメジャーバージョンで削除される予定です。:func:`search_ipy`を使用してください。"
+"この関数は非推奨であり、次のメジャーバージョンで削除される予定です。 :func:`search_ipy` を使用してください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler:10
@@ -476,7 +476,7 @@ msgid ""
 "Specify the IronPython directory, or it will be automatically detected using"
 " :func:`ironpycompiler.detect.auto_detect`."
 msgstr ""
-"IronPythonのディレクトリを指定してください。さもなければ、:func:`ironpycompiler.detect.auto_detect`"
+"IronPythonのディレクトリを指定してください。さもなければ、 :func:`ironpycompiler.detect.auto_detect` "
 "を利用して自動的に検索します。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
@@ -500,7 +500,7 @@ msgid ""
 "This method is deprecated, and will be removed in the next major version. "
 "Please use :meth:`create_asm`  instead."
 msgstr ""
-"この関数は非推奨であり、次のメジャーバージョンで削除される予定です。:meth:`create_asm`を代わりにお使いください。"
+"この関数は非推奨であり、次のメジャーバージョンで削除される予定です。 :meth:`create_asm` を代わりにお使いください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.ModuleCompiler.create_executable:24
@@ -508,7 +508,7 @@ msgid ""
 "This method is deprecated, and will be removed in the next major version. "
 "Please use :meth:`create_asm` instead."
 msgstr ""
-"この関数は非推奨であり、次のメジャーバージョンで削除される予定です。:meth:`create_asm`を代わりにお使いください。"
+"この関数は非推奨であり、次のメジャーバージョンで削除される予定です。 :meth:`create_asm` を代わりにお使いください。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.gather_ipydll:4
@@ -517,7 +517,7 @@ msgid ""
 ":func:`ironpycompiler.detect.auto_detect`."
 msgstr ""
 "IronPythonディレクトリのパスを指定してください。さもなければ"
-":func:`ironpycompiler.detect.auto_detect`を利用して自動的に検索します。"
+" :func:`ironpycompiler.detect.auto_detect` を利用して自動的に検索します。"
 
 #: ..\..\..\ironpycompiler\compiler.pydocstring of
 #: ironpycompiler.compiler.gather_ipydll:9
@@ -525,8 +525,8 @@ msgid ""
 "This function now uses :func:`ironpycompiler.detect.auto_detect` instead of "
 ":func:`ironpycompiler.detect.detect_ipy`."
 msgstr ""
-"この関数は:func:`ironpycompiler.detect.detect_ipy`の代わりに"
-":func:`ironpycompiler.detect.auto_detect`を使います。"
+"この関数は :func:`ironpycompiler.detect.detect_ipy` の代わりに"
+" :func:`ironpycompiler.detect.auto_detect` を使います。"
 
 #: ..\..\..\ironpycompiler\exceptions.pydocstring of
 #: ironpycompiler.exceptions.ModuleCompilationError:1
