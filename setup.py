@@ -20,7 +20,7 @@ with open("HISTORY.txt", "r") as f_history:
 
 sysver = sys.version_info
 
-classifiers = ["Development Status :: 3 - Alpha", 
+classifiers = ["Development Status :: 4 - Beta", 
                "Intended Audience :: Developers", 
                "License :: OSI Approved :: MIT License", 
                "Operating System :: Microsoft :: Windows", 
