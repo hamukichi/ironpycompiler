@@ -54,7 +54,9 @@ def search_ipy_reg(regkeys = None):
     :rtype: dict
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython keys cannot be found
     
-    .. versionadded:: 0.10.1
+    .. versionadded:: 0.9.0
+    
+    .. versionchanged:: 0.10.1
        Solved the problem that the default value for the argument ``regkeys`` was mutable.
     
     """
@@ -164,7 +166,7 @@ def search_ipy(regkeys = None, executable = constants.EXECUTABLE):
     
     .. versionadded:: 0.9.0
     
-    .. versionadded:: 0.10.1
+    .. versionchanged:: 0.10.1
        Solved the problem that the default value for the argument ``regkeys`` was mutable.
     
     """ 
