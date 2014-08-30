@@ -42,7 +42,7 @@ def detect_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
 
     return sorted(search_ipy(regkeys, executable).values(), reverse = True)
 
-def search_ipy_reg(regkeys = constants.REGKEYS):
+def search_ipy_reg(regkeys = None):
     """Search for IronPython regisitry keys.
     
     This function searches for IronPython keys in the Windows registry, 
@@ -54,9 +54,13 @@ def search_ipy_reg(regkeys = constants.REGKEYS):
     :rtype: dict
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython keys cannot be found
     
-    .. versionadded:: 0.9.0
+    .. versionadded:: 0.10.1
+       Solved the problem that the default value for the argument ``regkeys`` was mutable.
     
     """
+    
+    if regkeys is None:
+        regkeys = constants.REGKEYS
     
     try:
         import _winreg
@@ -144,7 +148,7 @@ def search_ipy_env(executable = constants.EXECUTABLE):
     
     return foundipys
 
-def search_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
+def search_ipy(regkeys = None, executable = constants.EXECUTABLE):
     """Search for IronPython directories.
     
     This function searches for IronPython directories using both
@@ -160,8 +164,14 @@ def search_ipy(regkeys = constants.REGKEYS, executable = constants.EXECUTABLE):
     
     .. versionadded:: 0.9.0
     
+    .. versionadded:: 0.10.1
+       Solved the problem that the default value for the argument ``regkeys`` was mutable.
+    
     """ 
-       
+    
+    if regkeys is None:
+        regkeys = constants.REGKEYS
+    
     try:
         foundipys = search_ipy_reg(regkeys)
     except exceptions.IronPythonDetectionError as e:
