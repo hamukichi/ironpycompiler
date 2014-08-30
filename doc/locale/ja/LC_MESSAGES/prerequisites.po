@@ -19,22 +19,14 @@ msgstr "動作条件"
 msgid "Environment"
 msgstr "環境"
 
-#: ..\..\prerequisites.rst:7
-msgid ""
-"IronPyCompiler requires both IronPython 2.x and CPython 2.x. It was tested "
-"on IronPython 2.7.4 and CPython 2.7.5."
-msgstr ""
-"IronPyCompilerはIronPython 2.xとCPython 2.xの両方を必要とします。"
-"IronPython 2.7.4とCPython 2.7.5での動作が確認されています。"
-
 #: ..\..\prerequisites.rst:11
 msgid ""
 "IronPyCompiler must be run on **CPython**, although it use IronPython and "
 "its ``pyc.py``. This is because :mod:`modulefinder` of IronPython does not "
 "work correctly, while that of CPython does."
 msgstr ""
-"IronPyCompilerはIronPythonとそれに付属する ``pyc.py`` を使用しますが、"
-" **CPython** 上で実行しなければなりません。これはCPythonの :mod:`modulefinder` "
+"IronPyCompilerはIronPythonとそれに付属する ``pyc.py`` を使用しますが、 **CPython** "
+"上で実行しなければなりません。これはCPythonの :mod:`modulefinder` "
 "が正常に動作する一方で、IronPythonのそれはうまく動作しないためです。"
 
 #: ..\..\prerequisites.rst:14
@@ -42,8 +34,8 @@ msgid ""
 "IronPyCompiler will not work on CPython 3.x, which is not compatible with "
 "the latest stable version of IronPython."
 msgstr ""
-"CPython 3.xはIronPythonの最も新しく安定なバージョンとは互換性がなく、"
-"IronPyCompilerはCPython 3.xでは正常に動作しません。"
+"CPython 3.xはIronPythonの最も新しく安定なバージョンとは互換性がなく、IronPyCompilerはCPython "
+"3.xでは正常に動作しません。"
 
 #: ..\..\prerequisites.rst:18
 msgid "External Modules"
@@ -54,13 +46,28 @@ msgid ""
 "`argparse <https://pypi.python.org/pypi/argparse/1.2.1>`_ is necessary if "
 "you use CPython < 2.7."
 msgstr ""
-"2.7よりも古いバージョンのCPythonでIronPyCompilerを使用するならば、"
-" `argparse <https://pypi.python.org/pypi/argparse/1.2.1>`_ が必要です。"
+"2.7よりも古いバージョンのCPythonでIronPyCompilerを使用するならば、 `argparse "
+"<https://pypi.python.org/pypi/argparse/1.2.1>`_ が必要です。"
 
 #: ..\..\prerequisites.rst:22
 msgid ""
 "`setuptools <https://pypi.python.org/pypi/setuptools>`_ is required in "
 "installing IronPyCompiler using ``setup.py``."
 msgstr ""
-"付属の ``setup.py`` を用いてIronPyCompilerをインストールするには、"
-"`setuptools <https://pypi.python.org/pypi/setuptools>`_ が必要です。"
+"付属の ``setup.py`` を用いてIronPyCompilerをインストールするには、`setuptools "
+"<https://pypi.python.org/pypi/setuptools>`_ が必要です。"
+
+#: ..\..\prerequisites.rst:7
+msgid ""
+"IronPyCompiler requires both IronPython 2.x and CPython 2.x. It was tested "
+"on IronPython 2.7.4 and CPython 2.7.8."
+msgstr ""
+"IronPyCompilerはIronPython 2.xとCPython 2.xの両方を必要とします。IronPython 2.7.4とCPython"
+" 2.7.8での動作が確認されています。"
+
+#~ msgid ""
+#~ "IronPyCompiler requires both IronPython 2.x and CPython 2.x. It was tested "
+#~ "on IronPython 2.7.4 and CPython 2.7.5."
+#~ msgstr ""
+#~ "IronPyCompilerはIronPython 2.xとCPython 2.xの両方を必要とします。IronPython 2.7.4とCPython"
+#~ " 2.7.5での動作が確認されています。"
