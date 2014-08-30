@@ -5,7 +5,7 @@ Environment
 -----------
 
 IronPyCompiler requires both IronPython 2.x and CPython 2.x. It was  
-tested on IronPython 2.7.4 and CPython 2.7.5.
+tested on IronPython 2.7.4 and CPython 2.7.8.
 
 .. note::
    * IronPyCompiler must be run on **CPython**, although it use IronPython 
