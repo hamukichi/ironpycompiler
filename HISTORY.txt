@@ -1,6 +1,11 @@
 History
 =======
 
+v0.10.1 (2014-08-30)
+--------------------
+
+* Solved the problem that mutable default values are used.
+
 v0.10.0 (2014-08-20)
 --------------------
 
