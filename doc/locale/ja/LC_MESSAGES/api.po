@@ -537,7 +537,6 @@ msgstr "この例外はコンパイル中にエラーが生じたことを意味
 msgid ""
 "Solved the problem that the default value for the argument ``regkeys`` was "
 "mutable."
-msgstr ""
 msgstr "引数 ``regkeys`` に対する既定値が可変であるという問題を解消しました。"
 
 #~ msgid ""
