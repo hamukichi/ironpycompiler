@@ -4,51 +4,52 @@
 """
 This is a command-line tool for IronPyCompiler.
 
-Function defined in this module should not be used directly by other 
+Function defined in this module should not be used directly by other
 modules.
 """
 
 import argparse
-import os
 import sys
 
 # Original modules
 import ironpycompiler.compiler as compiler
 
+
 def _compiler(args):
     """Funciton for command ``compile``. It should not be used directly.
-    
+
     """
-    
+
     # mainのみにスクリプトが指定されたとき
     if args.target == "winexe" or args.target == "exe":
-        if (args.main is not None) and (not args.main in args.script):
+        if (args.main is not None) and (args.main not in args.script):
             args.script.insert(0, args.main)
-    
+
     mc = compiler.ModuleCompiler(
-    paths_to_scripts = args.script)
-    
+        paths_to_scripts=args.script)
+
     print "Analyzing scripts...",
     mc.check_compilability()
     print "Done."
     print
-    
+
     print "Compiling scripts...",
-    mc.create_asm(out = args.out, target_asm = args.target, 
-    target_platform = args.platform, embed = args.embed, 
-    standalone = args.standalone, mta = args.mta, 
-    copy_ipydll = args.copyipydll)
-    
+    mc.create_asm(out=args.out, target_asm=args.target,
+                  target_platform=args.platform, embed=args.embed,
+                  standalone=args.standalone, mta=args.mta,
+                  copy_ipydll=args.copyipydll)
+
     print "Done. This is the output by pyc.py."
     print mc.pyc_stdout
 
+
 def _analyzer(args):
     """ Function for command ``analyze``. It should not be used directly.
-    
+
     """
-    
+
     mc = compiler.ModuleCompiler(
-    paths_to_scripts = args.script)
+        paths_to_scripts=args.script)
     mc.check_compilability()
     print "Searched for modules in these directories:"
     for d in mc.dirs_of_modules:
@@ -69,64 +70,64 @@ def _analyzer(args):
 
 def main():
     """This function will be used when this module is run as a script.
-        
+
     """
-    
+
     if sys.platform == "cli":
         print "WARNING: This script will not work on IronPython."
         print
     elif sys.version_info[0] >= 3:
         print "WARNING: This script will not work on Python 3+."
         print
-        
-    
+
     # トップレベル
     parser = argparse.ArgumentParser(
-    description = "Compile IronPython scripts into a .NET assembly.", 
-    epilog = "See '%(prog)s <command> --help' for details.", 
-    prog = "ipy2asm")
+        description="Compile IronPython scripts into a .NET assembly.",
+        epilog="See '%(prog)s <command> --help' for details.",
+        prog="ipy2asm")
     subparsers = parser.add_subparsers(
-    help = "Commands this module accepts.", 
-    dest = "command")
-    
+        help="Commands this module accepts.",
+        dest="command")
+
     # サブコマンドcompile
-    parser_compile = subparsers.add_parser("compile", 
-    help = "Analyze scripts and compile them.")
-    parser_compile.add_argument("script", nargs = "+", 
-    help = "Scripts that should be compiled.")
-    parser_compile.add_argument("-o", "--out", 
-    help = "Output file name.")
+    parser_compile = subparsers.add_parser("compile",
+                                           help="Analyze and compile scripts.")
+    parser_compile.add_argument("script", nargs="+",
+                                help="Scripts that should be compiled.")
+    parser_compile.add_argument("-o", "--out",
+                                help="Output file name.")
     parser_compile.add_argument("-t", "--target",
-    default = "dll", choices = ["dll", "exe", "winexe"], 
-    help = "Compile scripts into dll, exe, or winexe.")
+                                default="dll",
+                                choices=["dll", "exe", "winexe"],
+                                help="Compile scripts into dll/exe/winexe.")
     parser_compile.add_argument("-m", "--main",
-    help = "Script to be executed first.")
-    parser_compile.add_argument("-p", "--platform", 
-    choices = ["x86", "x64"], 
-    help = "Target platform.")
-    parser_compile.add_argument("-e", "--embed", 
-    action = "store_true", 
-    help = "Embed the generated DLL into exe/winexe.")
-    parser_compile.add_argument("-s", "--standalone", 
-    action = "store_true", 
-    help = "Embed the IronPython assemblies into exe/winexe.")
-    parser_compile.add_argument("-M", "--mta", 
-    action = "store_true", 
-    help = "Set MTAThreadAttribute (winexe).")
-    parser_compile.add_argument("-c", "--copyipydll", 
-    action = "store_true", 
-    help = "Copy IronPython DLLs into the destination directory.")
-    parser_compile.set_defaults(func = _compiler)
-    
+                                help="Script to be executed first.")
+    parser_compile.add_argument("-p", "--platform",
+                                choices=["x86", "x64"],
+                                help="Target platform.")
+    parser_compile.add_argument("-e", "--embed",
+                                action="store_true",
+                                help="Embed the generated DLL into (win)exe.")
+    parser_compile.add_argument("-s", "--standalone",
+                                action="store_true",
+                                help="Embed the IPy assemblies into (win)exe.")
+    parser_compile.add_argument("-M", "--mta",
+                                action="store_true",
+                                help="Set MTAThreadAttribute (winexe).")
+    parser_compile.add_argument("-c", "--copyipydll",
+                                action="store_true",
+                                help="Copy IronPython DLLs.")
+    parser_compile.set_defaults(func=_compiler)
+
     # サブコマンドanalyze
-    parser_analyze = subparsers.add_parser("analyze", 
-    help = "Only check what modules scripts require.")
-    parser_analyze.add_argument("script", nargs = "+", 
-    help = "Scripts that should be analyzed.")
-    parser_analyze.set_defaults(func = _analyzer)
-    
+    parser_analyze = subparsers.add_parser("analyze",
+                                           help="Only check required modules.")
+    parser_analyze.add_argument("script", nargs="+",
+                                help="Scripts that should be analyzed.")
+    parser_analyze.set_defaults(func=_analyzer)
+
     args = parser.parse_args()
-    
+
     # 将来Python 3.3+に対応したときに必要
     if hasattr(args, "func"):
         args.func(args)
@@ -135,4 +136,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
