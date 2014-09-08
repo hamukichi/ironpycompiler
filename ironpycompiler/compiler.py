@@ -12,7 +12,6 @@ import tempfile
 import subprocess
 import glob
 import shutil
-import warnings
 
 # Original modules
 from . import detect
@@ -162,111 +161,6 @@ class ModuleCompiler:
         if delete_resp:
             os.remove(self.response_file[1])
 
-    def create_dll(self, out=None, delete_resp=True,
-                   executable=constants.EXECUTABLE):
-        """Compile your scripts into a DLL file (.NET library assembly) using pyc.py.
-
-        :param str out: (optional) Specify the name of the DLL file
-                        that should be created.
-        :param bool delete_resp: (optional) Specify whether to delete the
-                                 response file after compilation or not.
-        :param str executable: (optional) Specify the name of the
-                               Ironpython exectuable.
-
-        .. warning::
-           This method is deprecated, and will be removed in the next
-           major version. Please use :meth:`create_asm`
-           instead.
-
-        """
-
-        warnings.warn("Use create_asm instead.", DeprecationWarning)
-
-        if self.compilable_modules == set():
-            self.check_compilability()
-
-        # pycに送る引数
-        pyc_args = ["/target:dll"]
-        if out is not None:
-            out = os.path.abspath(out)
-            pyc_args.append(
-                "/out:" + os.path.splitext(os.path.basename(out))[0])
-        pyc_args += self.paths_to_scripts
-        pyc_args += self.compilable_modules
-
-        # call_pycに送る引数
-        call_args = {"args": pyc_args, "delete_resp": delete_resp,
-                     "executable": executable}
-        if out is not None:
-            call_args["cwd"] = os.path.dirname(out)
-        self.call_pyc(**call_args)
-
-    def create_executable(self, out=None, winexe=False,
-                          target_platform=None, embed=True, standalone=True,
-                          mta=False, delete_resp=True,
-                          executable=constants.EXECUTABLE):
-        """Compile your scripts into an EXE file (.NET process assembly) using pyc.py.
-
-        :param str out: (optional) Specify the name of the EXE file
-                        that should be created.
-        :param bool winexe: (optional) Specify whether to create
-                            a windows executable or to generate a
-                            console one, or a console executable will be
-                            created.
-        :param str target_platform: (optional) Specify the target
-                                    platform ("x86" or "x64") if
-                                    necessary.
-        :param bool embed: (optional) Specify whether to embed the
-                           generated DLL into the executable.
-        :param bool standalone: (optional) Specify whether to embed
-                                IronPython assemblies into the executable.
-        :param bool mta: (optional) Specify whether to set
-                         MTAThreadAttribute (winexe).
-        :param bool delete_resp: (optional) Specify whether to delete the
-                                 response file after compilation or not.
-        :param str executable: (optional) Specify the name of the
-                               Ironpython exectuable.
-
-        .. warning::
-           This method is deprecated, and will be removed in the next
-           major version. Please use :meth:`create_asm` instead.
-
-        """
-
-        warnings.warn("Use create_asm instead.", DeprecationWarning)
-
-        if self.compilable_modules == set():
-            self.check_compilability()
-
-        # pyc.pyに送る引数
-        pyc_args = ["/main:" + self.paths_to_scripts[0]]
-        if out is not None:
-            out = os.path.abspath(out)
-            pyc_args.append(
-                "/out:" + os.path.splitext(os.path.basename(out))[0])
-        if winexe:
-            pyc_args.append("/target:winexe")
-            if mta:
-                pyc_args.append("/mta")
-        else:
-            pyc_args.append("/target:exe")
-        if target_platform in ["x86", "x64"]:
-            pyc_args.append("/platform:" + target_platform)
-        if embed:
-            pyc_args.append("/embed")
-        if standalone:
-            pyc_args.append("/standalone")
-        pyc_args += self.paths_to_scripts
-        pyc_args += self.compilable_modules
-
-        # call_pycに送る引数
-        call_args = {"args": pyc_args, "delete_resp": delete_resp,
-                     "executable": executable}
-        if out is not None:
-            call_args["cwd"] = os.path.dirname(out)
-
-        self.call_pyc(**call_args)
-
     def create_asm(self, out=None, target_asm="dll", target_platform=None,
                    embed=True, standalone=True, mta=False, delete_resp=True,
                    executable=constants.EXECUTABLE, copy_ipydll=False):
@@ -351,8 +245,7 @@ def gather_ipydll(dest_dir, ipy_dir=None):
     .. versionadded:: 0.9.0
 
     .. versionchanged:: 0.10.0
-       This function now uses :func:`ironpycompiler.detect.auto_detect` instead
-       of :func:`ironpycompiler.detect.detect_ipy`.
+       This function now uses :func:`ironpycompiler.detect.auto_detect`.
 
     """
 
