@@ -13,6 +13,6 @@ Python standard library (or third-party pure-Python modules) into a
 """
 
 __author__ = "Hamukichi (Nombiri)"
-__version__ = "0.10.1"
-__date__ = "2014-08-30"
+__version__ = "1.0.0.a1"
+__date__ = "2014-09-08"
 __licence__ = "MIT License"
