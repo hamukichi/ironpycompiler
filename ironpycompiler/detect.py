@@ -9,40 +9,11 @@ import itertools
 import os
 import glob
 import subprocess
-import warnings
 import sys
 
 # Original modules
 from . import exceptions
 from . import constants
-
-
-def detect_ipy(regkeys=constants.REGKEYS, executable=constants.EXECUTABLE):
-    """Returns the list of the paths to the IronPython directories.
-
-    This function searches in the Windows registry and PATH for
-    IronPython.
-
-    :param list regkeys: (optional) The IronPython registry keys that
-                         should be looked for.
-    :param str executable: (optional) The name of the IronPython
-                           executable.
-    :rtype: list
-    :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython
-                                                                cannot be found
-
-    .. versionchanged:: 0.9.0
-       This function now calls :func:`search_ipy`.
-
-    .. warning::
-       This function is deprecated, and will be removed in the next
-       major version. Please use :func:`search_ipy`.
-
-    """
-
-    warnings.warn("Use search_ipy instead.", DeprecationWarning)
-
-    return sorted(search_ipy(regkeys, executable).values(), reverse=True)
 
 
 def search_ipy_reg(regkeys=None):
