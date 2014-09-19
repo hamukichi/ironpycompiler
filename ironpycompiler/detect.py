@@ -10,6 +10,7 @@ import os
 import glob
 import subprocess
 import sys
+import re
 
 # Original modules
 from . import exceptions
@@ -117,17 +118,30 @@ def search_ipy_env(executable=constants.EXECUTABLE):
         raise exceptions.IronPythonDetectionError(
             msg="Could not find any executable file named %s." % executable)
 
+    # バージョン番号かどうか
+    verpattern = re.compile(r"[0-9]+[.]{1}[0-9]+")
+
     for directory in ipydirpaths:
         ipy_exe = os.path.abspath(os.path.join(directory, executable))
         sp = subprocess.Popen(
-            args=[executable, "-V"],
+            args=[executable, "-c", ("from sys import version_info as v; "
+                "print '{}.{}'.format(v.major, v.minor)")],
             executable=ipy_exe, stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            universal_newlines=True)
         (sp_stdout, sp_stderr) = sp.communicate()
-        ipy_ver = sp_stdout[11:14]  # Todo: 正規表現でx.xのみを抽出
-        foundipys[ipy_ver] = directory
+        ipy_ver = sp_stdout.strip()
+        if re.match(verpattern, ipy_ver) is None:
+            continue
+        else:
+            foundipys[ipy_ver] = directory
 
-    return foundipys
+    if len(foundipys) == 0:
+        raise exceptions.IronPythonDetectionError(
+            msg=("{} exists, but is not the IronPython executable."
+                ).format(executable))
+    else:
+        return foundipys
 
 
 def search_ipy(regkeys=None, executable=constants.EXECUTABLE):
