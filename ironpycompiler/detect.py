@@ -86,7 +86,7 @@ def search_ipy_reg(regkeys=None):
     return foundipys
 
 
-def search_ipy_env(executable=constants.EXECUTABLE):
+def search_ipy_env(executable=constants.EXECUTABLE, detailed=False):
     """Search for IronPython directories included in the PATH variable.
 
     This function searches for IronPython executables in your system,
@@ -99,11 +99,20 @@ def search_ipy_env(executable=constants.EXECUTABLE):
 
     :param str executable: (optional) The name of the IronPython
                            executable.
+    :param bool detailed: (optional) If this parameter is true, the key of the
+                          dictionary will be an instance of
+                          :class:`ironpycompiler.datatypes.HashableVersion`
+                          instead of string, in order to provide detailed
+                          information of versions.
     :rtype: dict
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython
                                                                 cannot be found
 
     .. versionadded:: 0.9.0
+
+    .. versionchanged:: 1.0.0
+       * New parameter ``detailed`` was added.
+       * Improved validation of executables.
 
     """
 
