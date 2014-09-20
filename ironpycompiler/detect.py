@@ -15,6 +15,7 @@ import re
 # Original modules
 from . import exceptions
 from . import constants
+from . import datatypes
 
 
 def search_ipy_reg(regkeys=None):
@@ -229,3 +230,34 @@ def auto_detect():
                 msg="Could not decide the optimum version of IronPython.")
         else:
             return (majoripys[0], foundipys[majoripys[0]])
+
+
+def validate_ipyexe(path_to_exe):
+    """Check if the specified executable is a valid IronPython one.
+
+    This function validate the executable file by executing it actually, and
+    returns its version number.
+
+    :param str path_to_exe: The path to the executable.
+    :return: The version number of IronPython.
+    :rtype: :class:`ironpycompiler.datatypes.HashableVersion`
+
+    .. versionadded:: 1.0.0
+    """
+
+    verpattern = re.compile(r"[0-9]+[.]{1}[0-9]+")
+
+    ipy_sp = subprocess.Popen(
+        args=[os.path.basename(path_to_exe), "-c",
+              "from platform import python_version as pv; print pv()"],
+        executable=path_to_exe, stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        universal_newlines=True)
+
+    (ipy_stdout, ipy_stderr) = ipy_sp.communicate()
+    ipy_ver = ipy_stdout.strip()
+    if re.match(verpattern, ipy_ver) is None:
+        raise exceptions.IronPythonValidationError(
+            "{} is not a valid IronPython executable.".format(path_to_exe))
+    else:
+        return datatypes.HashableVersion(ipy_ver)
