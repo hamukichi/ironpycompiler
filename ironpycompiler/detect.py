@@ -284,9 +284,8 @@ def validate_ipyexe(path_to_exe):
         ipy_ver_str = ipy_stdout.strip()
         try:
             ipy_ver = datatypes.HashableVersion(ipy_ver_str)
-        except ValueError as v:
+        except ValueError:
             raise exceptions.IronPythonValidationError(
-                "{} is not a valid IronPython executable: {}".format(
-                    path_to_exe, str(v)))
+                "{} is not a valid IronPython executable:".format(path_to_exe))
         else:
             return ipy_ver
