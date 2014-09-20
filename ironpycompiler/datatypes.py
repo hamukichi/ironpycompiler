@@ -49,3 +49,11 @@ class HashableVersion(distutils.version.StrictVersion):
             fullversion = self.version + self.prerelease
 
         return hash(fullversion)
+
+    def major_minor(self):
+        """Returns a version number like 'x.y' for backward compatibility.
+
+        :rtype: str
+        """
+
+        return "{}.{}".format(self.major, self.minor)
