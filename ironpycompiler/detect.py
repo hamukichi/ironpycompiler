@@ -93,6 +93,10 @@ def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
                 ipypathkey.Close()
         ipybasekey.Close()
 
+    if len(foundipys) == 0:
+        raise exceptions.IronPythonDetectionError(
+            msg="Could not find any IronPython executable.")
+
     return foundipys
 
 
