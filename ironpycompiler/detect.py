@@ -18,7 +18,8 @@ from . import constants
 from . import datatypes
 
 
-def search_ipy_reg(regkeys=None):
+def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
+                   detailed=False):
     """Search for IronPython regisitry keys.
 
     This function searches for IronPython keys in the Windows registry,
@@ -63,24 +64,33 @@ def search_ipy_reg(regkeys=None):
             break
 
     if ipybasekey is None:
+        ipybasekey.Close()
         raise exceptions.IronPythonDetectionError(
             msg="Could not find any IronPython registry key.")
     else:
         itr = itertools.count()
         for idx in itr:
             try:
-                foundipys[_winreg.EnumKey(ipybasekey, idx)] = None
+                foundvers = _winreg.EnumKey(ipybasekey, idx)
             except WindowsError:  # 対応するサブキーがなくなったら
                 break
-        if foundipys == dict():
-            raise exceptions.IronPythonDetectionError(
-                msg="Could not find any version of IronPython.")
-        for ver in foundipys:
+        foundipys = dict()
+        for ver in foundvers:
             ipypathkey = _winreg.OpenKey(ipybasekey,
                                          ver + "\\InstallPath")
-            foundipys[ver] = os.path.dirname(
-                _winreg.QueryValue(ipypathkey, None))
-            ipypathkey.Close()
+            ipy_dir = os.path.dirname(_winreg.QueryValue(ipypathkey, None))
+            ipy_exe = os.path.abspath(os.path.join(ipy_dir, executable))
+            try:
+                ipy_ver = validate_ipyexe(ipy_exe)
+            except exceptions.IronPythonValidationError:
+                continue
+            else:
+                if detailed:
+                    foundipys[ipy_ver] = ipy_dir
+                else:
+                    foundipys[ipy_ver.major_minor()] = ipy_dir
+            finally:
+                ipypathkey.Close()
         ipybasekey.Close()
 
     return foundipys
