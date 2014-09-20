@@ -9,7 +9,7 @@ import distutils.version
 import platform
 
 
-class PythonVersion(distutils.version.StrictVersion):
+class HashableVersion(distutils.version.StrictVersion):
 
     """Represents a Python version.
 
