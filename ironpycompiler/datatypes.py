@@ -6,13 +6,16 @@
 """
 
 import distutils.version
+import platform
 
 
 class PythonVersion(distutils.version.StrictVersion):
 
     """Represents a Python version.
 
-    :param str vstring: String showing a Python version, like '2.7.8'.
+    :param str vstring: String showing a Python version, like '2.7.8'. If this
+                        parameter is not provided, the return value of
+                        :func:`platform.python_version` will be used.
 
     .. versionadded:: 1.0.0
     """
@@ -21,6 +24,9 @@ class PythonVersion(distutils.version.StrictVersion):
         """Initalize the instance.
 
         """
+
+        if vstring is None:
+            vstring = platform.python_version()
         distutils.version.StrictVersion.__init__(self, vstring)
 
         #: Integer showing the major version.
