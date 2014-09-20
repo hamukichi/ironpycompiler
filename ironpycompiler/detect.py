@@ -125,7 +125,7 @@ def search_ipy_env(executable=constants.EXECUTABLE):
         ipy_exe = os.path.abspath(os.path.join(directory, executable))
         sp = subprocess.Popen(
             args=[executable, "-c", ("from sys import version_info as v; "
-                "print '{}.{}'.format(v.major, v.minor)")],
+                  "print '{}.{}'.format(v.major, v.minor)")],
             executable=ipy_exe, stdin=subprocess.PIPE,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
             universal_newlines=True)
@@ -139,7 +139,7 @@ def search_ipy_env(executable=constants.EXECUTABLE):
     if len(foundipys) == 0:
         raise exceptions.IronPythonDetectionError(
             msg=("{} exists, but is not the IronPython executable."
-                ).format(executable))
+                 ).format(executable))
     else:
         return foundipys
 
