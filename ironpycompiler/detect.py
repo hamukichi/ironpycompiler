@@ -10,7 +10,6 @@ import os
 import glob
 import subprocess
 import sys
-import re
 
 # Original modules
 from . import exceptions
@@ -270,19 +269,24 @@ def validate_ipyexe(path_to_exe):
     .. versionadded:: 1.0.0
     """
 
-    verpattern = re.compile(r"[0-9]+[.]{1}[0-9]+")
-
-    ipy_sp = subprocess.Popen(
-        args=[os.path.basename(path_to_exe), "-c",
-              "from platform import python_version as pv; print pv()"],
-        executable=path_to_exe, stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        universal_newlines=True)
-
-    (ipy_stdout, ipy_stderr) = ipy_sp.communicate()
-    ipy_ver = ipy_stdout.strip()
-    if re.match(verpattern, ipy_ver) is None:
+    try:
+        ipy_sp = subprocess.Popen(
+            args=[os.path.basename(path_to_exe), "-c",
+                  "from platform import python_version as pv; print pv()"],
+            executable=path_to_exe, stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            universal_newlines=True)
+        (ipy_stdout, ipy_stderr) = ipy_sp.communicate()
+    except EnvironmentError as e:
         raise exceptions.IronPythonValidationError(
-            "{} is not a valid IronPython executable.".format(path_to_exe))
+            "{} is not available: {}".format(path_to_exe, str(e)))
     else:
-        return datatypes.HashableVersion(ipy_ver)
+        ipy_ver_str = ipy_stdout.strip()
+        try:
+            ipy_ver = datatypes.HashableVersion(ipy_ver_str)
+        except ValueError as v:
+            raise exceptions.IronPythonValidationError(
+                "{} is not a valid IronPython executable: {}".format(
+                    path_to_exe, str(v)))
+        else:
+            return ipy_ver
