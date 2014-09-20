@@ -28,6 +28,13 @@ def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
 
     :param list regkeys: (optional) The IronPython registry keys that
                          should be looked for.
+    :param str executable: (optional) The name of the IronPython
+                           executable.
+    :param bool detailed: (optional) If this parameter is true, the key of the
+                          dictionary will be an instance of
+                          :class:`ironpycompiler.datatypes.HashableVersion`
+                          instead of string, in order to provide detailed
+                          information of versions.
     :rtype: dict
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython
                                                                 keys cannot be
