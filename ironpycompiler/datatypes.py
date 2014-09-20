@@ -37,3 +37,15 @@ class HashableVersion(distutils.version.StrictVersion):
 
         #: Integer showing the patch version.
         self.patch = self.version[2]
+
+    def __hash__(self):
+        """Method to make instances of this class hashable.
+
+        """
+
+        if self.prerelease is None:
+            fullversion = self.version
+        else:
+            fullversion = self.version + self.prerelease
+
+        return hash(fullversion)
