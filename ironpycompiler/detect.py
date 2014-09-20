@@ -135,7 +135,10 @@ def search_ipy_env(executable=constants.EXECUTABLE, detailed=False):
         except exceptions.IronPythonValidationError:
             continue
         else:
-            foundipys[ipy_ver] = directory
+            if detailed:
+                foundipys[ipy_ver] = directory
+            else:
+                foundipys[ipy_ver.major_minor()] = directory
 
     if len(foundipys) == 0:
         raise exceptions.IronPythonDetectionError(
