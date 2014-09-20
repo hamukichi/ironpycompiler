@@ -169,7 +169,7 @@ def search_ipy_env(executable=constants.EXECUTABLE, detailed=False):
         return foundipys
 
 
-def search_ipy(regkeys=None, executable=constants.EXECUTABLE):
+def search_ipy(regkeys=None, executable=constants.EXECUTABLE, detailed=False):
     """Search for IronPython directories.
 
     This function searches for IronPython directories using both
@@ -195,12 +195,12 @@ def search_ipy(regkeys=None, executable=constants.EXECUTABLE):
         regkeys = constants.REGKEYS
 
     try:
-        foundipys = search_ipy_reg(regkeys)
+        foundipys = search_ipy_reg(regkeys, executable, detailed)
     except exceptions.IronPythonDetectionError:
         foundipys = dict()
 
     try:
-        envipys = search_ipy_env(executable)
+        envipys = search_ipy_env(executable, detailed)
     except exceptions.IronPythonDetectionError:
         envipys = dict()
 
