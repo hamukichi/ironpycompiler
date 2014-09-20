@@ -69,9 +69,10 @@ def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
             msg="Could not find any IronPython registry key.")
     else:
         itr = itertools.count()
+        foundvers = []
         for idx in itr:
             try:
-                foundvers = _winreg.EnumKey(ipybasekey, idx)
+                foundvers.append(_winreg.EnumKey(ipybasekey, idx))
             except WindowsError:  # 対応するサブキーがなくなったら
                 break
         foundipys = dict()
