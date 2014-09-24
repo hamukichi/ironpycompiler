@@ -33,6 +33,7 @@ def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
                           :class:`ironpycompiler.datatypes.HashableVersion`
                           instead of string, in order to provide detailed
                           information of versions.
+    :return: The versions of IronPython and their locations
     :rtype: dict
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython
                                                                 keys cannot be
@@ -44,6 +45,9 @@ def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
        Solved the problem that the default value for the argument ``regkeys``
        was mutable.
 
+    .. versionchanged:: 1.0.0
+       Validates the found executables using :func:`validate_pythonexe`. The
+       parameters ``detailed`` and ``executable`` were added.
     """
 
     if regkeys is None:
@@ -124,6 +128,7 @@ def search_ipy_env(executable=constants.EXECUTABLE, detailed=False):
                           :class:`ironpycompiler.datatypes.HashableVersion`
                           instead of string, in order to provide detailed
                           information of versions.
+    :return: The versions of IronPython and their locations
     :rtype: dict
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython
                                                                 cannot be found
@@ -131,8 +136,8 @@ def search_ipy_env(executable=constants.EXECUTABLE, detailed=False):
     .. versionadded:: 0.9.0
 
     .. versionchanged:: 1.0.0
-       * New parameter ``detailed`` was added.
-       * Improved validation of executables.
+       Validates the found executables using :func:`validate_pythonexe`. The
+       parameter ``detailed`` was added.
 
     """
 
@@ -180,6 +185,12 @@ def search_ipy(regkeys=None, executable=constants.EXECUTABLE, detailed=False):
                            executable.
     :param list regkeys: (optional) The IronPython registry keys that
                          should be looked for.
+    :param bool detailed: (optional) If this parameter is true, the key of the
+                          dictionary will be an instance of
+                          :class:`ironpycompiler.datatypes.HashableVersion`
+                          instead of string, in order to provide detailed
+                          information of versions.
+    :return: The versions of IronPython and their locations
     :rtype: dict
 
     .. versionadded:: 0.9.0
@@ -187,6 +198,9 @@ def search_ipy(regkeys=None, executable=constants.EXECUTABLE, detailed=False):
     .. versionchanged:: 0.10.1
        Solved the problem that the default value for the argument ``regkeys``
        was mutable.
+
+    .. versionchanged:: 1.0.0
+       The parameter ``detailed`` was added.
 
     """
 
@@ -222,10 +236,17 @@ def auto_detect(detailed=False):
     is being run, and returns a tuple showing its version number and
     its location (the path to the IronPython directory).
 
-    Example: On CPython 2.7, first this function searches for
-    IronPython 2.7. If this fails, then the newest IronPython 2.x in
-    your system will be selected.
+    Example: On CPython 2.7.8, first this function searches for
+    IronPython 2.7.8. If this fails, then the newest IronPython 2.7.x in
+    your system will be looked for. If this also fails, then the newest
+    IronPython 2.x.y will be selected.
 
+    :param bool detailed: (optional) If this parameter is true, the version
+                          will be represented as an instance of
+                          :class:`ironpycompiler.datatypes.HashableVersion`
+                          instead of string, in order to provide detailed
+                          information of versions.
+    :return: A tuple showing the version number and location
     :rtype: tuple
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if this
                                                                 function could
@@ -234,6 +255,9 @@ def auto_detect(detailed=False):
 
     .. versionadded:: 0.9.0
 
+    .. versionchanged:: 1.0.0
+       The new parameter ``detailed`` was added. Improved the method of
+       deciding the optimum version.
     """
 
     # The version of CPython

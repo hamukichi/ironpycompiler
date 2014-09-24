@@ -21,7 +21,7 @@ def execute_ipy(path_to_exe, arguments):
 
     .. note::
 
-       * The parameter `args` *should not* starts with the name of the
+       * The parameter ``args`` *should not* starts with the name of the
          IronPython executable. For example::
 
            path_to_exe = r"C:\IronPython27\ipy.exe"
