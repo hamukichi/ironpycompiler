@@ -9,12 +9,12 @@ import itertools
 import os
 import glob
 import subprocess
-import sys
 
 # Original modules
 from . import exceptions
 from . import constants
 from . import datatypes
+from . import process
 
 
 def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
@@ -283,13 +283,10 @@ def validate_pythonexe(path_to_exe):
     """
 
     try:
-        ipy_sp = subprocess.Popen(
-            args=[os.path.basename(path_to_exe), "-c",
-                  "from platform import python_version as pv; print pv()"],
-            executable=path_to_exe, stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-            universal_newlines=True)
-        (ipy_stdout, ipy_stderr) = ipy_sp.communicate()
+        (ipy_stdout, ipy_stderr) = process.execute_ipy(
+            arguments=["-c",
+                       "from platform import python_version as pv; print pv()"],
+            path_to_exe=path_to_exe)
     except EnvironmentError as e:
         raise exceptions.IronPythonValidationError(
             "{} is not available: {}".format(path_to_exe, str(e)))
