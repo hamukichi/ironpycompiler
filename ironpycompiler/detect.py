@@ -257,13 +257,13 @@ def auto_detect():
 
 
 def validate_pythonexe(path_to_exe):
-    """Check if the specified executable is a valid IronPython one.
+    """Check if the specified executable is a valid Python one.
 
     This function validate the executable file by executing it actually, and
     returns its version number.
 
     :param str path_to_exe: The path to the executable.
-    :return: The version number of IronPython.
+    :return: The version number of Python.
     :rtype: :class:`ironpycompiler.datatypes.HashableVersion`
 
     .. versionadded:: 1.0.0
