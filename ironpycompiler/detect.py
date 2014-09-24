@@ -215,7 +215,7 @@ def search_ipy(regkeys=None, executable=constants.EXECUTABLE, detailed=False):
         return foundipys
 
 
-def auto_detect():
+def auto_detect(detailed=False):
     """Decide the optimum version of IronPython in your system.
 
     This function decides the most suitable version of IronPython
@@ -237,23 +237,36 @@ def auto_detect():
 
     """
 
-    cpy_ver = sys.version_info
-    cpy_ver_str = "%d.%d" % (cpy_ver[0], cpy_ver[1])
-    foundipys = search_ipy()
+    # The version of CPython
+    cpy_ver = datatypes.HashableVersion()
 
-    if cpy_ver_str in foundipys:
-        return (cpy_ver_str, foundipys[cpy_ver_str])
+    # The versions of IronPython
+    foundipys = search_ipy(detailed=True)
+    ipy_vers = foundipys.keys()
+
+    # マイナー・メジャーバージョンが一致
+    ipy_vers_minor = sorted([v for v in ipy_vers
+                            if (cpy_ver.major == v.major)
+                            and (cpy_ver.minor == v.minor)], reverse=True)
+
+    # メジャーバージョンのみが一致
+    ipy_vers_major = sorted([v for v in ipy_vers if cpy_ver.major == v.major],
+                            reverse=True)
+
+    if cpy_ver in ipy_vers:  # The same version number
+        optimum_ipy_ver = cpy_ver
+    elif ipy_vers_minor != []:
+        optimum_ipy_ver = ipy_vers_minor[0]
+    elif ipy_vers_major != []:
+        optimum_ipy_ver = ipy_vers_major[0]
     else:
-        # メジャーバージョンは合致するがマイナーバージョンは合致しないバージョン
-        majoripys = sorted(
-            [ver for ver in foundipys.keys() if ver.startswith(
-                "%d." % cpy_ver[0])],
-            reverse=True)
-        if len(majoripys) == 0:
-            raise exceptions.IronPythonDetectionError(
-                msg="Could not decide the optimum version of IronPython.")
-        else:
-            return (majoripys[0], foundipys[majoripys[0]])
+        raise exceptions.IronPythonDetectionError(
+            "Could not find the optimum version of IronPython.")
+
+    if detailed:
+        return (optimum_ipy_ver, foundipys(optimum_ipy_ver))
+    else:
+        return (optimum_ipy_ver.major_minor(), foundipys(optimum_ipy_ver))
 
 
 def validate_pythonexe(path_to_exe):
