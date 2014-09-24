@@ -88,7 +88,7 @@ def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
             ipy_dir = os.path.dirname(_winreg.QueryValue(ipypathkey, None))
             ipy_exe = os.path.abspath(os.path.join(ipy_dir, executable))
             try:
-                ipy_ver = validate_ipyexe(ipy_exe)
+                ipy_ver = validate_pythonexe(ipy_exe)
             except exceptions.IronPythonValidationError:
                 continue
             else:
@@ -152,7 +152,7 @@ def search_ipy_env(executable=constants.EXECUTABLE, detailed=False):
     for directory in ipydirpaths:
         ipy_exe = os.path.abspath(os.path.join(directory, executable))
         try:
-            ipy_ver = validate_ipyexe(ipy_exe)
+            ipy_ver = validate_pythonexe(ipy_exe)
         except exceptions.IronPythonValidationError:
             continue
         else:
@@ -256,7 +256,7 @@ def auto_detect():
             return (majoripys[0], foundipys[majoripys[0]])
 
 
-def validate_ipyexe(path_to_exe):
+def validate_pythonexe(path_to_exe):
     """Check if the specified executable is a valid IronPython one.
 
     This function validate the executable file by executing it actually, and
