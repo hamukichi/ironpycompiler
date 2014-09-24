@@ -8,7 +8,6 @@
 import itertools
 import os
 import glob
-import subprocess
 
 # Original modules
 from . import exceptions
