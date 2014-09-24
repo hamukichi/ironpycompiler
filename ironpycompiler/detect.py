@@ -264,9 +264,9 @@ def auto_detect(detailed=False):
             "Could not find the optimum version of IronPython.")
 
     if detailed:
-        return (optimum_ipy_ver, foundipys(optimum_ipy_ver))
+        return (optimum_ipy_ver, foundipys[optimum_ipy_ver])
     else:
-        return (optimum_ipy_ver.major_minor(), foundipys(optimum_ipy_ver))
+        return (optimum_ipy_ver.major_minor(), foundipys[optimum_ipy_ver])
 
 
 def validate_pythonexe(path_to_exe):
