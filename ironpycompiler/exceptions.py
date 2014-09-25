@@ -59,3 +59,23 @@ class ModuleCompilationError(IPCError):
             return str(self.msg)
         else:
             return "An error occurred during compilation."
+
+
+class IronPythonValidationError(IPCError):
+
+    """Raised if the specified executable is not a valid IronPython executable.
+
+    :param msg: (optional) The detailed information of the error.
+
+    .. versionadded:: 1.0.0
+
+    """
+
+    def __init__(self, msg=None):
+        self.msg = msg
+
+    def __str__(self):
+        if self.msg is not None:
+            return str(self.msg)
+        else:
+            return "Not a valid IronPython executable."

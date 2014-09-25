@@ -8,16 +8,16 @@
 import itertools
 import os
 import glob
-import subprocess
-import sys
-import re
 
 # Original modules
 from . import exceptions
 from . import constants
+from . import datatypes
+from . import process
 
 
-def search_ipy_reg(regkeys=None):
+def search_ipy_reg(regkeys=None, executable=constants.EXECUTABLE,
+                   detailed=False):
     """Search for IronPython regisitry keys.
 
     This function searches for IronPython keys in the Windows registry,
@@ -26,6 +26,14 @@ def search_ipy_reg(regkeys=None):
 
     :param list regkeys: (optional) The IronPython registry keys that
                          should be looked for.
+    :param str executable: (optional) The name of the IronPython
+                           executable.
+    :param bool detailed: (optional) If this parameter is true, the key of the
+                          dictionary will be an instance of
+                          :class:`ironpycompiler.datatypes.HashableVersion`
+                          instead of string, in order to provide detailed
+                          information of versions.
+    :return: The versions of IronPython and their locations
     :rtype: dict
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython
                                                                 keys cannot be
@@ -37,6 +45,9 @@ def search_ipy_reg(regkeys=None):
        Solved the problem that the default value for the argument ``regkeys``
        was mutable.
 
+    .. versionchanged:: 1.0.0
+       Validates the found executables using :func:`validate_pythonexe`. The
+       parameters ``detailed`` and ``executable`` were added.
     """
 
     if regkeys is None:
@@ -62,30 +73,44 @@ def search_ipy_reg(regkeys=None):
             break
 
     if ipybasekey is None:
+        ipybasekey.Close()
         raise exceptions.IronPythonDetectionError(
             msg="Could not find any IronPython registry key.")
     else:
         itr = itertools.count()
+        foundvers = []
         for idx in itr:
             try:
-                foundipys[_winreg.EnumKey(ipybasekey, idx)] = None
+                foundvers.append(_winreg.EnumKey(ipybasekey, idx))
             except WindowsError:  # 対応するサブキーがなくなったら
                 break
-        if foundipys == dict():
-            raise exceptions.IronPythonDetectionError(
-                msg="Could not find any version of IronPython.")
-        for ver in foundipys:
+        foundipys = dict()
+        for ver in foundvers:
             ipypathkey = _winreg.OpenKey(ipybasekey,
                                          ver + "\\InstallPath")
-            foundipys[ver] = os.path.dirname(
-                _winreg.QueryValue(ipypathkey, None))
-            ipypathkey.Close()
+            ipy_dir = os.path.dirname(_winreg.QueryValue(ipypathkey, None))
+            ipy_exe = os.path.abspath(os.path.join(ipy_dir, executable))
+            try:
+                ipy_ver = validate_pythonexe(ipy_exe)
+            except exceptions.IronPythonValidationError:
+                continue
+            else:
+                if detailed:
+                    foundipys[ipy_ver] = ipy_dir
+                else:
+                    foundipys[ipy_ver.major_minor()] = ipy_dir
+            finally:
+                ipypathkey.Close()
         ipybasekey.Close()
+
+    if len(foundipys) == 0:
+        raise exceptions.IronPythonDetectionError(
+            msg="Could not find any IronPython executable.")
 
     return foundipys
 
 
-def search_ipy_env(executable=constants.EXECUTABLE):
+def search_ipy_env(executable=constants.EXECUTABLE, detailed=False):
     """Search for IronPython directories included in the PATH variable.
 
     This function searches for IronPython executables in your system,
@@ -98,11 +123,21 @@ def search_ipy_env(executable=constants.EXECUTABLE):
 
     :param str executable: (optional) The name of the IronPython
                            executable.
+    :param bool detailed: (optional) If this parameter is true, the key of the
+                          dictionary will be an instance of
+                          :class:`ironpycompiler.datatypes.HashableVersion`
+                          instead of string, in order to provide detailed
+                          information of versions.
+    :return: The versions of IronPython and their locations
     :rtype: dict
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if IronPython
                                                                 cannot be found
 
     .. versionadded:: 0.9.0
+
+    .. versionchanged:: 1.0.0
+       Validates the found executables using :func:`validate_pythonexe`. The
+       parameter ``detailed`` was added.
 
     """
 
@@ -118,33 +153,27 @@ def search_ipy_env(executable=constants.EXECUTABLE):
         raise exceptions.IronPythonDetectionError(
             msg="Could not find any executable file named %s." % executable)
 
-    # バージョン番号かどうか
-    verpattern = re.compile(r"[0-9]+[.]{1}[0-9]+")
-
     for directory in ipydirpaths:
         ipy_exe = os.path.abspath(os.path.join(directory, executable))
-        sp = subprocess.Popen(
-            args=[executable, "-c", ("from sys import version_info as v; "
-                "print '{}.{}'.format(v.major, v.minor)")],
-            executable=ipy_exe, stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-            universal_newlines=True)
-        (sp_stdout, sp_stderr) = sp.communicate()
-        ipy_ver = sp_stdout.strip()
-        if re.match(verpattern, ipy_ver) is None:
+        try:
+            ipy_ver = validate_pythonexe(ipy_exe)
+        except exceptions.IronPythonValidationError:
             continue
         else:
-            foundipys[ipy_ver] = directory
+            if detailed:
+                foundipys[ipy_ver] = directory
+            else:
+                foundipys[ipy_ver.major_minor()] = directory
 
     if len(foundipys) == 0:
         raise exceptions.IronPythonDetectionError(
-            msg=("{} exists, but is not the IronPython executable."
-                ).format(executable))
+            msg=("{} exists but is not the IronPython executable."
+                 ).format(executable))
     else:
         return foundipys
 
 
-def search_ipy(regkeys=None, executable=constants.EXECUTABLE):
+def search_ipy(regkeys=None, executable=constants.EXECUTABLE, detailed=False):
     """Search for IronPython directories.
 
     This function searches for IronPython directories using both
@@ -156,6 +185,12 @@ def search_ipy(regkeys=None, executable=constants.EXECUTABLE):
                            executable.
     :param list regkeys: (optional) The IronPython registry keys that
                          should be looked for.
+    :param bool detailed: (optional) If this parameter is true, the key of the
+                          dictionary will be an instance of
+                          :class:`ironpycompiler.datatypes.HashableVersion`
+                          instead of string, in order to provide detailed
+                          information of versions.
+    :return: The versions of IronPython and their locations
     :rtype: dict
 
     .. versionadded:: 0.9.0
@@ -164,18 +199,21 @@ def search_ipy(regkeys=None, executable=constants.EXECUTABLE):
        Solved the problem that the default value for the argument ``regkeys``
        was mutable.
 
+    .. versionchanged:: 1.0.0
+       The parameter ``detailed`` was added.
+
     """
 
     if regkeys is None:
         regkeys = constants.REGKEYS
 
     try:
-        foundipys = search_ipy_reg(regkeys)
+        foundipys = search_ipy_reg(regkeys, executable, detailed)
     except exceptions.IronPythonDetectionError:
         foundipys = dict()
 
     try:
-        envipys = search_ipy_env(executable)
+        envipys = search_ipy_env(executable, detailed)
     except exceptions.IronPythonDetectionError:
         envipys = dict()
 
@@ -190,7 +228,7 @@ def search_ipy(regkeys=None, executable=constants.EXECUTABLE):
         return foundipys
 
 
-def auto_detect():
+def auto_detect(detailed=False):
     """Decide the optimum version of IronPython in your system.
 
     This function decides the most suitable version of IronPython
@@ -198,10 +236,17 @@ def auto_detect():
     is being run, and returns a tuple showing its version number and
     its location (the path to the IronPython directory).
 
-    Example: On CPython 2.7, first this function searches for
-    IronPython 2.7. If this fails, then the newest IronPython 2.x in
-    your system will be selected.
+    Example: On CPython 2.7.8, first this function searches for
+    IronPython 2.7.8. If this fails, then the newest IronPython 2.7.x in
+    your system will be looked for. If this also fails, then the newest
+    IronPython 2.x.y will be selected.
 
+    :param bool detailed: (optional) If this parameter is true, the version
+                          will be represented as an instance of
+                          :class:`ironpycompiler.datatypes.HashableVersion`
+                          instead of string, in order to provide detailed
+                          information of versions.
+    :return: A tuple showing the version number and location
     :rtype: tuple
     :raises ironpycompiler.exceptions.IronPythonDetectionError: if this
                                                                 function could
@@ -210,22 +255,70 @@ def auto_detect():
 
     .. versionadded:: 0.9.0
 
+    .. versionchanged:: 1.0.0
+       The new parameter ``detailed`` was added. Improved the method of
+       deciding the optimum version.
     """
 
-    cpy_ver = sys.version_info
-    cpy_ver_str = "%d.%d" % (cpy_ver[0], cpy_ver[1])
-    foundipys = search_ipy()
+    # The version of CPython
+    cpy_ver = datatypes.HashableVersion()
 
-    if cpy_ver_str in foundipys:
-        return (cpy_ver_str, foundipys[cpy_ver_str])
+    # The versions of IronPython
+    foundipys = search_ipy(detailed=True)
+    ipy_vers = foundipys.keys()
+
+    # マイナー・メジャーバージョンが一致
+    ipy_vers_minor = sorted([v for v in ipy_vers
+                            if (cpy_ver.major == v.major)
+                            and (cpy_ver.minor == v.minor)], reverse=True)
+
+    # メジャーバージョンのみが一致
+    ipy_vers_major = sorted([v for v in ipy_vers if cpy_ver.major == v.major],
+                            reverse=True)
+
+    if cpy_ver in ipy_vers:  # The same version number
+        optimum_ipy_ver = cpy_ver
+    elif ipy_vers_minor != []:
+        optimum_ipy_ver = ipy_vers_minor[0]
+    elif ipy_vers_major != []:
+        optimum_ipy_ver = ipy_vers_major[0]
     else:
-        # メジャーバージョンは合致するがマイナーバージョンは合致しないバージョン
-        majoripys = sorted(
-            [ver for ver in foundipys.keys() if ver.startswith(
-                "%d." % cpy_ver[0])],
-            reverse=True)
-        if len(majoripys) == 0:
-            raise exceptions.IronPythonDetectionError(
-                msg="Could not decide the optimum version of IronPython.")
+        raise exceptions.IronPythonDetectionError(
+            "Could not find the optimum version of IronPython.")
+
+    if detailed:
+        return (optimum_ipy_ver, foundipys[optimum_ipy_ver])
+    else:
+        return (optimum_ipy_ver.major_minor(), foundipys[optimum_ipy_ver])
+
+
+def validate_pythonexe(path_to_exe):
+    """Check if the specified executable is a valid Python one.
+
+    This function validate the executable file by executing it actually, and
+    returns its version number.
+
+    :param str path_to_exe: The path to the executable.
+    :return: The version number of Python.
+    :rtype: :class:`ironpycompiler.datatypes.HashableVersion`
+
+    .. versionadded:: 1.0.0
+    """
+
+    try:
+        (ipy_stdout, ipy_stderr) = process.execute_ipy(
+            arguments=["-c",
+                       "from platform import python_version as pv;print pv()"],
+            path_to_exe=path_to_exe)
+    except EnvironmentError as e:
+        raise exceptions.IronPythonValidationError(
+            "{} is not available: {}".format(path_to_exe, str(e)))
+    else:
+        ipy_ver_str = ipy_stdout.strip()
+        try:
+            ipy_ver = datatypes.HashableVersion(ipy_ver_str)
+        except ValueError:
+            raise exceptions.IronPythonValidationError(
+                "{} is not a valid IronPython executable:".format(path_to_exe))
         else:
-            return (majoripys[0], foundipys[majoripys[0]])
+            return ipy_ver
