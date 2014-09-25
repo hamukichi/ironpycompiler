@@ -13,8 +13,8 @@ def execute_ipy(path_to_exe, arguments):
     """Executes the IronPython executable with the provided arguments.
 
     :param str path_to_exe: The path to the IronPython executable.
-    :param list arguments: The arguments that should be passed to the IronPython
-                      executable.
+    :param list arguments: The arguments that should be passed to the
+                           IronPython executable.
     :return: A tuple containing strings showing stdout and stderr of
              the executed process
     :rtype: tuple

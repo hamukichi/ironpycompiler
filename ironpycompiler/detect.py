@@ -308,7 +308,7 @@ def validate_pythonexe(path_to_exe):
     try:
         (ipy_stdout, ipy_stderr) = process.execute_ipy(
             arguments=["-c",
-                       "from platform import python_version as pv; print pv()"],
+                       "from platform import python_version as pv;print pv()"],
             path_to_exe=path_to_exe)
     except EnvironmentError as e:
         raise exceptions.IronPythonValidationError(
