@@ -20,7 +20,7 @@ from . import exceptions
 from . import process
 
 
-class ModuleCompiler:
+class ModuleCompiler(object):
 
     """Finds the modules required by your script and create a .NET assembly.
 
