@@ -151,15 +151,15 @@ class ModuleCompiler(object):
                                          path_to_exe=ipy_exe, cwd=cwd)
         self.pyc_stdout = ipy_result[0]
 
+        # レスポンスファイルを削除する
+        if delete_resp:
+            os.remove(self.response_file[1])
+
         # ipyのエラーを確認する
         if ipy_result[1] != 0:
             raise exceptions.ModuleCompilationError(
                 msg="{0} returned {1} exit status.".format(executable,
                                                            ipy_result[1]))
-
-        # レスポンスファイルを削除する
-        if delete_resp:
-            os.remove(self.response_file[1])
 
     def create_asm(self, out=None, target_asm="dll", target_platform=None,
                    embed=True, standalone=True, mta=False, delete_resp=True,
