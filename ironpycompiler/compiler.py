@@ -65,9 +65,9 @@ class ModuleCompiler(object):
         #: Set of the names of required but uncompilable modules.
         self.uncompilable_modules = set()
         self.response_file = None  # pyc.pyに渡すレスポンスファイル
-        #: Standard output from pyc.py.
+        #: Output from pyc.py (stdout and stderr).
         self.pyc_stdout = None
-        self.pyc_stderr = None  # pyc.pyから得た標準エラー出力
+        self.pyc_stderr = None  # pyc.pyから得た標準エラー出力、不要
         #: The path to the main output assembly.
         self.output_asm = None
 
@@ -149,6 +149,7 @@ class ModuleCompiler(object):
         ipy_exe = os.path.abspath(os.path.join(self.ipy_dir, executable))
         ipy_result = process.execute_ipy(arguments=ipy_args,
                                          path_to_exe=ipy_exe, cwd=cwd)
+        self.pyc_stdout = ipy_result[0]
 
         # ipyのエラーを確認する
         if ipy_result[1] != 0:
