@@ -17,6 +17,7 @@ import shutil
 from . import detect
 from . import constants
 from . import exceptions
+from . import process
 
 
 class ModuleCompiler:
@@ -124,6 +125,9 @@ class ModuleCompiler:
                                Ironpython exectuable.
         :param str cwd: (optional) Specify the current working directory.
 
+        .. versionchanged:: 1.0.0
+           Now uses :func:`ironpycompiler.process.execute_ipy`.
+
         """
 
         if cwd is None:
@@ -141,21 +145,16 @@ class ModuleCompiler:
         os.close(self.response_file[0])
 
         # pyc.pyを実行する
-        ipy_args = [os.path.splitext(executable)[0], self.pyc_abspath,
-                    "@" + self.response_file[1]]
-        ipy_exe = os.path.abspath(os.path.join(self.ipy_dir,
-                                               executable))
-        sp = subprocess.Popen(args=ipy_args, executable=ipy_exe,
-                              stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                              stderr=subprocess.STDOUT, cwd=cwd)
-        (self.pyc_stdout, self.pyc_stderr) = sp.communicate()
-        # sp.terminate()
+        ipy_args = [self.pyc_abspath, "@" + self.response_file[1]]
+        ipy_exe = os.path.abspath(os.path.join(self.ipy_dir, executable))
+        ipy_result = process.execute_ipy(arguments=ipy_args,
+                                         path_to_exe=ipy_exe, cwd=cwd)
 
         # ipyのエラーを確認する
-        if sp.returncode != 0:
+        if ipy_result[1] != 0:
             raise exceptions.ModuleCompilationError(
                 msg="{0} returned {1} exit status.".format(executable,
-                                                           sp.returncode))
+                                                           ipy_result[1]))
 
         # レスポンスファイルを削除する
         if delete_resp:
