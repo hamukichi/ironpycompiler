@@ -9,7 +9,6 @@ import sys
 import os
 import modulefinder
 import tempfile
-import subprocess
 import glob
 import shutil
 
