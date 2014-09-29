@@ -73,6 +73,11 @@ class ModuleCompiler(object):
     def check_compilability(self, dirs_of_modules=None):
         """Check the compilability of the modules required by the scripts.
 
+        This method analyzes the scripts with
+        :class:`modulefinder.ModuleFinder`. To get the results, access
+        :attr:`builtin_modules`, :attr:`compilable_modules`, and
+        :attr:`uncompilable_modules`.
+
         :param list dirs_of_modules: Specify the paths of the
                                      directories where the modules your
                                      scripts require exist, or this
@@ -164,6 +169,11 @@ class ModuleCompiler(object):
                    embed=True, standalone=True, mta=False, delete_resp=True,
                    executable=constants.EXECUTABLE, copy_ipydll=False):
         """Compile your scripts into a .NET assembly, using pyc.py.
+
+        This method compiles the scripts by calling pyc.py. If
+        :attr:`compilable_modules` is empty, the scripts will be
+        analyzed using :meth:`check_compilability`. For the detail of
+        compilation see the source code of pyc.py.
 
         :param str out: (optional) Specify the name of the EXE file
                         that should be created, or the name of the main
